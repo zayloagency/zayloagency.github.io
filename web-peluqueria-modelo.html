@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Salón Nova — Reserva tu cita en Madrid</title>
-  <meta name="description" content="Salón Nova, peluquería de lujo en Madrid. Reserva tu cita online desde la web, WhatsApp o Instagram. Citas automáticas 24/7." />
+  <title>Sistema de Citas Automático para Peluquerías — Demo</title>
+  <meta name="description" content="Demo del sistema de reservas automático para peluquerías. WhatsApp, Instagram y web — todas las citas en Google Calendar sin intervención." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -23,6 +23,7 @@
       --border:    rgba(201,168,76,0.18);
       --radius:    14px;
       --transition: 0.4s cubic-bezier(0.16,1,0.3,1);
+      --max-w:     900px;
     }
 
     html { scroll-behavior: smooth; }
@@ -50,188 +51,15 @@
     .reveal-delay-3 { transition-delay: 0.3s; }
     .reveal-delay-4 { transition-delay: 0.4s; }
 
-    /* ── Navbar ──────────────────────────────────────────────── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
+    /* ── Layout helpers ──────────────────────────────────────── */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
       padding: 0 5%;
-      height: 68px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: background 0.3s, backdrop-filter 0.3s, border-bottom 0.3s;
-    }
-    nav.scrolled {
-      background: rgba(10,10,10,0.82);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border-bottom: 1px solid var(--border);
     }
 
-    .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: var(--gold);
-      letter-spacing: 0.03em;
-      text-decoration: none;
-    }
-    .nav-logo span { color: var(--cream); }
+    section { padding: 90px 0; }
 
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-    .nav-links a {
-      text-decoration: none;
-      color: var(--cream-dim);
-      font-size: 0.9rem;
-      font-weight: 400;
-      letter-spacing: 0.04em;
-      transition: color 0.25s;
-    }
-    .nav-links a:hover { color: var(--gold); }
-
-    .nav-cta {
-      background: transparent;
-      border: 1px solid var(--gold);
-      color: var(--gold) !important;
-      padding: 0.45rem 1.1rem;
-      border-radius: 50px;
-      transition: background 0.25s, color 0.25s !important;
-    }
-    .nav-cta:hover {
-      background: var(--gold) !important;
-      color: var(--bg) !important;
-    }
-
-    /* Hamburger */
-    .nav-toggle { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
-    .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--cream); border-radius: 2px; transition: all 0.3s; }
-
-    @media (max-width: 720px) {
-      .nav-links { display: none; flex-direction: column; position: fixed; top: 68px; left: 0; right: 0; background: rgba(10,10,10,0.97); padding: 2rem; gap: 1.5rem; border-bottom: 1px solid var(--border); }
-      .nav-links.open { display: flex; }
-      .nav-toggle { display: flex; }
-    }
-
-    /* ── Hero ────────────────────────────────────────────────── */
-    #hero {
-      min-height: 100svh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 120px 5% 80px;
-      position: relative;
-      overflow: hidden;
-    }
-    #hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 70% 60% at 50% 40%, rgba(201,168,76,0.06) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 40% at 80% 80%, rgba(201,168,76,0.04) 0%, transparent 60%);
-      pointer-events: none;
-    }
-
-    /* Subtle scissor pattern */
-    #hero::after {
-      content: '✂';
-      position: absolute;
-      font-size: 600px;
-      opacity: 0.015;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(-20deg);
-      pointer-events: none;
-      color: var(--gold);
-    }
-
-    .hero-tag {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--gold);
-      border: 1px solid var(--border);
-      padding: 0.4rem 1.2rem;
-      border-radius: 50px;
-      margin-bottom: 1.6rem;
-    }
-
-    .hero-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(3.5rem, 9vw, 8rem);
-      font-weight: 700;
-      line-height: 1.05;
-      letter-spacing: -0.01em;
-      color: var(--cream);
-      margin-bottom: 1.2rem;
-    }
-    .hero-title .gold { color: var(--gold); }
-
-    .hero-subtitle {
-      font-size: clamp(1rem, 2.2vw, 1.2rem);
-      color: var(--cream-dim);
-      max-width: 560px;
-      margin: 0 auto 2.8rem;
-      font-weight: 300;
-      line-height: 1.7;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--gold);
-      color: var(--bg);
-      font-family: 'Inter', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 600;
-      padding: 0.9rem 2.2rem;
-      border-radius: 50px;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: background var(--transition), transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 4px 24px rgba(201,168,76,0.25);
-    }
-    .btn-primary:hover {
-      background: var(--gold-light);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(201,168,76,0.35);
-    }
-
-    .hero-scroll-hint {
-      position: absolute;
-      bottom: 2.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.4rem;
-      color: var(--cream-dim);
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      opacity: 0.6;
-    }
-    .hero-scroll-hint::after {
-      content: '';
-      width: 1px;
-      height: 40px;
-      background: linear-gradient(to bottom, var(--gold), transparent);
-      display: block;
-    }
-
-    /* ── Section base ────────────────────────────────────────── */
-    section { padding: 100px 5%; }
     .section-tag {
       font-size: 0.75rem;
       letter-spacing: 0.18em;
@@ -242,7 +70,7 @@
     }
     .section-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(1.9rem, 4vw, 3rem);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
       font-weight: 600;
       line-height: 1.2;
       color: var(--cream);
@@ -253,40 +81,118 @@
       color: var(--cream-dim);
       font-weight: 300;
       max-width: 520px;
+      line-height: 1.7;
     }
 
-    /* ── HOW IT WORKS ────────────────────────────────────────── */
-    #como-funciona { background: var(--bg2); }
-    .how-header { margin-bottom: 3.5rem; }
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+    }
+
+    /* ── HERO ────────────────────────────────────────────────── */
+    #hero {
+      padding: 100px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 70% at 50% 0%, rgba(201,168,76,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 5%;
+    }
+
+    .hero-demo-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--border);
+      padding: 0.4rem 1.1rem;
+      border-radius: 50px;
+      margin-bottom: 2rem;
+      background: rgba(201,168,76,0.05);
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--cream);
+      margin-bottom: 1.4rem;
+      max-width: 720px;
+    }
+    .hero-title .gold { color: var(--gold); }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: var(--cream-dim);
+      max-width: 580px;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+
+    .hero-scroll-hint {
+      margin-top: 3.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: var(--cream-dim);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+    .hero-scroll-hint::after {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+      display: block;
+      opacity: 0.5;
+    }
+
+    /* ── CHANNELS SECTION ────────────────────────────────────── */
+    #canales { background: var(--bg2); }
+
+    .channels-header {
+      margin-bottom: 3rem;
+    }
 
     .channels-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.4rem;
     }
 
     .channel-card {
       background: var(--bg3);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 2rem;
+      padding: 1.8rem;
       transition: border-color 0.3s, transform 0.3s;
     }
     .channel-card:hover {
-      border-color: rgba(201,168,76,0.45);
+      border-color: rgba(201,168,76,0.42);
       transform: translateY(-4px);
     }
 
     .card-header {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1.4rem;
-    }
-    .card-icon-title {
-      display: flex;
-      align-items: center;
       gap: 0.7rem;
+      margin-bottom: 1.3rem;
     }
     .card-icon {
       width: 42px;
@@ -295,69 +201,17 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
+      font-size: 1.25rem;
+      flex-shrink: 0;
     }
-    .icon-web { background: rgba(99,179,237,0.12); }
     .icon-wa  { background: rgba(37,211,102,0.12); }
     .icon-ig  { background: rgba(225,48,108,0.12); }
+    .icon-web { background: rgba(99,179,237,0.12); }
 
-    .card-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--cream); }
-
-    .badge {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 0.25rem 0.7rem;
-      border-radius: 50px;
-    }
-    .badge-active  { background: rgba(72,187,120,0.15); color: #68d391; border: 1px solid rgba(72,187,120,0.3); }
-    .badge-soon    { background: rgba(201,168,76,0.12); color: var(--gold); border: 1px solid var(--border); }
-
-    /* Form mockup */
-    .form-mockup {
-      background: #0d0d0d;
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 10px;
-      padding: 1.2rem;
-      margin-bottom: 1.2rem;
-    }
-    .mock-label {
-      font-size: 0.68rem;
-      color: var(--cream-dim);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 0.3rem;
-      margin-top: 0.7rem;
-    }
-    .mock-label:first-child { margin-top: 0; }
-    .mock-field {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 6px;
-      height: 32px;
-      width: 100%;
-      position: relative;
-      overflow: hidden;
-    }
-    .mock-field::after {
-      content: attr(data-val);
-      position: absolute;
-      top: 50%;
-      left: 10px;
-      transform: translateY(-50%);
-      font-size: 0.78rem;
-      color: rgba(245,240,232,0.5);
-    }
-    .mock-btn {
-      margin-top: 1rem;
-      background: var(--gold);
-      color: var(--bg);
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      display: inline-block;
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--cream);
     }
 
     /* WhatsApp chat mockup */
@@ -365,7 +219,7 @@
       background: #0b141a;
       border-radius: 10px;
       padding: 1rem;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.1rem;
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
@@ -374,31 +228,31 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      padding-bottom: 0.7rem;
+      padding-bottom: 0.65rem;
       border-bottom: 1px solid rgba(255,255,255,0.06);
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.3rem;
     }
     .wa-avatar {
-      width: 30px;
-      height: 30px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--gold), #8b6914);
+      background: linear-gradient(135deg, #25d366, #128c7e);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-weight: 700;
-      color: var(--bg);
+      color: #fff;
     }
-    .wa-name { font-size: 0.8rem; font-weight: 500; color: #e9edef; }
-    .wa-status { font-size: 0.68rem; color: #25d366; }
+    .wa-name { font-size: 0.78rem; font-weight: 500; color: #e9edef; }
+    .wa-status { font-size: 0.65rem; color: #25d366; }
 
     .wa-bubble {
-      max-width: 85%;
-      padding: 0.5rem 0.8rem;
+      max-width: 88%;
+      padding: 0.48rem 0.75rem;
       border-radius: 8px;
-      font-size: 0.78rem;
-      line-height: 1.4;
+      font-size: 0.76rem;
+      line-height: 1.45;
     }
     .wa-bubble.client {
       background: #202c33;
@@ -412,14 +266,14 @@
       align-self: flex-end;
       border-bottom-right-radius: 2px;
     }
-    .wa-time { font-size: 0.6rem; color: #8696a0; margin-top: 0.2rem; text-align: right; }
+    .wa-time { font-size: 0.58rem; color: #8696a0; margin-top: 0.2rem; text-align: right; }
 
     /* Instagram DM mockup */
     .ig-mockup {
       background: #000;
       border-radius: 10px;
       padding: 1rem;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.1rem;
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
@@ -428,29 +282,29 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      padding-bottom: 0.7rem;
+      padding-bottom: 0.65rem;
       border-bottom: 1px solid rgba(255,255,255,0.1);
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.3rem;
     }
     .ig-avatar {
-      width: 30px;
-      height: 30px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-weight: 700;
       color: #fff;
     }
-    .ig-name { font-size: 0.8rem; font-weight: 500; color: #fff; }
+    .ig-name { font-size: 0.78rem; font-weight: 500; color: #fff; }
     .ig-bubble {
-      max-width: 85%;
-      padding: 0.5rem 0.8rem;
+      max-width: 88%;
+      padding: 0.48rem 0.75rem;
       border-radius: 18px;
-      font-size: 0.78rem;
-      line-height: 1.4;
+      font-size: 0.76rem;
+      line-height: 1.45;
     }
     .ig-bubble.client {
       background: #262626;
@@ -462,160 +316,182 @@
       color: #fff;
       align-self: flex-end;
     }
-    .ig-link {
-      background: rgba(55,151,240,0.2);
-      border: 1px solid #3797f0;
+    .ig-link-pill {
+      background: rgba(55,151,240,0.15);
+      border: 1px solid rgba(55,151,240,0.5);
       border-radius: 8px;
-      padding: 0.35rem 0.8rem;
-      font-size: 0.72rem;
+      padding: 0.3rem 0.75rem;
+      font-size: 0.7rem;
       color: #3797f0;
       align-self: flex-end;
-      margin-top: -0.2rem;
+    }
+
+    /* Web form mockup */
+    .form-mockup {
+      background: #0d0d0d;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      padding: 1.1rem;
+      margin-bottom: 1.1rem;
+    }
+    .mock-label {
+      font-size: 0.65rem;
+      color: var(--cream-dim);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.28rem;
+      margin-top: 0.65rem;
+    }
+    .mock-label:first-child { margin-top: 0; }
+    .mock-field {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 6px;
+      height: 30px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    .mock-field::after {
+      content: attr(data-val);
+      position: absolute;
+      top: 50%;
+      left: 9px;
+      transform: translateY(-50%);
+      font-size: 0.76rem;
+      color: rgba(245,240,232,0.5);
+    }
+    .mock-btn {
+      margin-top: 0.9rem;
+      background: var(--gold);
+      color: var(--bg);
+      font-size: 0.73rem;
+      font-weight: 600;
+      padding: 0.45rem 0.9rem;
+      border-radius: 6px;
+      display: inline-block;
     }
 
     .card-desc {
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       color: var(--cream-dim);
       line-height: 1.6;
     }
 
-    /* Anti-double-booking banner */
-    .no-overlap-box {
-      margin-top: 2.5rem;
-      background: rgba(201,168,76,0.06);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.2rem 1.6rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-    }
-    .no-overlap-icon { font-size: 1.5rem; line-height: 1; }
-    .no-overlap-text h4 { font-size: 0.92rem; font-weight: 600; color: var(--cream); margin-bottom: 0.2rem; }
-    .no-overlap-text p { font-size: 0.83rem; color: var(--cream-dim); }
+    /* ── CALENDAR SECTION ────────────────────────────────────── */
+    #calendario { background: var(--bg); }
 
-    /* ── TODO EN UN LUGAR ────────────────────────────────────── */
-    #todo-en-uno { background: var(--bg); }
-
-    .diagram-wrapper {
+    .diagram-flow {
       display: flex;
-      flex-wrap: wrap;
-      gap: 3rem;
       align-items: center;
-      margin-top: 3rem;
+      justify-content: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin: 2.5rem 0 2rem;
     }
 
-    .diagram-visual {
-      flex: 1 1 340px;
+    .flow-node {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1rem;
+      gap: 0.35rem;
+    }
+    .flow-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      border: 1px solid var(--border);
+      background: var(--bg3);
+    }
+    .flow-label {
+      font-size: 0.68rem;
+      color: var(--cream-dim);
+      text-align: center;
     }
 
-    .diagram-channels {
+    .flow-arrow {
       display: flex;
-      gap: 1.5rem;
+      flex-direction: column;
       align-items: center;
+      gap: 0.3rem;
+      padding-bottom: 1.4rem;
     }
-    .diagram-node {
+    .flow-arrow svg { opacity: 0.45; }
+
+    .flow-center {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 0.4rem;
     }
-    .d-icon {
-      width: 58px;
-      height: 58px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      border: 1px solid var(--border);
-      background: var(--bg3);
-    }
-    .d-label { font-size: 0.72rem; color: var(--cream-dim); text-align: center; }
-
-    .diagram-arrows {
-      display: flex;
-      gap: 1.5rem;
-      align-items: center;
-      justify-content: center;
-    }
-    .arrow-line {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .arrow-line svg { opacity: 0.45; }
-
-    .diagram-center {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .d-center-icon {
-      width: 72px;
-      height: 72px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, rgba(201,168,76,0.15), rgba(201,168,76,0.05));
+    .flow-center-icon {
+      width: 66px;
+      height: 66px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(201,168,76,0.18), rgba(201,168,76,0.06));
       border: 1px solid var(--gold);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2rem;
-      box-shadow: 0 0 30px rgba(201,168,76,0.1);
+      font-size: 1.8rem;
+      box-shadow: 0 0 28px rgba(201,168,76,0.12);
     }
-    .d-center-label { font-size: 0.78rem; color: var(--gold); font-weight: 500; }
+    .flow-center-label {
+      font-size: 0.75rem;
+      color: var(--gold);
+      font-weight: 500;
+      text-align: center;
+    }
 
     /* Calendar mockup */
-    .cal-mockup {
-      flex: 1 1 360px;
-      background: var(--bg3);
+    .cal-wrap {
+      margin-top: 1.5rem;
       border: 1px solid var(--border);
       border-radius: var(--radius);
       overflow: hidden;
       font-size: 0.82rem;
     }
-    .cal-header {
+    .cal-head {
       background: #1a73e8;
-      padding: 0.8rem 1.2rem;
+      padding: 0.75rem 1.2rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
-    .cal-header-title { font-size: 0.88rem; font-weight: 500; color: #fff; }
-    .cal-header-nav { display: flex; gap: 0.5rem; }
-    .cal-header-nav span { color: rgba(255,255,255,0.7); font-size: 1rem; cursor: pointer; }
+    .cal-head-title { font-size: 0.88rem; font-weight: 500; color: #fff; }
+    .cal-head-nav { display: flex; gap: 0.5rem; }
+    .cal-head-nav span { color: rgba(255,255,255,0.7); font-size: 1rem; }
 
     .cal-days-row {
       display: grid;
-      grid-template-columns: 80px repeat(5, 1fr);
+      grid-template-columns: 72px repeat(5, 1fr);
       background: var(--bg2);
       border-bottom: 1px solid rgba(255,255,255,0.06);
     }
-    .cal-day-header {
-      padding: 0.5rem 0.4rem;
+    .cal-day-h {
+      padding: 0.5rem 0.3rem;
       text-align: center;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: var(--cream-dim);
     }
-    .cal-day-header.today { color: #1a73e8; font-weight: 600; }
+    .cal-day-h.today { color: #1a73e8; font-weight: 600; }
 
     .cal-body {
       display: grid;
-      grid-template-columns: 80px repeat(5, 1fr);
-      min-height: 240px;
+      grid-template-columns: 72px repeat(5, 1fr);
+      background: var(--bg3);
     }
     .cal-time-col { border-right: 1px solid rgba(255,255,255,0.05); }
     .cal-time {
       height: 48px;
       display: flex;
       align-items: flex-start;
-      padding: 4px 8px 0;
-      font-size: 0.65rem;
+      padding: 4px 7px 0;
+      font-size: 0.63rem;
       color: var(--cream-dim);
       border-bottom: 1px solid rgba(255,255,255,0.04);
     }
@@ -631,343 +507,291 @@
       right: 3px;
       border-radius: 5px;
       padding: 3px 6px;
-      font-size: 0.67rem;
+      font-size: 0.64rem;
       font-weight: 500;
       overflow: hidden;
       line-height: 1.3;
-      cursor: pointer;
     }
-    .cal-event.tinte  { background: rgba(234,84,85,0.75);  color: #fff; }
-    .cal-event.corte  { background: rgba(26,115,232,0.75); color: #fff; }
-    .cal-event.mechas { background: rgba(251,188,4,0.85);  color: #000; }
-    .cal-event.barba  { background: rgba(52,168,83,0.75);  color: #fff; }
+    .cal-event.blue  { background: rgba(26,115,232,0.8); color: #fff; }
+    .cal-event.green { background: rgba(52,168,83,0.8);  color: #fff; }
+    .cal-event.red   { background: rgba(234,84,85,0.8);  color: #fff; }
+    .cal-event.amber { background: rgba(251,188,4,0.9);  color: #000; }
 
-    /* ── BOOKING FORM ────────────────────────────────────────── */
-    #reservar { background: var(--bg2); }
-    .form-container {
-      margin-top: 2.5rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      background: var(--bg3);
-    }
-    .form-container iframe {
-      display: block;
-      width: 100%;
-      min-height: 820px;
-      border: none;
-      background: var(--bg3);
-    }
-
-    /* ── SERVICIOS ───────────────────────────────────────────── */
-    #servicios { background: var(--bg); }
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.2rem;
-      margin-top: 2.5rem;
-    }
-    .service-card {
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.6rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: border-color 0.3s, transform 0.3s;
-    }
-    .service-card:hover {
-      border-color: rgba(201,168,76,0.4);
-      transform: translateY(-3px);
-    }
-    .service-name {
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: var(--cream);
-    }
-    .service-icon {
-      font-size: 1.3rem;
-      margin-bottom: 0.4rem;
-    }
-    .service-price {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: var(--gold);
-    }
-    .service-from {
-      font-size: 0.72rem;
+    .cal-below-text {
+      margin-top: 1.4rem;
+      text-align: center;
+      font-size: 0.92rem;
       color: var(--cream-dim);
-      font-style: italic;
-      font-family: 'Inter', sans-serif;
+      font-weight: 300;
     }
+    .cal-below-text strong {
+      color: var(--cream);
+      font-weight: 500;
+    }
+
+    /* ── ANTI DOUBLE-BOOKING ─────────────────────────────────── */
+    #sin-solapamientos { background: var(--bg2); }
+
+    .shield-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.8rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .shield-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(201,168,76,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .shield-icon {
+      font-size: 2.6rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .shield-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 0.8rem;
+    }
+
+    .shield-desc {
+      font-size: 1rem;
+      color: var(--cream-dim);
+      font-weight: 300;
+      max-width: 480px;
+      margin: 0 auto 2rem;
+      line-height: 1.75;
+    }
+
+    /* Overlap warning mockup */
+    .overlap-mockup {
+      background: #0b141a;
+      border-radius: 10px;
+      padding: 1rem;
+      max-width: 380px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      text-align: left;
+    }
+    .overlap-mockup .wa-bubble.client { font-size: 0.78rem; }
+    .overlap-mockup .wa-bubble.bot    { font-size: 0.78rem; background: #1a2c35; border-left: 2px solid var(--gold); }
 
     /* ── FOOTER ──────────────────────────────────────────────── */
     footer {
-      background: var(--bg2);
+      padding: 2rem 0;
       border-top: 1px solid var(--border);
-      padding: 3rem 5%;
+      background: var(--bg);
+    }
+    .footer-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 5%;
       display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      align-items: flex-start;
-      justify-content: space-between;
-    }
-    .footer-brand .logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: var(--gold);
-      margin-bottom: 0.5rem;
-    }
-    .footer-brand p {
-      font-size: 0.82rem;
-      color: var(--cream-dim);
-      line-height: 1.7;
-    }
-    .footer-info h4 {
-      font-size: 0.78rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.8rem;
-    }
-    .footer-info p {
-      font-size: 0.83rem;
-      color: var(--cream-dim);
-      line-height: 1.8;
-    }
-    .footer-bottom {
-      width: 100%;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      justify-content: space-between;
       align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
     }
-    .footer-bottom p { font-size: 0.78rem; color: var(--cream-dim); }
-    .impulsa-credit {
-      font-size: 0.78rem;
+    .footer-text {
+      font-size: 0.8rem;
       color: var(--cream-dim);
     }
-    .impulsa-credit a {
+    .footer-text a {
       color: var(--gold);
       text-decoration: none;
       font-weight: 500;
       transition: opacity 0.2s;
     }
-    .impulsa-credit a:hover { opacity: 0.75; }
-
-    /* ── Dividers ────────────────────────────────────────────── */
-    .divider {
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--border), transparent);
-      margin: 0;
-    }
+    .footer-text a:hover { opacity: 0.75; }
 
     /* ── Responsive ──────────────────────────────────────────── */
     @media (max-width: 640px) {
-      section { padding: 70px 5%; }
+      section { padding: 64px 0; }
       .channels-grid { grid-template-columns: 1fr; }
-      .diagram-wrapper { flex-direction: column; }
-      .diagram-channels { gap: 0.8rem; }
-      .d-icon { width: 46px; height: 46px; font-size: 1.2rem; }
-      footer { flex-direction: column; }
+      .diagram-flow { gap: 0.4rem; }
+      .flow-icon { width: 44px; height: 44px; font-size: 1.1rem; }
+      .shield-card { padding: 2rem 1.4rem; }
+      .cal-time { font-size: 0.58rem; }
+      .cal-event { font-size: 0.58rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ── NAVBAR ─────────────────────────────────────────────── -->
-  <nav id="navbar">
-    <a href="#hero" class="nav-logo">Salón<span> Nova</span></a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#servicios">Servicios</a></li>
-      <li><a href="#como-funciona">Cómo funciona</a></li>
-      <li><a href="#reservar" class="nav-cta">Reservar cita</a></li>
-    </ul>
-    <div class="nav-toggle" id="navToggle" aria-label="Menú">
-      <span></span><span></span><span></span>
-    </div>
-  </nav>
-
   <!-- ── HERO ───────────────────────────────────────────────── -->
   <section id="hero">
-    <div>
-      <div class="hero-tag reveal">El sistema que trabaja por ti</div>
-      <h1 class="hero-title reveal reveal-delay-1">Salón <span class="gold">Nova</span></h1>
+    <div class="hero-inner">
+      <div class="hero-demo-tag reveal">Demo — Sistema de reservas automático</div>
+      <h1 class="hero-title reveal reveal-delay-1">
+        Tus clientes reservan.<br>Tú solo <span class="gold">cortas el pelo.</span>
+      </h1>
       <p class="hero-subtitle reveal reveal-delay-2">
-        Tu peluquería en el siglo XXI — citas automáticas desde WhatsApp, Instagram y web
+        Desde WhatsApp, Instagram o tu web — todas las citas aterrizan solas en tu calendario. Sin llamadas, sin papel, sin errores.
       </p>
-      <a href="#reservar" class="btn-primary reveal reveal-delay-3">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-        Reserva tu cita ahora
-      </a>
+      <div class="hero-scroll-hint reveal reveal-delay-3">Descubre cómo funciona</div>
     </div>
-    <div class="hero-scroll-hint">Descubre más</div>
   </section>
 
   <div class="divider"></div>
 
-  <!-- ── CÓMO FUNCIONA ──────────────────────────────────────── -->
-  <section id="como-funciona">
-    <div class="how-header reveal">
-      <p class="section-tag">Sistema de reservas</p>
-      <h2 class="section-title">Tus clientes reservan<br>desde donde prefieran</h2>
-      <p class="section-sub">Tú solo miras un calendario.</p>
-    </div>
-
-    <div class="channels-grid">
-
-      <!-- Card 1: Web Form -->
-      <div class="channel-card reveal reveal-delay-1">
-        <div class="card-header">
-          <div class="card-icon-title">
-            <div class="card-icon icon-web">🌐</div>
-            <span class="card-title">Formulario web</span>
-          </div>
-          <span class="badge badge-active">✓ Activo</span>
-        </div>
-
-        <div class="form-mockup">
-          <div class="mock-label">Nombre</div>
-          <div class="mock-field" data-val="María García"></div>
-          <div class="mock-label">Servicio</div>
-          <div class="mock-field" data-val="Corte de pelo"></div>
-          <div class="mock-label">Fecha</div>
-          <div class="mock-field" data-val="Lunes 9 jun 2026"></div>
-          <div class="mock-label">Hora</div>
-          <div class="mock-field" data-val="10:00 — 10:30"></div>
-          <div class="mock-btn">Confirmar cita →</div>
-        </div>
-
-        <p class="card-desc">El cliente rellena el formulario en tu web y la cita aparece sola en tu calendario Google.</p>
+  <!-- ── CHANNELS ───────────────────────────────────────────── -->
+  <section id="canales">
+    <div class="container">
+      <div class="channels-header reveal">
+        <p class="section-tag">Multicanal</p>
+        <h2 class="section-title">Desde donde te escriban,<br>la cita queda registrada</h2>
+        <p class="section-sub">El sistema captura reservas desde los tres canales a la vez, sin que tú hagas nada.</p>
       </div>
 
-      <!-- Card 2: WhatsApp -->
-      <div class="channel-card reveal reveal-delay-2">
-        <div class="card-header">
-          <div class="card-icon-title">
+      <div class="channels-grid">
+
+        <!-- Card 1: WhatsApp -->
+        <div class="channel-card reveal reveal-delay-1">
+          <div class="card-header">
             <div class="card-icon icon-wa">💬</div>
             <span class="card-title">WhatsApp</span>
           </div>
-          <span class="badge badge-soon">Próximamente</span>
-        </div>
 
-        <div class="wa-mockup">
-          <div class="wa-header">
-            <div class="wa-avatar">SN</div>
-            <div>
-              <div class="wa-name">Salón Nova</div>
-              <div class="wa-status">● en línea</div>
+          <div class="wa-mockup">
+            <div class="wa-header">
+              <div class="wa-avatar">💈</div>
+              <div>
+                <div class="wa-name">Peluquería</div>
+                <div class="wa-status">● en línea</div>
+              </div>
+            </div>
+            <div class="wa-bubble client">Hola! Quería pedir cita para corte el martes a las 11</div>
+            <div class="wa-bubble bot">
+              ¡Hola Ana! ✅ Cita confirmada:<br>
+              Martes 9 de junio · 11:00h — Corte de pelo.<br>
+              Te esperamos 💈
+              <div class="wa-time">11:43 ✓✓</div>
             </div>
           </div>
-          <div class="wa-bubble client">Hola, quiero pedir cita para el martes a las 11</div>
-          <div class="wa-bubble bot">¡Hola! Te confirmo la cita: Martes 9 de junio a las 11:00. ¿Servicio: corte? Te esperamos en Salón Nova 💈<div class="wa-time">11:42 ✓✓</div></div>
-          <div class="wa-bubble client">Sí, perfecto gracias</div>
+
+          <p class="card-desc">El cliente escribe por WhatsApp y el bot confirma la cita al instante — sin que intervengas.</p>
         </div>
 
-        <p class="card-desc">El cliente escribe por WhatsApp y el sistema confirma la cita automáticamente, sin que tú hagas nada.</p>
-      </div>
-
-      <!-- Card 3: Instagram -->
-      <div class="channel-card reveal reveal-delay-3">
-        <div class="card-header">
-          <div class="card-icon-title">
+        <!-- Card 2: Instagram -->
+        <div class="channel-card reveal reveal-delay-2">
+          <div class="card-header">
             <div class="card-icon icon-ig">📸</div>
             <span class="card-title">Instagram DM</span>
           </div>
-          <span class="badge badge-soon">Próximamente</span>
-        </div>
 
-        <div class="ig-mockup">
-          <div class="ig-header">
-            <div class="ig-avatar">SN</div>
-            <div class="ig-name">salon.nova.madrid</div>
+          <div class="ig-mockup">
+            <div class="ig-header">
+              <div class="ig-avatar">✂</div>
+              <div class="ig-name">tu.peluqueria</div>
+            </div>
+            <div class="ig-bubble client">Hola, ¿tenéis hueco el viernes por la tarde?</div>
+            <div class="ig-bubble bot">¡Hola! Sí tenemos 🙌 Elige tu horario aquí 👉</div>
+            <div class="ig-link-pill">🔗 Reservar cita</div>
           </div>
-          <div class="ig-bubble client">Hola! Puedo pedir cita para el viernes?</div>
-          <div class="ig-bubble bot">¡Claro! Elige el servicio y horario en este enlace 👇</div>
-          <div class="ig-link">🔗 Reservar cita en Salón Nova</div>
+
+          <p class="card-desc">Respuesta automática a tus DMs de Instagram con enlace directo. Sin perder ni un cliente.</p>
         </div>
 
-        <p class="card-desc">Respuesta automática a los DMs de Instagram con enlace de reserva directo. Sin perder ni un cliente.</p>
-      </div>
+        <!-- Card 3: Web -->
+        <div class="channel-card reveal reveal-delay-3">
+          <div class="card-header">
+            <div class="card-icon icon-web">🌐</div>
+            <span class="card-title">Tu web</span>
+          </div>
 
-    </div>
+          <div class="form-mockup">
+            <div class="mock-label">Nombre</div>
+            <div class="mock-field" data-val="Ana Martín"></div>
+            <div class="mock-label">Servicio</div>
+            <div class="mock-field" data-val="Corte de pelo"></div>
+            <div class="mock-label">Fecha</div>
+            <div class="mock-field" data-val="Martes 9 jun 2026"></div>
+            <div class="mock-label">Hora</div>
+            <div class="mock-field" data-val="11:00 — 11:30"></div>
+            <div class="mock-btn">Confirmar cita →</div>
+          </div>
 
-    <!-- Anti-double-booking -->
-    <div class="no-overlap-box reveal">
-      <div class="no-overlap-icon">🛡️</div>
-      <div class="no-overlap-text">
-        <h4>Sin solapamientos garantizado</h4>
-        <p>Si ese horario ya está reservado, el sistema avisa al cliente automáticamente y le pide que elija otro — sin tu intervención.</p>
+          <p class="card-desc">El cliente reserva desde tu web y la cita aparece sola en el calendario. Sin apps intermedias.</p>
+        </div>
+
       </div>
     </div>
   </section>
 
   <div class="divider"></div>
 
-  <!-- ── TODO EN UN SOLO LUGAR ──────────────────────────────── -->
-  <section id="todo-en-uno">
-    <div class="reveal">
-      <p class="section-tag">Centralización total</p>
-      <h2 class="section-title">Todo en un solo lugar</h2>
-      <p class="section-sub">Sin importar cómo reserve tu cliente — tú lo ves todo en Google Calendar. Sin apps nuevas, sin aprender nada nuevo.</p>
-    </div>
+  <!-- ── CALENDAR ────────────────────────────────────────────── -->
+  <section id="calendario">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-tag">Centralización total</p>
+        <h2 class="section-title">Todo va al mismo sitio</h2>
+        <p class="section-sub">Sin importar el canal — todas las citas aterrizan en Google Calendar automáticamente.</p>
+      </div>
 
-    <div class="diagram-wrapper">
-
-      <!-- Diagram -->
-      <div class="diagram-visual reveal reveal-delay-1">
-        <div class="diagram-channels">
-          <div class="diagram-node">
-            <div class="d-icon">🌐</div>
-            <div class="d-label">Web</div>
-          </div>
-          <div class="diagram-node">
-            <div class="d-icon">💬</div>
-            <div class="d-label">WhatsApp</div>
-          </div>
-          <div class="diagram-node">
-            <div class="d-icon">📸</div>
-            <div class="d-label">Instagram</div>
-          </div>
+      <!-- Flow diagram -->
+      <div class="diagram-flow reveal reveal-delay-1">
+        <div class="flow-node">
+          <div class="flow-icon">💬</div>
+          <div class="flow-label">WhatsApp</div>
         </div>
 
-        <!-- Arrows SVG -->
-        <svg width="220" height="40" viewBox="0 0 220 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.5">
-          <path d="M36 5 Q36 35 110 35" stroke="#c9a84c" stroke-width="1.5" stroke-dasharray="4 3"/>
-          <path d="M110 5 L110 35" stroke="#c9a84c" stroke-width="1.5" stroke-dasharray="4 3"/>
-          <path d="M184 5 Q184 35 110 35" stroke="#c9a84c" stroke-width="1.5" stroke-dasharray="4 3"/>
-          <circle cx="110" cy="35" r="3" fill="#c9a84c"/>
-        </svg>
+        <div class="flow-arrow">
+          <svg width="28" height="12" viewBox="0 0 28 12" fill="none"><path d="M0 6h22M16 1l6 5-6 5" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
 
-        <div class="diagram-center">
-          <div class="d-center-icon">📅</div>
-          <div class="d-center-label">Google Calendar</div>
+        <div class="flow-node">
+          <div class="flow-icon">📸</div>
+          <div class="flow-label">Instagram</div>
+        </div>
+
+        <div class="flow-arrow">
+          <svg width="28" height="12" viewBox="0 0 28 12" fill="none"><path d="M0 6h22M16 1l6 5-6 5" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+
+        <div class="flow-node">
+          <div class="flow-icon">🌐</div>
+          <div class="flow-label">Web</div>
+        </div>
+
+        <div class="flow-arrow">
+          <svg width="36" height="12" viewBox="0 0 36 12" fill="none"><path d="M0 6h30M24 1l6 5-6 5" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+
+        <div class="flow-center">
+          <div class="flow-center-icon">📅</div>
+          <div class="flow-center-label">Google Calendar</div>
         </div>
       </div>
 
-      <!-- Calendar Mockup -->
-      <div class="cal-mockup reveal reveal-delay-2">
-        <div class="cal-header">
-          <span class="cal-header-title">Junio 2026</span>
-          <div class="cal-header-nav">
+      <!-- Google Calendar mockup -->
+      <div class="cal-wrap reveal reveal-delay-2">
+        <div class="cal-head">
+          <span class="cal-head-title">Junio 2026</span>
+          <div class="cal-head-nav">
             <span>‹</span>
             <span>›</span>
           </div>
         </div>
 
         <div class="cal-days-row">
-          <div class="cal-day-header"></div>
-          <div class="cal-day-header today">Lun<br><strong style="font-size:0.9rem">9</strong></div>
-          <div class="cal-day-header">Mar<br><strong style="font-size:0.9rem">10</strong></div>
-          <div class="cal-day-header">Mié<br><strong style="font-size:0.9rem">11</strong></div>
-          <div class="cal-day-header">Jue<br><strong style="font-size:0.9rem">12</strong></div>
-          <div class="cal-day-header">Vie<br><strong style="font-size:0.9rem">13</strong></div>
+          <div class="cal-day-h"></div>
+          <div class="cal-day-h today">Lun<br><strong style="font-size:0.88rem">9</strong></div>
+          <div class="cal-day-h">Mar<br><strong style="font-size:0.88rem">10</strong></div>
+          <div class="cal-day-h">Mié<br><strong style="font-size:0.88rem">11</strong></div>
+          <div class="cal-day-h">Jue<br><strong style="font-size:0.88rem">12</strong></div>
+          <div class="cal-day-h">Vie<br><strong style="font-size:0.88rem">13</strong></div>
         </div>
 
         <div class="cal-body">
@@ -980,214 +804,107 @@
             <div class="cal-time">13:00</div>
           </div>
 
-          <!-- Monday (col 1) - events at 10:00 and 12:00 -->
-          <div class="cal-day-col" style="position:relative;">
+          <!-- Monday: Corte Ana 10:00-10:30, Barba Rubén 12:00-12:30 -->
+          <div class="cal-day-col">
             <div class="cal-slot"></div>
             <div class="cal-slot"></div>
             <div class="cal-slot"></div>
             <div class="cal-slot"></div>
             <div class="cal-slot"></div>
-            <!-- Tinte: 10:00–11:30 = top:48px height:72px -->
-            <div class="cal-event tinte" style="top:48px;height:70px;">
-              <div>María García</div>
+            <div class="cal-event blue" style="top:48px;height:24px;">
+              <div>Ana Martín — Corte</div>
+            </div>
+            <div class="cal-event green" style="top:144px;height:24px;">
+              Rubén García — Barba
+            </div>
+          </div>
+
+          <!-- Tuesday: Tinte Lucía 10:30-12:00 -->
+          <div class="cal-day-col">
+            <div class="cal-slot"></div>
+            <div class="cal-slot"></div>
+            <div class="cal-slot"></div>
+            <div class="cal-slot"></div>
+            <div class="cal-slot"></div>
+            <div class="cal-event red" style="top:72px;height:72px;">
+              <div>Lucía Vega</div>
               <div style="font-weight:400;opacity:0.85">Tinte</div>
             </div>
-            <!-- Corte: 12:00–12:30 = top:144px height:24px -->
-            <div class="cal-event corte" style="top:144px;height:24px;">
-              Rubén — Corte
+          </div>
+
+          <!-- Wednesday: Corte Carlos 16:00 → show compressed at bottom -->
+          <div class="cal-day-col">
+            <div class="cal-slot"></div>
+            <div class="cal-slot"></div>
+            <div class="cal-slot"></div>
+            <div class="cal-slot"></div>
+            <div class="cal-slot"></div>
+            <div class="cal-event blue" style="top:192px;height:20px;">
+              Carlos Ibáñez — Corte
             </div>
           </div>
 
-          <!-- Tuesday (col 2) -->
-          <div class="cal-day-col" style="position:relative;">
+          <!-- Thursday -->
+          <div class="cal-day-col">
             <div class="cal-slot"></div>
             <div class="cal-slot"></div>
             <div class="cal-slot"></div>
             <div class="cal-slot"></div>
             <div class="cal-slot"></div>
-            <!-- Mechas: 10:30–12:00 = top:72px height:72px -->
-            <div class="cal-event mechas" style="top:72px;height:70px;">
-              <div>Lucía Vega</div>
-              <div style="font-weight:400;opacity:0.85">Mechas</div>
-            </div>
-            <!-- Barba: ~16:00 shown below visible area - show at bottom -->
-            <div class="cal-event barba" style="top:192px;height:20px;">
-              Carlos — Barba
-            </div>
           </div>
 
-          <!-- Wed -->
+          <!-- Friday -->
           <div class="cal-day-col">
-            <div class="cal-slot"></div><div class="cal-slot"></div>
-            <div class="cal-slot"></div><div class="cal-slot"></div><div class="cal-slot"></div>
-          </div>
-
-          <!-- Thu -->
-          <div class="cal-day-col">
-            <div class="cal-slot"></div><div class="cal-slot"></div>
-            <div class="cal-slot"></div><div class="cal-slot"></div><div class="cal-slot"></div>
-          </div>
-
-          <!-- Fri -->
-          <div class="cal-day-col">
-            <div class="cal-slot"></div><div class="cal-slot"></div>
-            <div class="cal-slot"></div><div class="cal-slot"></div><div class="cal-slot"></div>
+            <div class="cal-slot"></div>
+            <div class="cal-slot"></div>
+            <div class="cal-slot"></div>
+            <div class="cal-slot"></div>
+            <div class="cal-slot"></div>
           </div>
         </div>
       </div>
 
+      <p class="cal-below-text reveal reveal-delay-3">
+        <strong>Tú solo miras Google Calendar.</strong> Sin apps nuevas. Sin aprender nada nuevo.
+      </p>
     </div>
   </section>
 
   <div class="divider"></div>
 
-  <!-- ── RESERVAR (Real Form) ────────────────────────────────── -->
-  <section id="reservar">
-    <div class="reveal">
-      <p class="section-tag">Disponible ahora</p>
-      <h2 class="section-title">Reserva tu cita</h2>
-      <p class="section-sub">Elige tu servicio y el horario que prefieras. Confirmación inmediata.</p>
-    </div>
+  <!-- ── ANTI DOUBLE-BOOKING ────────────────────────────────── -->
+  <section id="sin-solapamientos">
+    <div class="container">
+      <div class="shield-card reveal">
+        <span class="shield-icon">🛡️</span>
+        <h2 class="shield-title">Sin solapamientos, garantizado</h2>
+        <p class="shield-desc">
+          Si alguien intenta reservar un horario ya ocupado, el sistema le avisa automáticamente y le pide que elija otro. Cero conflictos, sin intervención tuya.
+        </p>
 
-    <div class="form-container reveal reveal-delay-1">
-      <iframe
-        src="https://docs.google.com/forms/d/e/1FAIpQLSfgZG3B7xHDnbjg1a9pRLKkX15zgJy4MvMQarp0vUh1s5QRyg/viewform?embedded=true"
-        title="Formulario de reserva — Salón Nova"
-        loading="lazy"
-        allowfullscreen
-      ></iframe>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- ── SERVICIOS ───────────────────────────────────────────── -->
-  <section id="servicios">
-    <div class="reveal">
-      <p class="section-tag">Nuestros servicios</p>
-      <h2 class="section-title">Servicios y precios</h2>
-      <p class="section-sub">Calidad profesional a precios transparentes. Sin sorpresas.</p>
-    </div>
-
-    <div class="services-grid">
-      <div class="service-card reveal reveal-delay-1">
-        <div>
-          <div class="service-icon">✂️</div>
-          <div class="service-name">Corte de pelo</div>
-        </div>
-        <div style="text-align:right">
-          <div class="service-price">25€</div>
-        </div>
-      </div>
-
-      <div class="service-card reveal reveal-delay-2">
-        <div>
-          <div class="service-icon">🪒</div>
-          <div class="service-name">Corte + Barba</div>
-        </div>
-        <div style="text-align:right">
-          <div class="service-price">35€</div>
-        </div>
-      </div>
-
-      <div class="service-card reveal reveal-delay-3">
-        <div>
-          <div class="service-icon">🎨</div>
-          <div class="service-name">Tinte completo</div>
-        </div>
-        <div style="text-align:right">
-          <div class="service-from">desde</div>
-          <div class="service-price">60€</div>
-        </div>
-      </div>
-
-      <div class="service-card reveal reveal-delay-1">
-        <div>
-          <div class="service-icon">✨</div>
-          <div class="service-name">Mechas</div>
-        </div>
-        <div style="text-align:right">
-          <div class="service-from">desde</div>
-          <div class="service-price">80€</div>
-        </div>
-      </div>
-
-      <div class="service-card reveal reveal-delay-2">
-        <div>
-          <div class="service-icon">💆</div>
-          <div class="service-name">Tratamiento capilar</div>
-        </div>
-        <div style="text-align:right">
-          <div class="service-from">desde</div>
-          <div class="service-price">40€</div>
-        </div>
-      </div>
-
-      <div class="service-card reveal reveal-delay-3">
-        <div>
-          <div class="service-icon">👶</div>
-          <div class="service-name">Peluquería infantil</div>
-        </div>
-        <div style="text-align:right">
-          <div class="service-price">15€</div>
+        <div class="overlap-mockup">
+          <div class="wa-bubble client" style="font-size:0.78rem;">Quiero cita el martes a las 11</div>
+          <div class="wa-bubble bot" style="font-size:0.78rem;background:#1a2c35;border-left:2px solid #c9a84c;">
+            ⚠️ Ese horario ya está reservado.<br>
+            Los próximos disponibles son: <strong>11:30</strong> o <strong>12:00</strong>.<br>
+            ¿Cuál prefieres?
+          </div>
         </div>
       </div>
     </div>
   </section>
-
-  <div class="divider"></div>
 
   <!-- ── FOOTER ─────────────────────────────────────────────── -->
   <footer>
-    <div class="footer-brand">
-      <div class="logo">Salón Nova</div>
-      <p>Peluquería de lujo en el corazón de Madrid.<br>Donde el estilo se encuentra con la tecnología.</p>
-    </div>
-
-    <div class="footer-info">
-      <h4>Horario</h4>
-      <p>
-        Lunes – Viernes: 9:00 – 20:00<br>
-        Sábado: 9:00 – 15:00<br>
-        Domingo: Cerrado
-      </p>
-    </div>
-
-    <div class="footer-info">
-      <h4>Contacto</h4>
-      <p>
-        Tel: 91 234 56 78<br>
-        Madrid, España<br>
-        salon.nova.madrid
-      </p>
-    </div>
-
-    <div class="footer-bottom">
-      <p>© 2026 Salón Nova. Todos los derechos reservados.</p>
-      <p class="impulsa-credit">
-        Automatización por <a href="https://impulsaai-agency.github.io" target="_blank" rel="noopener">ImpulsaAI</a>
+    <div class="footer-inner">
+      <p class="footer-text">
+        Automatización por <a href="https://impulsaai-agency.github.io" target="_blank" rel="noopener">ImpulsaAI</a> · impulsaai-agency.github.io
       </p>
     </div>
   </footer>
 
   <!-- ── JS ─────────────────────────────────────────────────── -->
   <script>
-    /* Sticky navbar */
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 40);
-    }, { passive: true });
-
-    /* Mobile menu */
-    const toggle = document.getElementById('navToggle');
-    const navLinks = document.getElementById('navLinks');
-    toggle.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
-    });
-    navLinks.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => navLinks.classList.remove('open'));
-    });
-
     /* Scroll reveal */
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
@@ -1196,14 +913,14 @@
           observer.unobserve(e.target);
         }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    /* Trigger hero reveals on load */
+    /* Trigger hero reveals immediately on load */
     window.addEventListener('load', () => {
-      document.querySelectorAll('#hero .reveal').forEach(el => {
-        setTimeout(() => el.classList.add('visible'), 100);
+      document.querySelectorAll('#hero .reveal').forEach((el, i) => {
+        setTimeout(() => el.classList.add('visible'), 80 + i * 110);
       });
     });
   </script>
