@@ -3,928 +3,807 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kazawi Barber · Embajadores, Madrid</title>
+  <title>Élite Barber Madrid — Fade · Corte · Color · Barba</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0f0f0f;
-      --bg-2: #161616;
-      --bg-3: #1e1e1e;
-      --text: #f5f0e8;
-      --text-muted: #888;
-      --border: #2a2a2a;
-      --green: #25a244;
-      --green-hover: #1e8a38;
+      --bg: #0a0a0a;
+      --card: #111111;
+      --gold: #c9a84c;
+      --gold-dim: rgba(201,168,76,0.18);
+      --gold-line: rgba(201,168,76,0.2);
+      --cream: #f5f0e8;
+      --muted: #888;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', sans-serif;
       background: var(--bg);
-      color: var(--text);
-      font-size: 16px;
+      color: var(--cream);
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
       line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
 
     /* ── NAVBAR ── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 0 40px;
-      height: 64px;
+      z-index: 900;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: transparent;
-      transition: background 0.3s, backdrop-filter 0.3s, border-bottom 0.3s;
+      padding: 0 40px;
+      height: 64px;
+      background: rgba(10,10,10,0.7);
+      transition: background 0.3s, backdrop-filter 0.3s;
     }
     nav.scrolled {
-      background: rgba(15,15,15,0.85);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
     }
     .nav-logo {
+      font-family: 'Playfair Display', serif;
       font-weight: 700;
-      font-size: 20px;
-      letter-spacing: 0.08em;
-      color: var(--text);
+      font-size: 1.3rem;
+      letter-spacing: 0.12em;
+      color: var(--gold);
       text-decoration: none;
     }
-    .nav-links {
-      display: flex;
-      gap: 36px;
-      list-style: none;
-    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
     .nav-links a {
-      color: var(--text-muted);
+      color: var(--cream);
       text-decoration: none;
-      font-size: 14px;
-      font-weight: 400;
-      transition: color 0.2s;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      opacity: 0.85;
+      transition: color 0.2s, opacity 0.2s;
     }
-    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover { color: var(--gold); opacity: 1; }
 
     /* ── HERO ── */
     #hero {
       min-height: 80vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 100px 24px 80px;
-      border-bottom: 1px solid var(--border);
+      padding: 100px 24px 60px;
+      position: relative;
+      overflow: hidden;
     }
-    .hero-tag {
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 720px; }
+    .hero-eyebrow {
       display: inline-block;
-      font-size: 13px;
-      font-weight: 400;
-      color: var(--text-muted);
-      letter-spacing: 0.04em;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold-dim);
+      border-radius: 100px;
+      padding: 6px 18px;
       margin-bottom: 28px;
-      padding: 6px 16px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
     }
     .hero-title {
-      font-size: clamp(40px, 6vw, 62px);
+      font-family: 'Playfair Display', serif;
       font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      margin-bottom: 20px;
+      font-size: clamp(2.4rem, 6vw, 3.6rem);
+      line-height: 1.15;
+      color: var(--cream);
+      margin-bottom: 16px;
     }
-    .hero-services {
-      font-size: 16px;
-      font-weight: 300;
-      color: var(--text-muted);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 48px;
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-bottom: 40px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
     }
-    .hero-btns {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 28px;
+    .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold);
+      color: #0a0a0a;
+      border: none;
+      padding: 14px 30px;
       border-radius: 8px;
-      font-size: 15px;
-      font-weight: 600;
       font-family: 'Inter', sans-serif;
-      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
       cursor: pointer;
-      transition: background 0.2s, color 0.2s, border-color 0.2s;
-      border: 1px solid transparent;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+      display: inline-block;
     }
-    .btn-green {
-      background: var(--green);
-      color: #fff;
-      border-color: var(--green);
-    }
-    .btn-green:hover { background: var(--green-hover); border-color: var(--green-hover); }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); }
     .btn-outline {
       background: transparent;
-      color: var(--text);
-      border-color: var(--border);
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      padding: 14px 30px;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+      display: inline-block;
     }
-    .btn-outline:hover { border-color: #555; background: rgba(255,255,255,0.04); }
+    .btn-outline:hover { background: rgba(201,168,76,0.08); transform: translateY(-2px); }
 
     /* ── SECTIONS ── */
-    section {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 96px 24px;
-    }
-    .section-label {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--green);
-      margin-bottom: 12px;
-    }
+    section { padding: 96px 24px; }
+    .container { max-width: 900px; margin: 0 auto; }
     .section-title {
-      font-size: clamp(28px, 4vw, 40px);
+      font-family: 'Playfair Display', serif;
       font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 56px;
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      color: var(--cream);
+      margin-bottom: 48px;
+      text-align: center;
     }
 
     /* ── SERVICIOS ── */
-    .services-list {
-      display: flex;
-      flex-direction: column;
-    }
-    .service-item {
-      display: flex;
-      flex-direction: column;
-      padding: 24px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .service-item:first-child { border-top: 1px solid var(--border); }
-    .service-row {
+    #servicios { background: var(--bg); }
+    .service-list { list-style: none; max-width: 560px; margin: 0 auto; }
+    .service-list li {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 6px;
-    }
-    .service-name {
-      font-size: 17px;
-      font-weight: 600;
-      color: var(--text);
-    }
-    .service-price {
-      font-size: 17px;
-      font-weight: 600;
-      color: var(--green);
-      white-space: nowrap;
-      margin-left: 20px;
-    }
-    .service-desc {
-      font-size: 14px;
-      color: var(--text-muted);
-      font-weight: 300;
-    }
-
-    /* ── RESEÑAS ── */
-    .resenas-outer {
-      background: var(--bg-2);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 96px 24px;
-    }
-    .resenas-inner {
-      max-width: 860px;
-      margin: 0 auto;
-    }
-    .rating-badge {
-      display: inline-flex;
       align-items: center;
-      gap: 14px;
-      background: var(--bg-3);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 16px 24px;
-      margin-bottom: 56px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--gold-line);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--cream);
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
-    .rating-score {
-      font-size: 36px;
-      font-weight: 700;
-      line-height: 1;
-      color: var(--text);
+    .service-list li.visible { opacity: 1; transform: none; }
+    .service-list li:first-child { border-top: 1px solid var(--gold-line); }
+    .service-price { color: var(--gold); font-weight: 600; }
+
+    /* ── RESENAS ── */
+    #resenas { background: #0d0d0d; }
+    .reviews-badge {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.06em;
     }
-    .rating-info {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-    .rating-stars { color: #f59e0b; font-size: 18px; letter-spacing: 2px; }
-    .rating-count { font-size: 13px; color: var(--text-muted); }
     .reviews-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
     }
     .review-card {
-      background: var(--bg-3);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
+      background: var(--card);
+      border: 1px solid var(--gold-dim);
+      border-radius: 14px;
+      padding: 28px 24px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.25s;
     }
-    .review-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 14px;
+    .review-card.visible { opacity: 1; transform: none; }
+    .review-card:hover {
+      border-color: rgba(201,168,76,0.55);
+      transform: translateY(-4px);
     }
+    .review-header { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
     .review-avatar {
-      width: 38px; height: 38px;
+      width: 42px; height: 42px;
       border-radius: 50%;
-      background: var(--green);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
+      background: var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
       font-weight: 700;
-      color: #fff;
+      font-size: 1.1rem;
+      color: #0a0a0a;
       flex-shrink: 0;
     }
-    .review-name { font-size: 15px; font-weight: 600; }
-    .review-stars { color: #f59e0b; font-size: 13px; letter-spacing: 1px; margin-top: 2px; }
-    .review-text { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
-    .review-source { font-size: 12px; color: #555; margin-top: 12px; }
+    .review-name { font-weight: 600; font-size: 0.95rem; color: var(--cream); }
+    .review-stars { color: var(--gold); font-size: 0.85rem; margin-top: 2px; }
+    .review-text { font-size: 0.9rem; color: #aaa; line-height: 1.65; }
 
-    /* ── MAPA & CONTACTO ── */
-    .map-wrapper {
-      border-radius: 12px;
+    /* ── MAPA / CONTACTO ── */
+    #contacto { background: var(--bg); }
+    .map-wrap {
+      border-radius: 14px;
       overflow: hidden;
-      border: 1px solid var(--border);
+      border: 1px solid var(--gold-dim);
       margin-bottom: 40px;
     }
+    .map-wrap iframe { display: block; }
     .contact-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 24px;
     }
     .contact-item {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
+      background: var(--card);
+      border: 1px solid var(--gold-dim);
+      border-radius: 14px;
+      padding: 24px 20px;
+      text-align: center;
+      transition: border-color 0.25s, transform 0.25s;
     }
-    .contact-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-muted);
+    .contact-item:hover {
+      border-color: rgba(201,168,76,0.5);
+      transform: translateY(-3px);
     }
-    .contact-value {
-      font-size: 15px;
-      font-weight: 400;
-      color: var(--text);
-    }
-    .contact-value a {
-      color: var(--text);
-      text-decoration: none;
-    }
-    .contact-value a:hover { color: var(--green); }
+    .contact-icon { font-size: 1.6rem; margin-bottom: 10px; }
+    .contact-label { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+    .contact-value { font-size: 0.9rem; color: var(--cream); }
 
     /* ── FOOTER ── */
     footer {
-      border-top: 1px solid var(--border);
-      padding: 32px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
+      text-align: center;
+      padding: 32px 24px;
+      border-top: 1px solid var(--gold-dim);
+      font-size: 0.8rem;
+      color: var(--muted);
     }
-    footer span { font-size: 13px; color: var(--text-muted); }
+    footer span { color: var(--gold); }
 
-    /* ── FLOATING WHATSAPP ── */
-    .fab-wa {
+    /* ── WHATSAPP FLOAT ── */
+    .whatsapp-float {
       position: fixed;
       bottom: 28px;
       right: 28px;
-      z-index: 200;
+      z-index: 800;
       width: 56px; height: 56px;
       border-radius: 50%;
-      background: var(--green);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: #25d366;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.35);
       text-decoration: none;
-      box-shadow: 0 4px 20px rgba(37,162,68,0.35);
       transition: transform 0.2s, box-shadow 0.2s;
     }
-    .fab-wa:hover { transform: scale(1.07); box-shadow: 0 6px 28px rgba(37,162,68,0.45); }
-    .fab-wa svg { width: 28px; height: 28px; fill: #fff; }
+    .whatsapp-float:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(37,211,102,0.5); }
+    .whatsapp-float svg { width: 28px; height: 28px; fill: #fff; }
 
     /* ── CHATBOT ── */
-    .fab-chat {
+    .chat-trigger {
       position: fixed;
       bottom: 28px;
       left: 28px;
-      z-index: 200;
+      z-index: 800;
       width: 56px; height: 56px;
       border-radius: 50%;
-      background: var(--bg-3);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: var(--gold);
+      border: none;
       cursor: pointer;
-      font-size: 24px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      box-shadow: 0 4px 20px rgba(201,168,76,0.35);
       transition: transform 0.2s;
-      user-select: none;
     }
-    .fab-chat:hover { transform: scale(1.07); }
-    .fab-chat-badge {
+    .chat-trigger:hover { transform: scale(1.08); }
+    .chat-badge {
       position: absolute;
       top: -4px; right: -4px;
       width: 20px; height: 20px;
       border-radius: 50%;
-      background: var(--green);
+      background: #e53e3e;
       color: #fff;
-      font-size: 11px;
+      font-size: 0.7rem;
       font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Inter', sans-serif;
+      display: flex; align-items: center; justify-content: center;
+      border: 2px solid var(--bg);
     }
-
     .chat-window {
       position: fixed;
       bottom: 96px;
       left: 28px;
-      z-index: 300;
+      z-index: 850;
       width: 340px;
       max-height: 520px;
-      background: var(--bg-2);
-      border: 1px solid var(--border);
-      border-radius: 16px;
+      background: var(--card);
+      border: 1px solid var(--gold-dim);
+      border-radius: 18px;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 12px 48px rgba(0,0,0,0.6);
       overflow: hidden;
-      transform-origin: bottom left;
-      transition: opacity 0.22s, transform 0.22s;
-    }
-    .chat-window.hidden {
+      box-shadow: 0 12px 48px rgba(0,0,0,0.6);
+      transform: scale(0.92) translateY(12px);
       opacity: 0;
-      transform: scale(0.92);
       pointer-events: none;
+      transition: transform 0.25s ease, opacity 0.25s ease;
     }
-
+    .chat-window.open {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
     .chat-header {
-      background: var(--bg-3);
-      border-bottom: 1px solid var(--border);
-      padding: 16px 20px;
+      background: #0d0d0d;
+      padding: 16px 18px;
       display: flex;
       align-items: center;
       gap: 12px;
-      flex-shrink: 0;
+      border-bottom: 1px solid var(--gold-dim);
     }
     .chat-avatar {
-      width: 36px; height: 36px;
+      width: 38px; height: 38px;
       border-radius: 50%;
-      background: var(--green);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
+      background: var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
     }
-    .chat-header-info { display: flex; flex-direction: column; gap: 1px; }
-    .chat-header-name { font-size: 15px; font-weight: 600; }
-    .chat-header-status { font-size: 12px; color: var(--green); }
-
+    .chat-header-info { flex: 1; }
+    .chat-header-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 0.95rem; color: var(--cream); }
+    .chat-header-status { font-size: 0.75rem; color: #4caf50; font-weight: 500; }
+    .chat-close {
+      background: none; border: none; cursor: pointer;
+      color: var(--muted); font-size: 1.2rem; line-height: 1;
+      transition: color 0.2s;
+    }
+    .chat-close:hover { color: var(--cream); }
     .chat-messages {
       flex: 1;
       overflow-y: auto;
-      padding: 20px 16px;
+      padding: 18px 14px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      scroll-behavior: smooth;
-      min-height: 0;
+      gap: 10px;
     }
     .chat-messages::-webkit-scrollbar { width: 4px; }
-    .chat-messages::-webkit-scrollbar-track { background: transparent; }
-    .chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-
+    .chat-messages::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
     .msg {
       max-width: 85%;
       padding: 10px 14px;
-      border-radius: 12px;
-      font-size: 14px;
-      line-height: 1.55;
-      animation: msgIn 0.18s ease;
+      border-radius: 14px;
+      font-size: 0.875rem;
+      line-height: 1.5;
     }
-    @keyframes msgIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
     .msg-bot {
-      background: var(--bg-3);
-      border: 1px solid var(--border);
-      color: var(--text);
+      background: #1a1a1a;
+      border: 1px solid var(--gold-dim);
+      color: var(--cream);
       align-self: flex-start;
       border-bottom-left-radius: 4px;
     }
     .msg-user {
-      background: var(--green);
-      color: #fff;
+      background: var(--gold);
+      color: #0a0a0a;
       align-self: flex-end;
+      font-weight: 500;
       border-bottom-right-radius: 4px;
     }
-
-    .chat-options {
-      padding: 0 16px 16px;
+    .chat-chips {
+      padding: 0 14px 14px;
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      flex-shrink: 0;
     }
-    .chat-opt {
-      background: var(--bg-3);
-      border: 1px solid var(--border);
-      color: var(--text);
-      border-radius: 8px;
-      padding: 7px 12px;
-      font-size: 13px;
-      font-family: 'Inter', sans-serif;
+    .chip {
+      background: #1a1a1a;
+      border: 1px solid var(--gold-dim);
+      color: var(--cream);
+      padding: 7px 14px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 500;
       cursor: pointer;
-      transition: border-color 0.15s, background 0.15s;
+      transition: background 0.2s, border-color 0.2s;
     }
-    .chat-opt:hover { border-color: var(--green); background: rgba(37,162,68,0.08); }
-
+    .chip:hover { background: rgba(201,168,76,0.12); border-color: var(--gold); }
     .chat-input-row {
-      padding: 12px 16px;
-      border-top: 1px solid var(--border);
+      padding: 12px 14px;
+      border-top: 1px solid var(--gold-dim);
       display: flex;
       gap: 8px;
-      flex-shrink: 0;
     }
     .chat-input {
       flex: 1;
-      background: var(--bg-3);
-      border: 1px solid var(--border);
+      background: #1a1a1a;
+      border: 1px solid var(--gold-dim);
       border-radius: 8px;
-      padding: 9px 14px;
-      color: var(--text);
-      font-size: 14px;
+      padding: 9px 12px;
+      color: var(--cream);
       font-family: 'Inter', sans-serif;
+      font-size: 0.875rem;
       outline: none;
-      transition: border-color 0.15s;
+      transition: border-color 0.2s;
     }
-    .chat-input:focus { border-color: var(--green); }
-    .chat-input::placeholder { color: var(--text-muted); }
+    .chat-input::placeholder { color: var(--muted); }
+    .chat-input:focus { border-color: var(--gold); }
     .chat-send {
-      background: var(--green);
+      background: var(--gold);
       border: none;
       border-radius: 8px;
-      width: 38px;
-      height: 38px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 36px; height: 36px;
       cursor: pointer;
-      transition: background 0.15s;
+      display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
+      transition: opacity 0.2s;
     }
-    .chat-send:hover { background: var(--green-hover); }
-    .chat-send svg { width: 16px; height: 16px; fill: #fff; }
+    .chat-send:hover { opacity: 0.85; }
+    .chat-send svg { width: 16px; height: 16px; fill: #0a0a0a; }
 
-    /* ── FADE-IN ── */
-    .fade-in {
+    /* ── FADE-UP ANIMATION ── */
+    .fade-up {
       opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.55s ease, transform 0.55s ease;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .fade-up.visible { opacity: 1; transform: none; }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 600px) {
       nav { padding: 0 20px; }
-      .nav-links { gap: 20px; }
-      footer { padding: 24px 20px; flex-direction: column; text-align: center; }
+      .nav-links { gap: 16px; }
+      .hero-title { font-size: 2rem; }
       .chat-window { width: calc(100vw - 32px); left: 16px; }
-      .fab-chat { left: 16px; bottom: 16px; }
-      .fab-wa { right: 16px; bottom: 16px; }
     }
   </style>
 </head>
 <body>
 
-<!-- ── NAVBAR ── -->
-<nav id="navbar">
-  <a href="#hero" class="nav-logo">KAZAWI</a>
-  <ul class="nav-links">
-    <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#resenas">Reseñas</a></li>
-    <li><a href="https://wa.me/34641391678?text=Hola%2C%20quiero%20reservar%20una%20cita" target="_blank">Reservar</a></li>
-  </ul>
-</nav>
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">ÉLITE BARBER</a>
+    <ul class="nav-links">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#resenas">Reseñas</a></li>
+      <li><a href="#contacto">Reservar</a></li>
+    </ul>
+  </nav>
 
-<!-- ── HERO ── -->
-<div id="hero">
-  <div class="hero-tag">C. de Embajadores, 186 · Madrid &nbsp;·&nbsp; 506 reseñas ⭐ 5.0</div>
-  <h1 class="hero-title">Kazawi Barber</h1>
-  <p class="hero-services">Fade &nbsp;·&nbsp; Corte &nbsp;·&nbsp; Color &nbsp;·&nbsp; Barba</p>
-  <div class="hero-btns">
-    <a href="https://wa.me/34641391678?text=Hola%2C%20quiero%20reservar%20una%20cita" target="_blank" class="btn btn-green">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.126 1.533 5.862L0 24l6.335-1.51A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.369l-.358-.215-3.762.896.955-3.66-.234-.374A9.818 9.818 0 1112 21.818z"/></svg>
-      Reservar por WhatsApp
-    </a>
-    <a href="#servicios" class="btn btn-outline">Ver servicios</a>
-  </div>
-</div>
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-inner">
+      <span class="hero-eyebrow">Calle de Fuencarral, 42 · Madrid &nbsp;·&nbsp; 312 reseñas ⭐ 4.9</span>
+      <h1 class="hero-title">Élite Barber Madrid</h1>
+      <p class="hero-subtitle">Fade &nbsp;·&nbsp; Corte &nbsp;·&nbsp; Color &nbsp;·&nbsp; Barba</p>
+      <div class="hero-buttons">
+        <a href="https://wa.me/34912345678?text=Hola%2C%20quiero%20reservar%20una%20cita" target="_blank" class="btn-primary">Reservar por WhatsApp</a>
+        <a href="#servicios" class="btn-outline">Ver servicios</a>
+      </div>
+    </div>
+  </section>
 
-<!-- ── SERVICIOS ── -->
-<section id="servicios">
-  <p class="section-label fade-in">Lo que hacemos</p>
-  <h2 class="section-title fade-in">Servicios</h2>
-  <div class="services-list">
-    <div class="service-item fade-in">
-      <div class="service-row">
-        <span class="service-name">Corte</span>
-        <span class="service-price">20€</span>
-      </div>
-      <span class="service-desc">Corte a tijera o máquina, acabado limpio y a medida.</span>
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <div class="container">
+      <h2 class="section-title fade-up">Nuestros Servicios</h2>
+      <ul class="service-list">
+        <li><span>Corte</span><span class="service-price">20€</span></li>
+        <li><span>Fade / Degradado</span><span class="service-price">25€</span></li>
+        <li><span>Corte + Barba</span><span class="service-price">33€</span></li>
+        <li><span>Barba</span><span class="service-price">15€</span></li>
+        <li><span>Color / Mechas</span><span class="service-price">desde 45€</span></li>
+      </ul>
     </div>
-    <div class="service-item fade-in">
-      <div class="service-row">
-        <span class="service-name">Fade / Degradado</span>
-        <span class="service-price">25€</span>
-      </div>
-      <span class="service-desc">Low, mid o high fade. Transición perfecta, sin marcas.</span>
-    </div>
-    <div class="service-item fade-in">
-      <div class="service-row">
-        <span class="service-name">Corte + Barba</span>
-        <span class="service-price">33€</span>
-      </div>
-      <span class="service-desc">Combinación completa. El look definitivo de principio a fin.</span>
-    </div>
-    <div class="service-item fade-in">
-      <div class="service-row">
-        <span class="service-name">Barba</span>
-        <span class="service-price">15€</span>
-      </div>
-      <span class="service-desc">Arreglado, perfilado y afeitado con navaja. Acabado impecable.</span>
-    </div>
-    <div class="service-item fade-in">
-      <div class="service-row">
-        <span class="service-name">Color / Mechas</span>
-        <span class="service-price">desde 45€</span>
-      </div>
-      <span class="service-desc">Tintes, mechas y decoloración. Consulta disponibilidad.</span>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- ── RESEÑAS ── -->
-<div class="resenas-outer" id="resenas">
-  <div class="resenas-inner">
-    <p class="section-label fade-in">Opiniones</p>
-    <h2 class="section-title fade-in">Lo que dicen nuestros clientes</h2>
-    <div class="rating-badge fade-in">
-      <span class="rating-score">5.0</span>
-      <div class="rating-info">
-        <span class="rating-stars">★★★★★</span>
-        <span class="rating-count">506 reseñas en Google</span>
-      </div>
-    </div>
-    <div class="reviews-grid">
-      <div class="review-card fade-in">
-        <div class="review-header">
-          <div class="review-avatar">A</div>
-          <div>
-            <div class="review-name">Ahmed R.</div>
-            <div class="review-stars">★★★★★</div>
+  <!-- RESENAS -->
+  <section id="resenas">
+    <div class="container">
+      <h2 class="section-title fade-up">Lo que dicen nuestros clientes</h2>
+      <p class="reviews-badge fade-up">4.9 ★ &nbsp;·&nbsp; 312 reseñas en Google</p>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-avatar">S</div>
+            <div>
+              <div class="review-name">Sofía R.</div>
+              <div class="review-stars">⭐⭐⭐⭐⭐</div>
+            </div>
           </div>
+          <p class="review-text">"El mejor sitio de Madrid para un fade perfecto. Llevo 3 años viniendo y nunca he salido decepcionada."</p>
         </div>
-        <p class="review-text">"El mejor fade de Madrid, sin duda. Llevo 2 años viniendo y siempre salgo perfecto."</p>
-        <p class="review-source">Reseña de Google</p>
-      </div>
-      <div class="review-card fade-in">
-        <div class="review-header">
-          <div class="review-avatar">C</div>
-          <div>
-            <div class="review-name">Carlos M.</div>
-            <div class="review-stars">★★★★★</div>
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-avatar">M</div>
+            <div>
+              <div class="review-name">Marcos T.</div>
+              <div class="review-stars">⭐⭐⭐⭐⭐</div>
+            </div>
           </div>
+          <p class="review-text">"Ambiente increíble, trato excelente. El resultado siempre es exactamente lo que pido. No cambio de barbería."</p>
         </div>
-        <p class="review-text">"Sitio increíble. El ambiente, el trato, el resultado... todo top. No voy a ningún otro lado."</p>
-        <p class="review-source">Reseña de Google</p>
-      </div>
-      <div class="review-card fade-in">
-        <div class="review-header">
-          <div class="review-avatar">P</div>
-          <div>
-            <div class="review-name">Pablo S.</div>
-            <div class="review-stars">★★★★★</div>
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-avatar">I</div>
+            <div>
+              <div class="review-name">Iván C.</div>
+              <div class="review-stars">⭐⭐⭐⭐⭐</div>
+            </div>
           </div>
+          <p class="review-text">"Reservé por WhatsApp y en 2 minutos me confirmaron. El corte impecable. Muy recomendable."</p>
         </div>
-        <p class="review-text">"Pedí cita por WhatsApp y en 5 minutos me confirmaron. El corte quedó exactamente como pedí."</p>
-        <p class="review-source">Reseña de Google</p>
       </div>
     </div>
-  </div>
-</div>
+  </section>
 
-<!-- ── MAPA & CONTACTO ── -->
-<section id="contacto">
-  <p class="section-label fade-in">Ubicación</p>
-  <h2 class="section-title fade-in">Dónde estamos</h2>
-  <div class="map-wrapper fade-in">
-    <iframe
-      src="https://maps.google.com/maps?q=Calle+de+Embajadores+186+Madrid&output=embed"
-      width="100%"
-      height="380"
-      style="border:0;display:block;"
-      loading="lazy"
-      allowfullscreen=""
-      referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
-  </div>
-  <div class="contact-grid fade-in">
-    <div class="contact-item">
-      <span class="contact-label">Dirección</span>
-      <span class="contact-value">C. de Embajadores, 186<br>Arganzuela, Madrid</span>
+  <!-- MAPA + CONTACTO -->
+  <section id="contacto">
+    <div class="container">
+      <h2 class="section-title fade-up">Dónde estamos</h2>
+      <div class="map-wrap fade-up">
+        <iframe
+          src="https://maps.google.com/maps?q=Calle+de+Fuencarral+42+Madrid&output=embed"
+          width="100%"
+          height="360"
+          style="border:0;border-radius:12px;filter:grayscale(0.3);"
+          loading="lazy"
+          allowfullscreen
+          title="Ubicación Élite Barber Madrid"
+        ></iframe>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-item fade-up">
+          <div class="contact-icon">📍</div>
+          <div class="contact-label">Dirección</div>
+          <div class="contact-value">Calle de Fuencarral, 42<br>Madrid</div>
+        </div>
+        <div class="contact-item fade-up">
+          <div class="contact-icon">📞</div>
+          <div class="contact-label">Teléfono</div>
+          <div class="contact-value">91 234 56 78</div>
+        </div>
+        <div class="contact-item fade-up">
+          <div class="contact-icon">⏰</div>
+          <div class="contact-label">Horario</div>
+          <div class="contact-value">Lunes – Sábado<br>10:00 – 21:00</div>
+        </div>
+      </div>
     </div>
-    <div class="contact-item">
-      <span class="contact-label">Teléfono</span>
-      <span class="contact-value"><a href="tel:+34641391678">641 39 16 78</a></span>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 <span>Élite Barber Madrid</span> · Calle de Fuencarral, 42 · @elitebarber.madrid</p>
+  </footer>
+
+  <!-- WHATSAPP FLOTANTE -->
+  <a class="whatsapp-float" href="https://wa.me/34912345678?text=Hola%2C%20quiero%20reservar%20una%20cita" target="_blank" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <!-- CHATBOT TRIGGER -->
+  <button class="chat-trigger" id="chatTrigger" aria-label="Abrir chat">
+    ✂️
+    <span class="chat-badge" id="chatBadge">1</span>
+  </button>
+
+  <!-- CHATBOT WINDOW -->
+  <div class="chat-window" id="chatWindow" role="dialog" aria-label="Chat Élite Barber">
+    <div class="chat-header">
+      <div class="chat-avatar">✂️</div>
+      <div class="chat-header-info">
+        <div class="chat-header-name">Élite Barber ✂️</div>
+        <div class="chat-header-status">● En línea</div>
+      </div>
+      <button class="chat-close" id="chatClose" aria-label="Cerrar chat">✕</button>
     </div>
-    <div class="contact-item">
-      <span class="contact-label">Horario</span>
-      <span class="contact-value">Lun – Sáb: 10:00 – 21:00<br>Domingos cerrado</span>
-    </div>
-    <div class="contact-item">
-      <span class="contact-label">Instagram</span>
-      <span class="contact-value"><a href="https://instagram.com/kazawi_barber" target="_blank">@kazawi_barber</a></span>
-    </div>
-  </div>
-</section>
-
-<!-- ── FOOTER ── -->
-<footer>
-  <span>© 2025 Kazawi Barber · Madrid</span>
-  <span>C. de Embajadores, 186 · Arganzuela</span>
-</footer>
-
-<!-- ── FAB WHATSAPP ── -->
-<a href="https://wa.me/34641391678?text=Hola%2C%20quiero%20reservar%20una%20cita" target="_blank" class="fab-wa" title="Reservar por WhatsApp">
-  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.126 1.533 5.862L0 24l6.335-1.51A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.369l-.358-.215-3.762.896.955-3.66-.234-.374A9.818 9.818 0 1112 21.818z"/></svg>
-</a>
-
-<!-- ── FAB CHATBOT ── -->
-<div class="fab-chat" id="chatBtn" onclick="toggleChat()" title="Chat">
-  💬
-  <div class="fab-chat-badge" id="chatBadge">1</div>
-</div>
-
-<!-- ── CHAT WINDOW ── -->
-<div class="chat-window hidden" id="chatWindow">
-  <div class="chat-header">
-    <div class="chat-avatar">✂️</div>
-    <div class="chat-header-info">
-      <span class="chat-header-name">Kazawi Barber ✂️</span>
-      <span class="chat-header-status">● En línea</span>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-chips" id="chatChips"></div>
+    <div class="chat-input-row" id="chatInputRow" style="display:none;">
+      <input class="chat-input" id="chatInput" type="text" placeholder="Escribe aquí..." />
+      <button class="chat-send" id="chatSend" aria-label="Enviar">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
     </div>
   </div>
-  <div class="chat-messages" id="chatMessages"></div>
-  <div class="chat-options" id="chatOptions"></div>
-  <div class="chat-input-row" id="chatInputRow" style="display:none;">
-    <input type="text" class="chat-input" id="chatInput" placeholder="Escribe aquí..." />
-    <button class="chat-send" onclick="sendFreeText()">
-      <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-    </button>
-  </div>
-</div>
 
-<script>
-  /* ── NAVBAR SCROLL ── */
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 20);
-  }, { passive: true });
+  <script>
+    // ── NAVBAR SCROLL ──
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
 
-  /* ── FADE-IN OBSERVER ── */
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
+    // ── INTERSECTION OBSERVER ──
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-up, .review-card, .service-list li').forEach(el => io.observe(el));
+
+    // Stagger delays
+    document.querySelectorAll('.service-list li').forEach((li, i) => {
+      li.style.transitionDelay = i * 80 + 'ms';
+    });
+    document.querySelectorAll('.review-card').forEach((c, i) => {
+      c.style.transitionDelay = i * 100 + 'ms';
+    });
+
+    // ── CHATBOT ──
+    const chatTrigger  = document.getElementById('chatTrigger');
+    const chatWindow   = document.getElementById('chatWindow');
+    const chatClose    = document.getElementById('chatClose');
+    const chatBadge    = document.getElementById('chatBadge');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatChips    = document.getElementById('chatChips');
+    const chatInputRow = document.getElementById('chatInputRow');
+    const chatInput    = document.getElementById('chatInput');
+    const chatSend     = document.getElementById('chatSend');
+
+    let isOpen = false;
+    let booking = {};
+
+    function openChat() {
+      isOpen = true;
+      chatWindow.classList.add('open');
+      chatBadge.style.display = 'none';
+      if (!chatMessages.children.length) startChat();
+    }
+    function closeChat() {
+      isOpen = false;
+      chatWindow.classList.remove('open');
+    }
+
+    chatTrigger.addEventListener('click', () => isOpen ? closeChat() : openChat());
+    chatClose.addEventListener('click', closeChat);
+
+    function addMsg(html, type = 'bot') {
+      const d = document.createElement('div');
+      d.className = 'msg msg-' + type;
+      d.innerHTML = html;
+      chatMessages.appendChild(d);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function setChips(labels, handler) {
+      chatChips.innerHTML = '';
+      chatInputRow.style.display = 'none';
+      labels.forEach(label => {
+        const btn = document.createElement('button');
+        btn.className = 'chip';
+        btn.textContent = label;
+        btn.addEventListener('click', () => {
+          addMsg(label, 'user');
+          chatChips.innerHTML = '';
+          handler(label);
+        });
+        chatChips.appendChild(btn);
+      });
+    }
+
+    function setInput(placeholder, handler) {
+      chatChips.innerHTML = '';
+      chatInputRow.style.display = 'flex';
+      chatInput.placeholder = placeholder;
+      chatInput.value = '';
+      chatSend.onclick = null;
+      chatInput.onkeydown = null;
+      setTimeout(() => chatInput.focus(), 50);
+
+      function submit() {
+        const val = chatInput.value.trim();
+        if (!val) return;
+        addMsg(val, 'user');
+        chatInputRow.style.display = 'none';
+        handler(val);
       }
-    });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-  /* ── CHATBOT ── */
-  let chatOpen = false;
-  let chatInited = false;
-  let state = 'INICIO';
-  let booking = { servicio: '', dia: '', hora: '', nombre: '', tel: '' };
-
-  function toggleChat() {
-    chatOpen = !chatOpen;
-    document.getElementById('chatWindow').classList.toggle('hidden', !chatOpen);
-    document.getElementById('chatBadge').style.display = chatOpen ? 'none' : 'flex';
-    if (chatOpen && !chatInited) {
-      chatInited = true;
-      startChat();
+      chatSend.onclick = submit;
+      chatInput.onkeydown = e => { if (e.key === 'Enter') submit(); };
     }
-  }
 
-  function startChat() {
-    state = 'INICIO';
-    booking = { servicio: '', dia: '', hora: '', nombre: '', tel: '' };
-    addBotMsg('¡Hola! 👋 ¿En qué puedo ayudarte?');
-    setOptions([
-      { label: '✂️ Reservar cita',   value: 'RESERVAR' },
-      { label: '💶 Precios',          value: 'PRECIOS' },
-      { label: '📍 Cómo llegar',      value: 'LLEGAR' },
-      { label: '⏰ Horario',           value: 'HORARIO' }
-    ]);
-  }
-
-  function addBotMsg(text) {
-    const div = document.createElement('div');
-    div.className = 'msg msg-bot';
-    div.innerHTML = text.replace(/\n/g, '<br>');
-    document.getElementById('chatMessages').appendChild(div);
-    scrollChat();
-  }
-
-  function addUserMsg(text) {
-    const div = document.createElement('div');
-    div.className = 'msg msg-user';
-    div.textContent = text;
-    document.getElementById('chatMessages').appendChild(div);
-    scrollChat();
-  }
-
-  function scrollChat() {
-    const m = document.getElementById('chatMessages');
-    setTimeout(() => { m.scrollTop = m.scrollHeight; }, 50);
-  }
-
-  function setOptions(opts) {
-    const container = document.getElementById('chatOptions');
-    container.innerHTML = '';
-    document.getElementById('chatInputRow').style.display = 'none';
-    opts.forEach(opt => {
-      const btn = document.createElement('button');
-      btn.className = 'chat-opt';
-      btn.textContent = opt.label;
-      btn.onclick = () => handleOption(opt.value, opt.label);
-      container.appendChild(btn);
-    });
-  }
-
-  function showInput(placeholder) {
-    document.getElementById('chatOptions').innerHTML = '';
-    const row = document.getElementById('chatInputRow');
-    row.style.display = 'flex';
-    const input = document.getElementById('chatInput');
-    input.placeholder = placeholder || 'Escribe aquí...';
-    input.value = '';
-    setTimeout(() => input.focus(), 100);
-    input.onkeydown = e => { if (e.key === 'Enter') sendFreeText(); };
-  }
-
-  function sendFreeText() {
-    const val = document.getElementById('chatInput').value.trim();
-    if (!val) return;
-    addUserMsg(val);
-    document.getElementById('chatInput').value = '';
-    document.getElementById('chatInputRow').style.display = 'none';
-    handleFreeText(val);
-  }
-
-  function handleOption(value, label) {
-    addUserMsg(label);
-    document.getElementById('chatOptions').innerHTML = '';
-
-    switch (value) {
-      case 'RESERVAR':
-        state = 'RESERVAR_SERVICIO';
-        setTimeout(() => {
-          addBotMsg('¿Qué servicio necesitas?');
-          setOptions([
-            { label: '✂️ Corte (20€)',              value: 'Corte' },
-            { label: '🔥 Fade/Degradado (25€)',      value: 'Fade / Degradado' },
-            { label: '✂️🧔 Corte + Barba (33€)',    value: 'Corte + Barba' },
-            { label: '🧔 Barba (15€)',               value: 'Barba' },
-            { label: '🎨 Color/Mechas (desde 45€)', value: 'Color / Mechas' }
-          ]);
-        }, 380);
-        break;
-
-      case 'PRECIOS':
-        setTimeout(() => {
-          addBotMsg('💶 <strong>Nuestros precios:</strong>\n\n✂️ Corte — 20€\n🔥 Fade/Degradado — 25€\n✂️🧔 Corte + Barba — 33€\n🧔 Barba — 15€\n🎨 Color/Mechas — desde 45€\n\n¿Quieres reservar?');
-          setOptions([
-            { label: '✅ Sí, reservar', value: 'RESERVAR' },
-            { label: '← Volver',        value: 'RESET' }
-          ]);
-        }, 380);
-        break;
-
-      case 'LLEGAR':
-        setTimeout(() => {
-          addBotMsg('📍 Estamos en <strong>C. de Embajadores, 186</strong>, Arganzuela, Madrid.\n\nMetro: Lavapiés (L3) o Embajadores (L3/L5).');
-          setOptions([{ label: '← Volver', value: 'RESET' }]);
-        }, 380);
-        break;
-
-      case 'HORARIO':
-        setTimeout(() => {
-          addBotMsg('⏰ <strong>Lunes a Sábado: 10:00 – 21:00</strong>\nDomingos cerrado.');
-          setOptions([{ label: '← Volver', value: 'RESET' }]);
-        }, 380);
-        break;
-
-      case 'RESET':
-        setTimeout(() => {
-          document.getElementById('chatMessages').innerHTML = '';
-          startChat();
-        }, 300);
-        break;
-
-      default:
-        // Comes from service / day / hour options
-        if (state === 'RESERVAR_SERVICIO') {
-          booking.servicio = value;
-          state = 'RESERVAR_DIA';
-          setTimeout(() => {
-            addBotMsg('¿Qué día prefieres?');
-            setOptions(['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'].map(d => ({ label: d, value: d })));
-          }, 380);
-
-        } else if (state === 'RESERVAR_DIA') {
-          booking.dia = value;
-          state = 'RESERVAR_HORA';
-          setTimeout(() => {
-            addBotMsg('¿A qué hora?');
-            setOptions(['10:00','11:30','13:00','15:00','16:30','18:00','19:30'].map(h => ({ label: h, value: h })));
-          }, 380);
-
-        } else if (state === 'RESERVAR_HORA') {
-          booking.hora = value;
-          state = 'RESERVAR_NOMBRE';
-          setTimeout(() => {
-            addBotMsg('¿Tu nombre?');
-            showInput('Escribe tu nombre...');
-          }, 380);
-        }
-        break;
+    function startChat() {
+      booking = {};
+      setTimeout(() => {
+        addMsg('¡Hola! 👋 ¿En qué puedo ayudarte?');
+        setChips(['Reservar cita', 'Precios', 'Cómo llegar', 'Horario'], handleInicio);
+      }, 300);
     }
-  }
 
-  function handleFreeText(val) {
-    if (state === 'RESERVAR_NOMBRE') {
+    function backToStart() {
+      setTimeout(startChat, 300);
+    }
+
+    function handleInicio(opt) {
+      if (opt === 'Reservar cita') {
+        setTimeout(() => {
+          addMsg('¡Perfecto! ¿Qué servicio quieres?');
+          setChips(['Corte 20€','Fade 25€','Corte+Barba 33€','Barba 15€','Color desde 45€'], handleServicio);
+        }, 400);
+      } else if (opt === 'Precios') {
+        setTimeout(() => {
+          addMsg('Nuestros precios:<br>✂️ Corte — <strong>20€</strong><br>🌀 Fade — <strong>25€</strong><br>✂️🪒 Corte+Barba — <strong>33€</strong><br>🪒 Barba — <strong>15€</strong><br>🎨 Color/Mechas — <strong>desde 45€</strong>');
+          setChips(['Reservar cita', 'Volver al inicio'], opt2 => {
+            if (opt2 === 'Volver al inicio') backToStart();
+            else { setTimeout(() => { addMsg('¿Qué servicio quieres?'); setChips(['Corte 20€','Fade 25€','Corte+Barba 33€','Barba 15€','Color desde 45€'], handleServicio); }, 400); }
+          });
+        }, 400);
+      } else if (opt === 'Cómo llegar') {
+        setTimeout(() => {
+          addMsg('📍 Estamos en <strong>Calle de Fuencarral, 42, Madrid</strong>.<br>Metro: Tribunal (L10) o Bilbao (L4).<br>Bus: 3, 40, 149.');
+          setChips(['Reservar cita', 'Volver al inicio'], opt2 => {
+            if (opt2 === 'Volver al inicio') backToStart();
+            else { setTimeout(() => { addMsg('¿Qué servicio quieres?'); setChips(['Corte 20€','Fade 25€','Corte+Barba 33€','Barba 15€','Color desde 45€'], handleServicio); }, 400); }
+          });
+        }, 400);
+      } else if (opt === 'Horario') {
+        setTimeout(() => {
+          addMsg('⏰ Abrimos <strong>Lunes a Sábado de 10:00 a 21:00</strong>.<br>Domingos cerrado.');
+          setChips(['Reservar cita', 'Volver al inicio'], opt2 => {
+            if (opt2 === 'Volver al inicio') backToStart();
+            else { setTimeout(() => { addMsg('¿Qué servicio quieres?'); setChips(['Corte 20€','Fade 25€','Corte+Barba 33€','Barba 15€','Color desde 45€'], handleServicio); }, 400); }
+          });
+        }, 400);
+      }
+    }
+
+    function handleServicio(opt) {
+      booking.servicio = opt;
+      setTimeout(() => {
+        addMsg('¿Qué día te viene mejor?');
+        setChips(['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'], handleDia);
+      }, 400);
+    }
+
+    function handleDia(opt) {
+      booking.dia = opt;
+      setTimeout(() => {
+        addMsg('¿A qué hora?');
+        setChips(['10:00','11:30','13:00','15:00','16:30','18:00','19:30'], handleHora);
+      }, 400);
+    }
+
+    function handleHora(opt) {
+      booking.hora = opt;
+      setTimeout(() => {
+        addMsg('¿Cuál es tu nombre?');
+        setInput('Tu nombre...', handleNombre);
+      }, 400);
+    }
+
+    function handleNombre(val) {
       booking.nombre = val;
-      state = 'RESERVAR_TEL';
       setTimeout(() => {
-        addBotMsg('¿Tu teléfono?');
-        showInput('Ej: 612 345 678');
-      }, 380);
+        addMsg('¿Y tu número de teléfono?');
+        setInput('Ej: 612 345 678', handleTelefono);
+      }, 400);
+    }
 
-    } else if (state === 'RESERVAR_TEL') {
+    function handleTelefono(val) {
       booking.tel = val;
-      state = 'DONE';
       setTimeout(() => {
-        addBotMsg(
-          `✅ <strong>¡Perfecto, ${booking.nombre}!</strong> Cita solicitada:\n\n` +
-          `✂️ ${booking.servicio}\n` +
-          `📅 ${booking.dia} a las ${booking.hora}\n\n` +
-          `Te confirmamos al ${booking.tel} por WhatsApp. ¡Hasta pronto! 💈`
+        addMsg(
+          '✅ ¡Perfecto, <strong>' + booking.nombre + '</strong>! Cita solicitada:<br>' +
+          '✂️ ' + booking.servicio + '<br>' +
+          '📅 ' + booking.dia + ' a las ' + booking.hora + '<br><br>' +
+          'Te confirmamos al <strong>' + booking.tel + '</strong> por WhatsApp. ¡Hasta pronto! 💈'
         );
         setTimeout(() => {
-          setOptions([{ label: '← Nueva consulta', value: 'RESET' }]);
+          setChips(['Nueva consulta'], () => {
+            chatMessages.innerHTML = '';
+            startChat();
+          });
         }, 600);
-      }, 380);
+      }, 500);
     }
-  }
-</script>
-
+  </script>
 </body>
 </html>
