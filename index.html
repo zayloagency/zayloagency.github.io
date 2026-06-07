@@ -1610,8 +1610,8 @@ async function askNoches(){
 async function askNochesV(){
   askInput(async v=>{
     const n=parseInt(v);
-    if(isNaN(n)||n<2){addT();await wait(400);rmT();
-      await addM('La estancia mínima es de 2 noches 🌙 ¿Cuántas noches serían?');
+    if(isNaN(n)||n<2||!/^\d+$/.test(v.trim())){addT();await wait(400);rmT();
+      await addM('La estancia mínima es de 2 noches 🌙 Escribe solo el número. Ej: <strong>3</strong>');
       askNochesV();return;}
     res.noches=n;askPers();
   });
