@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>La Tajuela · Casa Rural · Bohonal de Ibor, Cáceres</title>
+  <meta name="description" content="Un templo de tranquilidad en el corazón de Extremadura. 3 suites, piscina climatizada 365 días, rutas, gastronomía y patrimonio a tu puerta."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --cream:#faf7f2;--cream2:#f3ede2;--stone:#e4dbd0;
+      --forest:#2d4a2a;--forest2:#1e3319;--forest3:#3d6435;
+      --gold:#b8923a;--gold2:#d4a84b;
+      --text:#1a1a14;--text2:#454035;--muted:#7a7060;--white:#fff;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;line-height:1.6}
+    ::-webkit-scrollbar{width:5px}
+    ::-webkit-scrollbar-track{background:var(--cream)}
+    ::-webkit-scrollbar-thumb{background:var(--forest);border-radius:3px}
+    img{display:block;max-width:100%;height:auto}
+
+    /* ── NAV ── */
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;height:66px;padding:0 48px;display:flex;align-items:center;justify-content:space-between;transition:background .35s,box-shadow .35s}
+    nav.solid{background:rgba(250,247,242,.96);backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(0,0,0,.07)}
+    .nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:500;color:#fff;text-decoration:none;letter-spacing:.06em;transition:color .3s}
+    nav.solid .nav-logo{color:var(--forest)}
+    .nav-links{display:flex;gap:26px;list-style:none}
+    .nav-links a{font-size:.75rem;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.82);text-decoration:none;transition:color .2s}
+    nav.solid .nav-links a{color:var(--text2)}
+    .nav-links a:hover,.nav-links a:hover{color:var(--gold)}
+    .nav-wa{background:#25d366;color:#fff !important;padding:8px 18px;border-radius:40px;font-weight:600 !important;transition:background .2s !important}
+    .nav-wa:hover{background:#1fab52 !important}
+
+    /* ── HERO ── */
+    #hero{position:relative;height:100vh;min-height:580px;overflow:hidden}
+    .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+    .hero-ov{position:absolute;inset:0;background:linear-gradient(160deg,rgba(10,22,8,.65) 0%,rgba(10,22,8,.35) 55%,rgba(10,22,8,.7) 100%)}
+    .hero-c{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 24px}
+    .hero-tag{display:inline-block;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.28);padding:6px 20px;border-radius:40px;margin-bottom:26px;backdrop-filter:blur(4px);background:rgba(255,255,255,.05)}
+    h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,7vw,5.8rem);font-weight:400;line-height:1.07;color:#fff;margin-bottom:16px}
+    h1 em{font-style:italic;color:var(--gold2)}
+    .hero-sub{font-size:1.05rem;color:rgba(255,255,255,.72);font-weight:300;margin-bottom:40px;max-width:520px;line-height:1.75}
+    .hero-btns{display:flex;gap:13px;flex-wrap:wrap;justify-content:center}
+    .bwa{display:inline-flex;align-items:center;gap:9px;background:#25d366;color:#fff;padding:14px 28px;border-radius:50px;font-size:.9rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:background .25s,transform .2s;box-shadow:0 4px 20px rgba(37,211,102,.35)}
+    .bwa:hover{background:#1fab52;transform:translateY(-2px)}
+    .bgh{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.11);color:#fff;border:1px solid rgba(255,255,255,.33);padding:14px 28px;border-radius:50px;font-size:.9rem;font-weight:500;text-decoration:none;backdrop-filter:blur(6px);transition:background .25s,transform .2s;cursor:pointer}
+    .bgh:hover{background:rgba(255,255,255,.2);transform:translateY(-2px)}
+    .hero-scroll{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,.42);font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;animation:bob 2.2s infinite}
+    .hero-scroll::after{content:'';display:block;width:1px;height:34px;background:linear-gradient(rgba(255,255,255,.38),transparent)}
+    @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(7px)}}
+
+    /* ── STATS ── */
+    .stats{background:var(--forest2);display:flex;justify-content:center}
+    .s-it{padding:22px 44px;text-align:center;border-right:1px solid rgba(255,255,255,.1)}
+    .s-it:last-child{border:none}
+    .s-n{font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--gold2);line-height:1}
+    .s-l{font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.48);margin-top:4px}
+
+    /* ── COMMON ── */
+    section{padding:96px 48px}
+    .co{max-width:1100px;margin:0 auto}
+    .cw{max-width:1200px;margin:0 auto}
+    .sl{display:block;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+    h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:400;line-height:1.15;color:var(--forest);margin-bottom:20px}
+    h2 em{font-style:italic;color:var(--gold)}
+    .body-text{font-size:.97rem;color:var(--text2);line-height:1.85;max-width:560px}
+    .reveal{opacity:0;transform:translateY(26px);transition:opacity .65s ease,transform .65s ease}
+    .reveal.v{opacity:1;transform:none}
+    .rl{opacity:0;transform:translateX(-26px);transition:opacity .65s ease,transform .65s ease}
+    .rl.v{opacity:1;transform:none}
+    .rr{opacity:0;transform:translateX(26px);transition:opacity .65s ease,transform .65s ease}
+    .rr.v{opacity:1;transform:none}
+    .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+    /* ── HISTORIA ── */
+    #historia{background:var(--white)}
+    .hist-g{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+    .hist-imgs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .hist-imgs img{border-radius:10px;object-fit:cover;height:200px;width:100%}
+    .hist-imgs img:first-child{grid-column:1/-1;height:270px}
+    .hist-q{margin-top:32px;padding:20px 24px;background:var(--cream);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;color:var(--forest);line-height:1.65}
+
+    /* ── SUITES ── */
+    #suites{background:var(--cream)}
+    .su-g{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:54px}
+    .su-c{background:var(--white);border-radius:16px;overflow:hidden;box-shadow:0 2px 18px rgba(0,0,0,.06);transition:transform .35s,box-shadow .35s}
+    .su-c:hover{transform:translateY(-6px);box-shadow:0 14px 42px rgba(0,0,0,.12)}
+    .su-img{height:238px;overflow:hidden}
+    .su-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+    .su-c:hover .su-img img{transform:scale(1.05)}
+    .su-b{padding:28px}
+    .su-badge{display:inline-block;font-size:.66rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:3px 12px;border-radius:40px;margin-bottom:11px}
+    .su-name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--forest);margin-bottom:8px}
+    .su-desc{font-size:.84rem;color:var(--muted);line-height:1.7;margin-bottom:17px}
+    .su-feats{display:flex;flex-wrap:wrap;gap:7px}
+    .su-feat{font-size:.73rem;color:var(--text2);background:var(--cream);padding:4px 11px;border-radius:40px}
+
+    /* ── AMENIDADES ── */
+    #amenidades{background:var(--forest)}
+    .am-g{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .am-c{padding:26px 20px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);transition:background .3s,border-color .3s,transform .3s}
+    .am-c:hover{background:rgba(255,255,255,.08);border-color:rgba(184,146,58,.4);transform:translateY(-3px)}
+    .am-ic{font-size:1.7rem;margin-bottom:11px}
+    .am-n{font-family:'Cormorant Garamond',serif;font-size:1.08rem;color:#fff;margin-bottom:5px}
+    .am-d{font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.6}
+
+    /* ── GALERÍA ── */
+    #galeria{background:var(--cream2);padding-bottom:80px}
+    .ga-g{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:210px;gap:9px;margin-top:46px}
+    .ga-i{overflow:hidden;border-radius:10px;cursor:pointer}
+    .ga-i img{width:100%;height:100%;object-fit:cover;transition:transform .45s}
+    .ga-i:hover img{transform:scale(1.07)}
+    .ga-i.w{grid-column:span 2}
+    .ga-i.t{grid-row:span 2}
+
+    /* ── ENTORNO ── */
+    #entorno{background:var(--white)}
+    .en-intro{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;margin-bottom:64px}
+    .en-g{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+    .en-c{border-radius:16px;overflow:hidden;position:relative;height:290px;transition:transform .35s,box-shadow .35s}
+    .en-c:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.16)}
+    .en-c img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+    .en-c:hover img{transform:scale(1.05)}
+    .en-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,18,6,.82) 0%,rgba(8,18,6,.08) 60%);padding:22px;display:flex;flex-direction:column;justify-content:flex-end}
+    .en-dist{font-size:.67rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold2);margin-bottom:5px}
+    .en-name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:#fff}
+    .en-sub{font-size:.78rem;color:rgba(255,255,255,.62);margin-top:4px}
+
+    /* ── PLANES / RECOMENDACIONES ── */
+    #planes{background:var(--cream)}
+    .tabs{display:flex;gap:0;margin-bottom:44px;border-bottom:2px solid var(--stone)}
+    .tab{padding:13px 26px;font-size:.87rem;font-weight:500;cursor:pointer;border:none;background:none;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .25s,border-color .25s;font-family:'Inter',sans-serif}
+    .tab.on{color:var(--forest);border-bottom-color:var(--gold)}
+    .panel{display:none}
+    .panel.on{display:block}
+    .plan-grid{display:grid;grid-template-columns:420px 1fr;gap:56px;align-items:start}
+    .plan-img{border-radius:14px;overflow:hidden;height:380px}
+    .plan-img img{width:100%;height:100%;object-fit:cover}
+    .plan-tag{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+    .plan-title{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--forest);margin-bottom:14px}
+    .plan-body{font-size:.9rem;color:var(--text2);line-height:1.82;margin-bottom:18px}
+    /* itinerario */
+    .itin{display:flex;flex-direction:column;gap:0;margin-bottom:24px}
+    .itin-row{display:flex;gap:16px;padding:12px 0;border-bottom:1px solid var(--stone)}
+    .itin-row:last-child{border:none}
+    .itin-time{font-size:.75rem;font-weight:600;color:var(--gold);width:56px;flex-shrink:0;padding-top:2px}
+    .itin-text{font-size:.87rem;color:var(--text2);line-height:1.65}
+    .itin-text strong{color:var(--text);display:block;margin-bottom:2px}
+    /* restaurantes */
+    .rests{display:flex;flex-direction:column;gap:12px;margin-bottom:20px}
+    .rest-c{padding:16px 18px;background:var(--white);border-radius:10px;border:1px solid var(--stone);transition:border-color .25s}
+    .rest-c:hover{border-color:var(--gold)}
+    .rest-name{font-weight:600;font-size:.9rem;color:var(--forest);margin-bottom:3px}
+    .rest-badge{display:inline-block;font-size:.66rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:var(--gold);color:#fff;padding:2px 8px;border-radius:4px;margin-bottom:6px}
+    .rest-desc{font-size:.83rem;color:var(--text2);line-height:1.6}
+    .rest-price{font-size:.78rem;color:var(--muted);margin-top:4px}
+    .plan-badge{display:inline-block;margin-top:4px;background:var(--forest);color:#fff;padding:9px 18px;border-radius:7px;font-size:.82rem;font-weight:500}
+
+    /* ── RUTAS ── */
+    #rutas{background:var(--white)}
+    .rut-g{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:48px}
+    .rut-c{border-radius:14px;border:1px solid var(--stone);background:var(--cream);overflow:hidden;transition:border-color .25s,box-shadow .25s}
+    .rut-c:hover{border-color:var(--gold);box-shadow:0 6px 28px rgba(0,0,0,.08)}
+    .rut-head{padding:24px 24px 0}
+    .rut-num{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+    .rut-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--forest);margin-bottom:12px}
+    .rut-stats{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+    .rut-stat{font-size:.76rem;color:var(--muted);display:flex;align-items:center;gap:4px}
+    .rut-stat strong{color:var(--text2)}
+    .rut-body{padding:0 24px 10px}
+    .rut-desc{font-size:.84rem;color:var(--text2);line-height:1.72;margin-bottom:12px}
+    .rut-pois{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
+    .rut-poi{font-size:.73rem;color:var(--forest);background:rgba(45,74,42,.1);padding:4px 10px;border-radius:40px}
+    .rut-foot{padding:16px 24px;border-top:1px solid var(--stone);display:flex;justify-content:space-between;align-items:center}
+    .rut-dif{font-size:.74rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:4px 12px;border-radius:40px}
+    .dif-easy{background:rgba(74,222,128,.15);color:#166534}
+    .dif-med{background:rgba(251,191,36,.15);color:#92400e}
+    .dif-hard{background:rgba(239,68,68,.12);color:#991b1b}
+    .rut-link{font-size:.78rem;font-weight:500;color:var(--gold);text-decoration:none}
+    .rut-link:hover{text-decoration:underline}
+
+    /* ── INFO PRÁCTICA ── */
+    #info{background:var(--forest2)}
+    .inf-g{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .inf-c{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:26px;transition:background .3s,border-color .3s}
+    .inf-c:hover{background:rgba(255,255,255,.09);border-color:rgba(184,146,58,.35)}
+    .inf-ic{font-size:1.5rem;margin-bottom:10px}
+    .inf-lb{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold2);margin-bottom:7px}
+    .inf-val{font-size:.9rem;color:#fff;line-height:1.7}
+    .inf-note{font-size:.76rem;color:rgba(255,255,255,.42);margin-top:4px}
+
+    /* ── CONTACTO ── */
+    #contacto{background:var(--cream)}
+    .con-g{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+    .map-w{border-radius:14px;overflow:hidden;border:1px solid var(--stone)}
+    .map-w iframe{display:block;width:100%;height:370px;filter:saturate(.85)}
+    .con-its{display:flex;flex-direction:column;gap:13px;margin-bottom:26px}
+    .con-it{display:flex;gap:14px;align-items:flex-start;padding:18px;background:var(--white);border-radius:11px;border:1px solid var(--stone);transition:border-color .25s}
+    .con-it:hover{border-color:var(--gold)}
+    .con-ic{font-size:1.25rem;margin-top:2px}
+    .con-lb{font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+    .con-val{font-size:.88rem;color:var(--text);line-height:1.65}
+    .con-val a{color:var(--text);text-decoration:none}
+    .con-val a:hover{color:var(--gold)}
+    .btn-stack{display:flex;flex-direction:column;gap:11px}
+    .bf{display:flex;align-items:center;gap:10px;justify-content:center;background:var(--forest);color:#fff;padding:15px 22px;border-radius:10px;font-size:.88rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:background .25s,transform .2s;font-family:'Inter',sans-serif}
+    .bf:hover{background:var(--forest2);transform:translateY(-2px)}
+    .bb{display:flex;align-items:center;gap:10px;justify-content:center;background:transparent;color:var(--forest);border:1.5px solid var(--forest);padding:14px 22px;border-radius:10px;font-size:.88rem;font-weight:500;text-decoration:none;cursor:pointer;transition:all .25s;font-family:'Inter',sans-serif}
+    .bb:hover{background:var(--forest);color:#fff;transform:translateY(-2px)}
+
+    /* ── FOOTER ── */
+    footer{background:var(--forest2);padding:52px 48px 32px}
+    .ft-i{max-width:1100px;margin:0 auto}
+    .ft-t{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.08)}
+    .ft-logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gold2);margin-bottom:14px}
+    .ft-desc{font-size:.83rem;color:rgba(255,255,255,.44);line-height:1.8;max-width:280px}
+    .ft-cnt{margin-top:20px;display:flex;flex-direction:column;gap:7px}
+    .ft-cnt a{font-size:.82rem;color:rgba(255,255,255,.48);text-decoration:none;transition:color .2s}
+    .ft-cnt a:hover{color:var(--gold2)}
+    .ft-ct{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold2);margin-bottom:16px}
+    .ft-links{display:flex;flex-direction:column;gap:9px}
+    .ft-links a{font-size:.83rem;color:rgba(255,255,255,.48);text-decoration:none;transition:color .2s}
+    .ft-links a:hover{color:#fff}
+    .ft-b{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;padding-top:28px}
+    .ft-copy{font-size:.74rem;color:rgba(255,255,255,.28)}
+    .ft-reg{font-size:.66rem;color:rgba(255,255,255,.18);margin-top:4px}
+    .ft-soc{display:flex;gap:9px}
+    .ft-soc a{width:33px;height:33px;border-radius:50%;border:1px solid rgba(255,255,255,.11);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:.88rem;transition:border-color .25s,background .25s}
+    .ft-soc a:hover{border-color:var(--gold2);background:rgba(184,146,58,.14)}
+
+    /* ── WA FLOAT ── */
+    .wa-f{position:fixed;bottom:28px;right:28px;z-index:400;width:56px;height:56px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);text-decoration:none;transition:transform .2s,box-shadow .2s}
+    .wa-f:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(37,211,102,.55)}
+    .wa-f svg{width:28px;height:28px;fill:#fff}
+
+    /* ── CHAT ── */
+    .ch-tr{position:fixed;bottom:28px;left:28px;z-index:400;width:56px;height:56px;border-radius:50%;background:var(--forest);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.4rem;box-shadow:0 4px 20px rgba(45,74,42,.45);transition:transform .2s,box-shadow .2s}
+    .ch-tr:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(45,74,42,.6)}
+    .ch-b{position:absolute;top:-4px;right:-4px;width:20px;height:20px;border-radius:50%;background:#e53e3e;color:#fff;font-size:.63rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--cream)}
+    .ch-w{position:fixed;bottom:96px;left:28px;z-index:500;width:355px;max-height:540px;background:var(--white);border:1px solid var(--stone);border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.14);display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateY(12px) scale(.97);transition:all .3s cubic-bezier(.34,1.56,.64,1);overflow:hidden}
+    .ch-w.open{opacity:1;pointer-events:all;transform:none}
+    .ch-h{background:var(--forest);padding:15px 17px;display:flex;align-items:center;gap:11px}
+    .ch-av{width:37px;height:37px;border-radius:50%;background:var(--gold2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.05rem}
+    .ch-hn{font-weight:600;font-size:.87rem;color:#fff}
+    .ch-hs{font-size:.68rem;color:rgba(255,255,255,.58);display:flex;align-items:center;gap:5px;margin-top:2px}
+    .ch-dot{width:6px;height:6px;border-radius:50%;background:#4ade80}
+    .ch-x{margin-left:auto;background:rgba(255,255,255,.11);border:none;color:#fff;width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.85rem;transition:background .2s}
+    .ch-x:hover{background:rgba(255,255,255,.22)}
+    .ch-ms{flex:1;overflow-y:auto;padding:15px 12px;display:flex;flex-direction:column;gap:9px;scroll-behavior:smooth}
+    .ch-ms::-webkit-scrollbar{width:3px}
+    .ch-ms::-webkit-scrollbar-thumb{background:var(--stone);border-radius:2px}
+    .mb,.mu{max-width:88%;padding:10px 14px;border-radius:14px;font-size:.85rem;line-height:1.6;animation:mi .2s ease}
+    @keyframes mi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+    .mb{background:var(--cream2);color:var(--text);border-bottom-left-radius:4px;align-self:flex-start}
+    .mu{background:var(--forest);color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
+    .cops{display:flex;flex-direction:column;gap:6px;margin-top:3px}
+    .cop{background:#fff;color:var(--forest);border:1.5px solid var(--stone);padding:9px 14px;border-radius:10px;font-size:.81rem;font-weight:500;cursor:pointer;text-align:left;display:flex;align-items:center;gap:7px;transition:all .2s;font-family:'Inter',sans-serif}
+    .cop:hover{background:var(--forest);color:#fff;border-color:var(--forest)}
+    .ci-r{padding:11px 12px;border-top:1px solid var(--stone);display:flex;gap:8px;align-items:center}
+    .ci{flex:1;background:var(--cream);border:1.5px solid var(--stone);border-radius:10px;padding:9px 12px;font-size:.83rem;font-family:'Inter',sans-serif;color:var(--text);outline:none;transition:border-color .2s}
+    .ci:focus{border-color:var(--forest)}
+    .ci::placeholder{color:var(--muted)}
+    .cs{background:var(--forest);color:#fff;border:none;width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:.82rem;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:background .2s}
+    .cs:hover{background:var(--forest2)}
+    .cty{display:flex;gap:4px;padding:10px 14px;background:var(--cream2);border-radius:14px;border-bottom-left-radius:4px;align-self:flex-start}
+    .cty span{width:6px;height:6px;background:var(--muted);border-radius:50%;animation:ty 1.2s infinite}
+    .cty span:nth-child(2){animation-delay:.2s}.cty span:nth-child(3){animation-delay:.4s}
+    @keyframes ty{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+    .ml{display:inline-flex;align-items:center;gap:6px;background:var(--forest);color:#fff;padding:9px 15px;border-radius:8px;font-size:.81rem;font-weight:600;text-decoration:none;margin-top:7px;transition:opacity .2s}
+    .ml:hover{opacity:.85}
+    .ml-wa{background:#25d366}
+
+    /* ── LIGHTBOX ── */
+    .lb{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.93);display:none;align-items:center;justify-content:center;padding:20px}
+    .lb.open{display:flex}
+    .lb img{max-width:90vw;max-height:90vh;object-fit:contain;border-radius:8px}
+    .lb-x{position:absolute;top:18px;right:22px;background:rgba(255,255,255,.11);border:none;color:#fff;width:40px;height:40px;border-radius:50%;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+    .lb-x:hover{background:rgba(255,255,255,.24)}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:980px){
+      nav{padding:0 20px}.nav-links{display:none}
+      section{padding:68px 20px}
+      .hist-g,.en-intro,.con-g,.ft-t{grid-template-columns:1fr;gap:36px}
+      .su-g,.inf-g{grid-template-columns:1fr}
+      .am-g,.rut-g{grid-template-columns:repeat(2,1fr)}
+      .en-g{grid-template-columns:1fr}
+      .ga-g{grid-template-columns:repeat(2,1fr)}
+      .ga-i.w,.ga-i.t{grid-column:auto;grid-row:auto}
+      .plan-grid{grid-template-columns:1fr}
+      .plan-img{height:260px}
+      .s-it{padding:16px 22px}
+      .ch-w{width:calc(100vw - 32px)}
+    }
+    @media(max-width:540px){
+      .am-g{grid-template-columns:1fr}
+      .stats{flex-wrap:wrap}
+      .ga-g{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">La Tajuela</a>
+  <ul class="nav-links">
+    <li><a href="#historia">La Casa</a></li>
+    <li><a href="#suites">Suites</a></li>
+    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#entorno">Entorno</a></li>
+    <li><a href="#planes">Planes</a></li>
+    <li><a href="#rutas">Rutas</a></li>
+    <li><a href="#info">Info</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="https://wa.me/34630440942?text=Hola%2C%20quiero%20consultar%20disponibilidad" target="_blank" class="nav-wa">💬 Reservar</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <img class="hero-img" src="https://latajuelacasarural.es/wp-content/uploads/2025/06/casa-rural-la-tajuela-casa-rural-bohonal-de-ibor-20.webp" alt="Casa Rural La Tajuela"/>
+  <div class="hero-ov"></div>
+  <div class="hero-c">
+    <div class="hero-tag">📍 Bohonal de Ibor · Cáceres · Extremadura</div>
+    <h1>Un templo de <em>tranquilidad</em><br/>en el corazón de Extremadura</h1>
+    <p class="hero-sub">Casa rural boutique con 3 suites privadas, piscina climatizada todo el año y el patrimonio de Extremadura a tu puerta.</p>
+    <div class="hero-btns">
+      <a href="https://wa.me/34630440942?text=Hola%2C%20quiero%20consultar%20disponibilidad%20en%20La%20Tajuela" target="_blank" class="bwa">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Consultar disponibilidad
+      </a>
+      <button class="bgh" onclick="openChat()">✦ Hablar con el asistente</button>
+    </div>
+  </div>
+  <div class="hero-scroll">Desliza</div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="s-it"><div class="s-n">3</div><div class="s-l">Suites privadas</div></div>
+  <div class="s-it"><div class="s-n">6</div><div class="s-l">Huéspedes máx.</div></div>
+  <div class="s-it"><div class="s-n">365</div><div class="s-l">Días con piscina</div></div>
+  <div class="s-it"><div class="s-n">9/10</div><div class="s-l">Valoración media</div></div>
+</div>
+
+<!-- HISTORIA -->
+<section id="historia">
+  <div class="co">
+    <div class="hist-g">
+      <div class="hist-imgs rl">
+        <img src="https://latajuelacasarural.es/wp-content/uploads/2025/06/casa-rural-la-tajuela-casa-rural-bohonal-de-ibor-23.webp" alt="Exterior" loading="lazy"/>
+        <img src="https://latajuelacasarural.es/wp-content/uploads/2025/06/casa-rural-la-tajuela-casa-rural-bohonal-de-ibor-13.webp" alt="Interior" loading="lazy"/>
+        <img src="https://latajuelacasarural.es/wp-content/uploads/2025/06/casa-rural-la-tajuela-casa-rural-bohonal-de-ibor-24.webp" alt="Salón" loading="lazy"/>
+      </div>
+      <div class="rr">
+        <span class="sl">La Casa</span>
+        <h2>Un nombre,<br/><em>una historia</em></h2>
+        <p class="body-text">La Tajuela es una antigua vivienda familiar rehabilitada en el centro histórico de Bohonal de Ibor. Su nombre rinde homenaje al pequeño banco de madera —la "tajuela"— que usaban las mujeres del pueblo para lavar la ropa en el río Ibor.</p>
+        <p class="body-text" style="margin-top:14px">Durante la rehabilitación se conservaron el muro de piedra del patio y la piedra original de la fachada. El resultado: un hogar nuevo con alma de pueblo. El 80% del presupuesto se invierte en empresas locales de Cáceres y trabajan con energía de aerotermia.</p>
+        <div class="hist-q">"Un templo de la tranquilidad que combina historia, calidez y comodidad moderna"</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUITES -->
+<section id="suites">
+  <div class="co">
+    <div class="reveal" style="text-align:center">
+      <span class="sl">Alojamiento</span>
+      <h2 style="max-width:none">Tres suites. <em>Una sola casa.</em></h2>
+      <p style="font-size:.95rem;color:var(--text2);max-width:520px;margin:0 auto">La casa se alquila completa. No hay habitaciones sueltas ni pasillos de hotel. Solo vosotros, vuestro grupo y la sierra.</p>
+    </div>
+    <div class="su-g">
+      <div class="su-c reveal d1">
+        <div class="su-img"><img src="https://latajuelacasarural.es/wp-content/uploads/2025/06/casa-rural-la-tajuela-casa-rural-bohonal-de-ibor-7.webp" alt="Cancho La Perdiz" loading="lazy"/></div>
+        <div class="su-b">
+          <span class="su-badge">Planta baja</span>
+          <div class="su-name">Cancho La Perdiz</div>
+          <div class="su-desc">Suite en planta baja con acceso directo al patio privado y la piscina. Parcialmente accesible para movilidad reducida. Rampa móvil disponible.</div>
+          <div class="su-feats"><span class="su-feat">🛏️ Cama 150 cm</span><span class="su-feat">🚿 Baño privado</span><span class="su-feat">🚪 Acceso patio</span><span class="su-feat">♿ Accesible</span><span class="su-feat">📺 Smart TV</span><span class="su-feat">❄️ Clima individual</span></div>
+        </div>
+      </div>
+      <div class="su-c reveal d2">
+        <div class="su-img"><img src="https://latajuelacasarural.es/wp-content/uploads/2025/06/casa-rural-la-tajuela-casa-rural-bohonal-de-ibor-17.webp" alt="Cancho El Abocastro" loading="lazy"/></div>
+        <div class="su-b">
+          <span class="su-badge">Planta alta</span>
+          <div class="su-name">Cancho El Abocastro</div>
+          <div class="su-desc">Suite en planta alta con gran luminosidad y vistas a la sierra. Baño privado completo y climatización individual en toda la habitación.</div>
+          <div class="su-feats"><span class="su-feat">🛏️ Cama 150 cm</span><span class="su-feat">🚿 Baño privado</span><span class="su-feat">🏔️ Vistas sierra</span><span class="su-feat">📺 Smart TV</span><span class="su-feat">❄️ Clima individual</span></div>
+        </div>
+      </div>
+      <div class="su-c reveal d3">
+        <div class="su-img"><img src="https://latajuelacasarural.es/wp-content/uploads/2025/06/casa-rural-la-tajuela-casa-rural-bohonal-de-ibor-8.webp" alt="Cancho El Librillo" loading="lazy"/></div>
+        <div class="su-b">
+          <span class="su-badge" style="background:var(--gold);color:#fff;border-color:var(--gold)">Suite Premium</span>
+          <div class="su-name">Cancho El Librillo</div>
+          <div class="su-desc">La suite más espaciosa de las tres. Cama king size de 180 cm, baño de lujo completo y la mayor superficie habitable de la casa.</div>
+          <div class="su-feats"><span class="su-feat">🛏️ King 180 cm</span><span class="su-feat">🚿 Baño de lujo</span><span class="su-feat">📐 Más espacio</span><span class="su-feat">📺 Smart TV</span><span class="su-feat">❄️ Clima individual</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AMENIDADES -->
+<section id="amenidades">
+  <div class="co">
+    <div class="reveal" style="text-align:center">
+      <span class="sl" style="color:var(--gold2)">Incluido en tu estancia</span>
+      <h2 style="color:#fff;max-width:none;margin-bottom:52px">Todo lo que necesitas,<br/><em style="color:var(--gold2)">ya está aquí</em></h2>
+    </div>
+    <div class="am-g">
+      <div class="am-c reveal d1"><div class="am-ic">🏊</div><div class="am-n">Piscina climatizada</div><div class="am-d">Los 365 días del año. Privada, solo para vuestro grupo.</div></div>
+      <div class="am-c reveal d2"><div class="am-ic">🌡️</div><div class="am-n">Suelo radiante</div><div class="am-d">Aerotermia y climatización individual en cada suite.</div></div>
+      <div class="am-c reveal d3"><div class="am-ic">🍳</div><div class="am-n">Cocina A+++ abierta</div><div class="am-d">Equipada con todo. Salón-cocina en concepto abierto.</div></div>
+      <div class="am-c reveal d4"><div class="am-ic">🥂</div><div class="am-n">Pack de bienvenida</div><div class="am-d">AOVE local, café, cacao, infusiones y artesanía extremeña.</div></div>
+      <div class="am-c reveal d1"><div class="am-ic">🍷</div><div class="am-n">10% en Bodegas Habla</div><div class="am-d">Descuento exclusivo en catas de vino en Trujillo (45 min).</div></div>
+      <div class="am-c reveal d2"><div class="am-ic">📺</div><div class="am-n">Smart TV 65"</div><div class="am-d">En el salón común. Smart TV individual en cada suite.</div></div>
+      <div class="am-c reveal d3"><div class="am-ic">📶</div><div class="am-n">WiFi fibra + ethernet</div><div class="am-d">Alta velocidad con toma de red en el salón.</div></div>
+      <div class="am-c reveal d4"><div class="am-ic">🔥</div><div class="am-n">Barbacoa de gas</div><div class="am-d">Comedor exterior cubierto con zona de relax en el patio.</div></div>
+      <div class="am-c reveal d1"><div class="am-ic">🌿</div><div class="am-n">Amenities ecológicos</div><div class="am-d">Productos de baño biodegradables y sostenibles.</div></div>
+      <div class="am-c reveal d2"><div class="am-ic">🌙</div><div class="am-n">Cielos sin contaminación</div><div class="am-d">La Vía Láctea visible a simple vista desde el patio.</div></div>
+      <div class="am-c reveal d3"><div class="am-ic">👶</div><div class="am-n">Cunas gratuitas</div><div class="am-d">Para hasta 2 bebés (0-3 años). Niños bienvenidos.</div></div>
+      <div class="am-c reveal d4"><div class="am-ic">🔥</div><div class="am-n">Chimenea decorativa</div><div class="am-d">Chimenea eléctrica en el salón para las noches de invierno.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERÍA -->
+<section id="galeria">
+  <div class="co">
+    <div class="reveal" style="text-align:center;margin-bottom:0">
+      <span class="sl">Galería</span>
+      <h2 style="max-width:none">Cada <em>rincón</em></h2>
+    </div>
+  </div>
+  <div class="cw" style="padding:0 24px">
+    <div class="ga-g">
+      <div class="ga-i w t"><img src="https://latajuelacasarural.es/wp-content/uploads/2025/06/casa-rural-la-tajuela-casa-rural-bohonal-de-ibor-21.webp" alt="" loading="lazy" onclick="openLb(this.src)"/></div>
+      <div class="ga-i"><img src="https://latajuelacasarural.es/wp-content/uploads/2025/06/casa-rural-la-tajuela-casa-rural-bohonal-de-ibor-13.webp" alt="" loading="lazy" onclick="openLb(this.src)"/></div>
+      <div class="ga-i"><img src="https://latajuelacasarural.es/wp-content/uploads/2025/06/casa-rural-la-tajuela-casa-rural-bohonal-de-ibor-24.webp" alt="" loading="lazy" onclick="openLb(this.src)"/></div>
+      <div class="ga-i"><img src="https://latajuelacasarural.es/wp-content/uploads/2025/06/casa-rural-la-tajuela-casa-rural-bohonal-de-ibor-7.webp" alt="" loading="lazy" onclick="openLb(this.src)"/></div>
+      <div class="ga-i"><img src="https://latajuelacasarural.es/wp-content/uploads/2025/06/casa-rural-la-tajuela-casa-rural-bohonal-de-ibor-8.webp" alt="" loading="lazy" onclick="openLb(this.src)"/></div>
+      <div class="ga-i w"><img src="https://latajuelacasarural.es/wp-content/uploads/2025/06/casa-rural-la-tajuela-casa-rural-bohonal-de-ibor-17.webp" alt="" loading="lazy" onclick="openLb(this.src)"/></div>
+      <div class="ga-i"><img src="https://latajuelacasarural.es/wp-content/uploads/2025/06/casa-rural-la-tajuela-casa-rural-bohonal-de-ibor-20.webp" alt="" loading="lazy" onclick="openLb(this.src)"/></div>
+      <div class="ga-i w"><img src="https://latajuelacasarural.es/wp-content/uploads/2025/06/casa-rural-la-tajuela-casa-rural-bohonal-de-ibor-23.webp" alt="" loading="lazy" onclick="openLb(this.src)"/></div>
+      <div class="ga-i"><img src="https://latajuelacasarural.es/wp-content/uploads/2025/04/pegatinas-1-scaled-1.webp" alt="" loading="lazy" onclick="openLb(this.src)"/></div>
+    </div>
+  </div>
+</section>
+
+<!-- ENTORNO -->
+<section id="entorno">
+  <div class="co">
+    <div class="en-intro">
+      <div class="rl">
+        <span class="sl">Entorno</span>
+        <h2>La sierra cacereña,<br/><em>a tus pies</em></h2>
+        <p class="body-text">Bohonal de Ibor está en el corazón del Geoparque Villuercas-Ibores-Jara (UNESCO), a pocos kilómetros del embalse de Valdecañas y a menos de una hora de Guadalupe, Trujillo y La Vera.</p>
+        <p class="body-text" style="margin-top:14px">A solo 9 minutos a pie desde La Tajuela encontrarás las columnas romanas del Templo de los Mármoles (Augustóbriga), emergiendo del embalse —una de las imágenes más impactantes de Extremadura.</p>
+      </div>
+      <div class="rr">
+        <img src="https://latajuelacasarural.es/wp-content/uploads/2025/03/Los-Marmoles-1.webp" alt="Templo de los Mármoles" loading="lazy" style="border-radius:14px;object-fit:cover;height:380px;width:100%"/>
+      </div>
+    </div>
+    <div class="en-g">
+      <div class="en-c reveal d1">
+        <img src="https://latajuelacasarural.es/wp-content/uploads/2025/03/geoparque-villuercas.webp" alt="Geoparque" loading="lazy"/>
+        <div class="en-ov"><div class="en-dist">Próximo · Geoparque Mundial UNESCO</div><div class="en-name">Villuercas-Ibores-Jara</div><div class="en-sub">Senderismo, geología única, cuevas y rutas señalizadas</div></div>
+      </div>
+      <div class="en-c reveal d2">
+        <img src="https://latajuelacasarural.es/wp-content/uploads/2025/03/guadalupea.webp" alt="Guadalupe" loading="lazy"/>
+        <div class="en-ov"><div class="en-dist">37 km · Patrimonio Mundial UNESCO 1993</div><div class="en-name">Guadalupe</div><div class="en-sub">Real Monasterio, Zurbarán, gastronomía extremeña</div></div>
+      </div>
+      <div class="en-c reveal d3">
+        <img src="https://latajuelacasarural.es/wp-content/uploads/2025/04/La-vera.webp" alt="La Vera" loading="lazy"/>
+        <div class="en-ov"><div class="en-dist">40 min · Valle y gargantas</div><div class="en-name">La Vera</div><div class="en-sub">Monasterio de Yuste, gargantas cristalinas, pimentón DOP</div></div>
+      </div>
+      <div class="en-c reveal d4" style="background:linear-gradient(135deg,var(--forest2),var(--forest))">
+        <div class="en-ov" style="background:none;justify-content:center">
+          <div style="text-align:center">
+            <div class="en-dist" style="margin-bottom:12px">45 min · Ciudad de conquistadores</div>
+            <div class="en-name" style="font-size:2rem">Trujillo</div>
+            <div class="en-sub" style="margin-top:8px">Plaza Mayor · Castillo árabe · Bodegas Habla (10% dto.)</div>
+            <div style="margin-top:20px;font-size:.76rem;color:rgba(255,255,255,.5);line-height:1.8">+ Monfragüe · Mérida romana · Cáceres medieval<br/>+ Embalse Valdecañas · Pantano deportes náuticos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANES -->
+<section id="planes">
+  <div class="co">
+    <div class="reveal" style="margin-bottom:36px">
+      <span class="sl">Qué hacer cerca</span>
+      <h2>Planes para<br/><em>tu estancia</em></h2>
+    </div>
+    <div class="tabs">
+      <button class="tab on" onclick="sw(0)">🏛️ Trujillo + Bodegas Habla</button>
+      <button class="tab" onclick="sw(1)">🌿 La Vera</button>
+      <button class="tab" onclick="sw(2)">⛪ Guadalupe</button>
+      <button class="tab" onclick="sw(3)">🦅 Monfragüe</button>
+    </div>
+
+    <!-- TRUJILLO -->
+    <div class="panel on">
+      <div class="plan-grid">
+        <div class="plan-img"><img src="https://latajuelacasarural.es/wp-content/uploads/2025/06/casa-rural-la-tajuela-casa-rural-bohonal-de-ibor-21.webp" alt="Trujillo" loading="lazy"/></div>
+        <div>
+          <div class="plan-tag">45 minutos · Ciudad de conquistadores</div>
+          <div class="plan-title">Trujillo y Bodegas Habla</div>
+          <p class="plan-body">Una de las ciudades mejor conservadas de Extremadura. Su Plaza Mayor, presidida por la estatua ecuestre de Francisco Pizarro, sus palacios renacentistas y su castillo árabe la convierten en una visita imprescindible.</p>
+          <div class="itin">
+            <div class="itin-row"><div class="itin-time">Mañana</div><div class="itin-text"><strong>Plaza Mayor y Castillo</strong>Estatua de Pizarro, palacios renacentistas, callejuelas empedradas hasta el Castillo árabe (s. IX-X) con vistas panorámicas al casco histórico.</div></div>
+            <div class="itin-row"><div class="itin-time">Mediodía</div><div class="itin-text"><strong>Iglesia de Santa María la Mayor</strong>Espectacular torre panorámica con vistas a toda la ciudad. Imprescindible subir.</div></div>
+            <div class="itin-row"><div class="itin-time">Tarde</div><div class="itin-text"><strong>Bodegas Habla</strong>A las afueras de Trujillo. Tres experiencias disponibles: Clásico (visita bodega + cata), Selección (ediciones especiales + maridaje gourmet) y Duende (menú gastronómico maridado). Descuento del 10% con código de La Tajuela.</div></div>
+          </div>
+          <div style="font-size:.82rem;font-weight:600;color:var(--text2);margin-bottom:10px;margin-top:8px">🍽️ Dónde comer</div>
+          <div class="rests">
+            <div class="rest-c"><div class="rest-name">Corral del Rey</div><div class="rest-desc">Calle Sillerías 7. Especializado en cocina neorural extremeña con platos de carne de retinto. Ambiente rústico y producto local.</div></div>
+            <div class="rest-c"><div class="rest-name">La Alberca</div><div class="rest-desc">Clásico de la gastronomía trujillana. Cocina extremeña tradicional con materia prima de la zona.</div></div>
+            <div class="rest-c"><div class="rest-name">Café Bar Hordas</div><div class="rest-desc">Para un aperitivo o pintxo en el centro histórico antes de seguir con la visita.</div></div>
+          </div>
+          <div class="plan-badge">🍷 10% de descuento en Bodegas Habla incluido con tu reserva</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LA VERA -->
+    <div class="panel">
+      <div class="plan-grid">
+        <div class="plan-img"><img src="https://latajuelacasarural.es/wp-content/uploads/2025/04/La-vera.webp" alt="La Vera" loading="lazy"/></div>
+        <div>
+          <div class="plan-tag">40 minutos · Valle verde de Extremadura</div>
+          <div class="plan-title">Escapada a La Vera</div>
+          <p class="plan-body">Un valle frondoso con gargantas de agua cristalina, pueblos con casas de entramado de madera y el Real Monasterio de Yuste, donde Carlos I se retiró a morir. Pimentón con Denominación de Origen y gastronomía de primer nivel.</p>
+          <div class="itin">
+            <div class="itin-row"><div class="itin-time">9:30</div><div class="itin-text"><strong>Salida hacia Cuacos de Yuste</strong>Por la EX-118 (37 km, 40 min). "Uno de los pueblos más bonitos de la comarca": plaza porticada, casas de entramado, Casa de Jeromín, tiendas de queso de cabra y embutidos artesanos.</div></div>
+            <div class="itin-row"><div class="itin-time">11:30</div><div class="itin-text"><strong>Real Monasterio de Yuste</strong>A 2 km de Cuacos. Donde murió el Emperador Carlos I. Visita guiada de 45-60 min. Horario: martes a domingo, mañana y tarde. Entrada: ~7 €/persona.</div></div>
+            <div class="itin-row"><div class="itin-time">13:00</div><div class="itin-text"><strong>Garganta la Olla</strong>Baño en piscinas naturales: Charco del Calderón y El Puente. Aguas cristalinas entre granito.</div></div>
+            <div class="itin-row"><div class="itin-time">16:30</div><div class="itin-text"><strong>Jarandilla de la Vera</strong>Paseo por el castillo (ahora Parador Nacional) y el puente medieval. Ruta escénica por Valverde, Losar y Jaraíz.</div></div>
+          </div>
+          <div style="font-size:.82rem;font-weight:600;color:var(--text2);margin-bottom:10px;margin-top:8px">🍽️ Dónde comer (reserva recomendada)</div>
+          <div class="rests">
+            <div class="rest-c"><div class="rest-badge">Michelin Bib Gourmand</div><div class="rest-name">La Finca – Villa Xarahiz · Jaraíz de la Vera</div><div class="rest-desc">Pilar y Víctor. Migas de la abuela Fidela, cabrito lechal local y cochinillo. Vinoteca con más de 100 selecciones de ron. El restaurante más reputado de La Vera.</div></div>
+            <div class="rest-c"><div class="rest-badge">Michelin</div><div class="rest-name">Al Norte · Jarandilla de la Vera</div><div class="rest-desc">Chef Ruth Vicente. Fusión de tradición y creatividad: torrija de tomate con sardina ahumada, carrillera con papaya. Propuesta innovadora y reconocida.</div></div>
+            <div class="rest-c"><div class="rest-name">Imperial Kitchen · Jarandilla de la Vera</div><div class="rest-desc">Homenaje a la cocina imperial de Carlos V. Eventos con chefs invitados y ambiente elegante que celebra la gastronomía regional.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GUADALUPE -->
+    <div class="panel">
+      <div class="plan-grid">
+        <div class="plan-img"><img src="https://latajuelacasarural.es/wp-content/uploads/2025/03/guadalupea.webp" alt="Guadalupe" loading="lazy"/></div>
+        <div>
+          <div class="plan-tag">37 km · 40 min · Patrimonio Mundial UNESCO 1993</div>
+          <div class="plan-title">Escapada a Guadalupe</div>
+          <p class="plan-body">El Real Monasterio de Nuestra Señora de Guadalupe alberga lienzos originales de Zurbarán y fue declarado Patrimonio de la Humanidad en 1993. Un pueblo medieval que conserva intacto su carácter y su gastronomía única.</p>
+          <div class="itin">
+            <div class="itin-row"><div class="itin-time">9:00</div><div class="itin-text"><strong>Salida por la EX-118</strong>Parada recomendada en el mirador natural entre Castañar y Navezuelas para fotografiar el Geoparque.</div></div>
+            <div class="itin-row"><div class="itin-time">10:00</div><div class="itin-text"><strong>Real Monasterio de Guadalupe</strong>Horario: 10-13:30 h y 15:30-18 h (todos los días). Entrada: ~6 €/persona, guía incluida (1h15 min). Claustro mudéjar, sacristía barroca con Zurbarán original, capilla relicario y la imagen de la Virgen de Guadalupe, patrona de Extremadura.</div></div>
+            <div class="itin-row"><div class="itin-time">12:00</div><div class="itin-text"><strong>Casco histórico</strong>Calle Sevilla y Plaza de Santa María. Artesanía en cuero, cerámica y forja. Pimentón de La Vera, miel de Villuercas, AOVE y dulces conventuales. No te vayas sin probar la morcilla de Guadalupe a la plancha con pimientos confitados.</div></div>
+            <div class="itin-row"><div class="itin-time">16:00</div><div class="itin-text"><strong>Mirador de Altamira</strong>5 min en coche. Vistas amplias al Geoparque Villuercas. Opcionalmente: Museo de Bordados del Monasterio (piezas religiosas únicas).</div></div>
+          </div>
+          <div style="font-size:.82rem;font-weight:600;color:var(--text2);margin-bottom:10px;margin-top:8px">🍽️ Dónde comer</div>
+          <div class="rests">
+            <div class="rest-c"><div class="rest-name">La Posada del Rincón</div><div class="rest-desc">Especialidades: cabrito cuchifrito, morcilla guadalupana, migas del pastor y carnes de caza. Ambiente rústico con chimenea.</div><div class="rest-price">Precio medio: 20-25 €/persona</div></div>
+            <div class="rest-c"><div class="rest-name">Las Ánimas del Tiempo</div><div class="rest-desc">Cocina tradicional con toques creativos: sopa de tomate, patatera asada, tarta de castaña. Buen surtido de vinos extremeños.</div><div class="rest-price">Precio medio: 25-30 €/persona</div></div>
+          </div>
+          <p style="font-size:.8rem;color:var(--muted);margin-top:4px">💡 Tip: En el regreso, pasa por Cañamero y visita el Centro de Interpretación del Geoparque.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MONFRAGÜE -->
+    <div class="panel">
+      <div class="plan-grid">
+        <div class="plan-img"><img src="https://latajuelacasarural.es/wp-content/uploads/2025/03/geoparque-villuercas.webp" alt="Monfragüe" loading="lazy"/></div>
+        <div>
+          <div class="plan-tag">Próximo · Reserva de la Biosfera UNESCO</div>
+          <div class="plan-title">Monfragüe</div>
+          <p class="plan-body">La Reserva de la Biosfera de Monfragüe es uno de los mejores lugares de Europa para el avistamiento de aves rapaces. Buitre negro, cigüeña negra, águila imperial ibérica y lince ibérico conviven en un entorno natural sin igual.</p>
+          <div class="itin">
+            <div class="itin-row"><div class="itin-time">🦅</div><div class="itin-text"><strong>Buitre negro y leonado</strong>Colonias enormes visibles desde los miradores. El Salto del Gitano es el mirador más famoso para avistarlos.</div></div>
+            <div class="itin-row"><div class="itin-time">🐦</div><div class="itin-text"><strong>Cigüeña negra</strong>Especie en peligro de extinción. Monfragüe es uno de los últimos refugios en Europa.</div></div>
+            <div class="itin-row"><div class="itin-time">🦁</div><div class="itin-text"><strong>Lince ibérico</strong>El felino más amenazado del mundo. Avistamientos ocasionales en la dehesa extremeña.</div></div>
+            <div class="itin-row"><div class="itin-time">🏰</div><div class="itin-text"><strong>Castillo de Monfragüe</strong>Fortaleza árabe con vistas espectaculares al río Tajo. Imprescindible subir hasta la ermita de la Patrona.</div></div>
+            <div class="itin-row"><div class="itin-time">🥾</div><div class="itin-text"><strong>Ruta del Salto del Gitano</strong>La más famosa del parque. Corta (3-4 km) y muy accesible para ver rapaces a pocos metros.</div></div>
+          </div>
+          <p style="font-size:.85rem;color:var(--text2);line-height:1.75;margin-top:12px">💡 Lleva prismáticos y sal muy temprano (amanecer) para los mejores avistamientos. Los buitres salen a volar cuando el sol calienta las corrientes de aire.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RUTAS -->
+<section id="rutas">
+  <div class="co">
+    <div class="reveal">
+      <span class="sl">Senderismo</span>
+      <h2>Rutas desde<br/><em>la puerta</em></h2>
+      <p class="body-text">Cuatro rutas con track GPS descargable en Wikiloc. Desde la excursión familiar hasta la travesía de montaña de todo un día.</p>
+    </div>
+    <div class="rut-g">
+
+      <!-- RUTA 1 -->
+      <div class="rut-c reveal d1">
+        <div class="rut-head">
+          <div class="rut-num">Ruta 01 · Lineal</div>
+          <div class="rut-name">Apalaches Extremeños</div>
+          <div class="rut-stats">
+            <div class="rut-stat">📍 <strong>24,67 km</strong></div>
+            <div class="rut-stat">⏱️ <strong>5h 56 min</strong></div>
+            <div class="rut-stat">📈 <strong>+358 / -467 m</strong></div>
+          </div>
+        </div>
+        <div class="rut-body">
+          <div class="rut-desc">Tramo 3 del GR-113 de Valdelacasa de Tajo a Bohonal de Ibor. Calzada empedrada medieval, valles fluviales, fauna salvaje y miradores infinitos. Señalizada con marcas rojas y blancas. Termina a pocos pasos de La Tajuela.</div>
+          <div class="rut-pois">
+            <span class="rut-poi">Calzada medieval</span>
+            <span class="rut-poi">Puente del Gualija</span>
+            <span class="rut-poi">Mirador embalse Valdecañas</span>
+            <span class="rut-poi">Venados y muflones</span>
+            <span class="rut-poi">Sierra de Gredos al fondo</span>
+            <span class="rut-poi">Templo Mármoles (desvío)</span>
+          </div>
+          <p style="font-size:.78rem;color:var(--muted)">💡 Avituallamiento en Peraleda de San Román (km 15). Llevar mínimo 2 L agua. Mejor época: octubre-abril.</p>
+        </div>
+        <div class="rut-foot">
+          <span class="rut-dif dif-med">Moderada</span>
+          <a href="https://www.wikiloc.com" target="_blank" class="rut-link">GPS en Wikiloc →</a>
+        </div>
+      </div>
+
+      <!-- RUTA 2 -->
+      <div class="rut-c reveal d2">
+        <div class="rut-head">
+          <div class="rut-num">Ruta 02 · Lineal</div>
+          <div class="rut-name">Camino de los Jerónimos</div>
+          <div class="rut-stats">
+            <div class="rut-stat">📍 <strong>30,45 km</strong></div>
+            <div class="rut-stat">⏱️ <strong>9h 30 min</strong></div>
+            <div class="rut-stat">📈 <strong>+892 / -511 m</strong></div>
+          </div>
+        </div>
+        <div class="rut-body">
+          <div class="rut-desc">Bohonal de Ibor → Navalvillar de Ibor. Etapa exigente ("rompepiernas") que atraviesa el Geoparque por su cima. Cerro del Búho (520m), Barranco de los Lobos, Cancho Ladrón y Risco Paloma. Para senderistas experimentados.</div>
+          <div class="rut-pois">
+            <span class="rut-poi">Cerro del Búho</span>
+            <span class="rut-poi">Vistas al Pico Villuercas</span>
+            <span class="rut-poi">Canchales graníticos</span>
+            <span class="rut-poi">Cancho Ladrón</span>
+            <span class="rut-poi">Risco Paloma</span>
+            <span class="rut-poi">Jabalíes y ciervos</span>
+          </div>
+          <p style="font-size:.78rem;color:var(--muted)">💡 GPS imprescindible. Llevar 2,5 L agua. Solo una fuente fiable en km 28. Coordinar transporte de vuelta.</p>
+        </div>
+        <div class="rut-foot">
+          <span class="rut-dif dif-hard">Moderada-Alta</span>
+          <a href="https://www.wikiloc.com" target="_blank" class="rut-link">GPS en Wikiloc →</a>
+        </div>
+      </div>
+
+      <!-- RUTA 3 -->
+      <div class="rut-c reveal d3">
+        <div class="rut-head">
+          <div class="rut-num">Ruta 03 · Lineal</div>
+          <div class="rut-name">Ruta La Pasera</div>
+          <div class="rut-stats">
+            <div class="rut-stat">📍 <strong>26,33 km</strong></div>
+            <div class="rut-stat">⏱️ <strong>10h 46 min</strong></div>
+            <div class="rut-stat">📈 <strong>+539 / -484 m</strong></div>
+          </div>
+        </div>
+        <div class="rut-body">
+          <div class="rut-desc">Del Templo de Los Mármoles al río Ibor por la antigua Vereda de los Frailes (Wikiloc #6507466). Patrimonio romano, veredas históricas y cumbres "rañosas". El Tres Mojones marca la frontera de tres municipios con panorámicas espectaculares.</div>
+          <div class="rut-pois">
+            <span class="rut-poi">Templo Los Mármoles</span>
+            <span class="rut-poi">Vereda de los Frailes</span>
+            <span class="rut-poi">GR-113</span>
+            <span class="rut-poi">Tres Mojones</span>
+            <span class="rut-poi">Marmitas de Gigante</span>
+            <span class="rut-poi">Buitres y águilas calzadas</span>
+          </div>
+          <p style="font-size:.78rem;color:var(--muted)">💡 Inicio a 8 min en coche desde La Tajuela. Sin fuentes potables. Requiere hábito de marcha larga.</p>
+        </div>
+        <div class="rut-foot">
+          <span class="rut-dif dif-med">Moderada</span>
+          <a href="https://www.wikiloc.com/wikiloc/view.do?id=6507466" target="_blank" class="rut-link">GPS en Wikiloc →</a>
+        </div>
+      </div>
+
+      <!-- RUTA 4 -->
+      <div class="rut-c reveal d4">
+        <div class="rut-head">
+          <div class="rut-num">Ruta 04 · Circular · Desde La Tajuela a pie</div>
+          <div class="rut-name">Dolmen de Pibor</div>
+          <div class="rut-stats">
+            <div class="rut-stat">📍 <strong>14,52 km</strong></div>
+            <div class="rut-stat">⏱️ <strong>4h 31 min</strong></div>
+            <div class="rut-stat">📈 <strong>±246 m</strong></div>
+          </div>
+        </div>
+        <div class="rut-body">
+          <div class="rut-desc">La joya de la comarca. Comienza a pie desde La Tajuela. Asciende junto al arroyo San Bartolomé hasta el dolmen neolítico (4.000 años), formado por nueve ortostatos de cuarcita protegidos por un acebuche centenario. Vistas al último meandro del río Ibor.</div>
+          <div class="rut-pois">
+            <span class="rut-poi">Dolmen neolítico (4.000 años)</span>
+            <span class="rut-poi">Risco Amarillo</span>
+            <span class="rut-poi">Mirador río Ibor</span>
+            <span class="rut-poi">Cigüeña negra y nutria</span>
+            <span class="rut-poi">Milano real</span>
+            <span class="rut-poi">85% pista de tierra</span>
+          </div>
+          <p style="font-size:.78rem;color:var(--muted)">💡 La única que puedes hacer a pie desde casa. Llevar 1,5 L agua, no hay fuentes. Ideal oct-mayo. Botas de media caña recomendadas.</p>
+        </div>
+        <div class="rut-foot">
+          <span class="rut-dif dif-easy">Fácil</span>
+          <a href="https://www.wikiloc.com" target="_blank" class="rut-link">GPS en Wikiloc →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- INFO PRÁCTICA -->
+<section id="info">
+  <div class="co">
+    <div class="reveal" style="text-align:center">
+      <span class="sl" style="color:var(--gold2)">Información práctica</span>
+      <h2 style="color:#fff;max-width:none;margin-bottom:52px">Todo lo que<br/><em style="color:var(--gold2)">necesitas saber</em></h2>
+    </div>
+    <div class="inf-g">
+      <div class="inf-c reveal d1"><div class="inf-ic">🕐</div><div class="inf-lb">Check-in · Check-out</div><div class="inf-val">Llegada: 18:00 – 22:00 h<br/>Salida: 08:00 – 12:00 h</div><div class="inf-note">Horarios flexibles bajo consulta previa</div></div>
+      <div class="inf-c reveal d2"><div class="inf-ic">👥</div><div class="inf-lb">Capacidad</div><div class="inf-val">6 huéspedes adultos<br/>+ 2 bebés (cunas gratuitas)</div><div class="inf-note">Casa completa — no habitaciones sueltas</div></div>
+      <div class="inf-c reveal d3"><div class="inf-ic">🐾</div><div class="inf-lb">Mascotas</div><div class="inf-val">No permitidas</div><div class="inf-note">Para garantizar la comodidad de todos</div></div>
+      <div class="inf-c reveal d1"><div class="inf-ic">🚭</div><div class="inf-lb">Fumadores</div><div class="inf-val">No permitido en el interior</div><div class="inf-note">Zona exterior disponible</div></div>
+      <div class="inf-c reveal d2"><div class="inf-ic">↩️</div><div class="inf-lb">Cancelación</div><div class="inf-val">Gratuita hasta 7 días antes</div><div class="inf-note">Consulta condiciones según temporada</div></div>
+      <div class="inf-c reveal d3"><div class="inf-ic">📍</div><div class="inf-lb">Ubicación</div><div class="inf-val">Calle Real, 31<br/>Bohonal de Ibor, Cáceres</div><div class="inf-note">15 min de Navalmoral · 2h de Madrid A-5</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="co">
+    <div class="con-g">
+      <div class="rl">
+        <span class="sl">Dónde estamos</span>
+        <h2>Bohonal de Ibor,<br/><em>Cáceres</em></h2>
+        <div class="map-w">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3093!2d-5.5180!3d39.8490!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sCalle+Real+31+Bohonal+de+Ibor!5e0!3m2!1ses!2ses!4v1700000000000" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+      <div class="rr">
+        <span class="sl">Reserva directa</span>
+        <h2>Habla con<br/><em>José Bernardo</em></h2>
+        <p style="font-size:.9rem;color:var(--text2);margin-bottom:26px;line-height:1.82">Reservando directamente te ahorras las comisiones de Booking. Mismo precio, trato más personal. Respondemos en menos de 24 horas.</p>
+        <div class="con-its">
+          <div class="con-it"><div class="con-ic">📞</div><div><div class="con-lb">Teléfono / WhatsApp</div><div class="con-val"><a href="tel:+34630440942">+34 630 44 09 42</a></div></div></div>
+          <div class="con-it"><div class="con-ic">✉️</div><div><div class="con-lb">Email</div><div class="con-val"><a href="mailto:hola@latajuelacasarural.es">hola@latajuelacasarural.es</a></div></div></div>
+          <div class="con-it"><div class="con-ic">📍</div><div><div class="con-lb">Dirección</div><div class="con-val">Calle Real, 31 · Bohonal de Ibor · 10320 Cáceres</div></div></div>
+        </div>
+        <div class="btn-stack">
+          <a href="https://wa.me/34630440942?text=Hola%20José%20Bernardo%2C%20quiero%20consultar%20disponibilidad%20en%20La%20Tajuela" target="_blank" class="bwa" style="justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Escribir por WhatsApp</a>
+          <button class="bf" onclick="openChat()">✦ &nbsp;Hablar con el asistente</button>
+          <a href="tel:+34630440942" class="bb">📞 &nbsp;Llamar: 630 44 09 42</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-i">
+    <div class="ft-t">
+      <div>
+        <div class="ft-logo">La Tajuela</div>
+        <p class="ft-desc">Casa rural boutique en Bohonal de Ibor, Cáceres. Desconexión real, lujo discreto y Extremadura a tu puerta.</p>
+        <div class="ft-cnt">
+          <a href="tel:+34630440942">📞 630 44 09 42</a>
+          <a href="mailto:hola@latajuelacasarural.es">✉️ hola@latajuelacasarural.es</a>
+          <a href="https://maps.google.com/?q=Calle+Real+31+Bohonal+de+Ibor+Caceres" target="_blank">📍 Calle Real, 31 · Bohonal de Ibor</a>
+        </div>
+      </div>
+      <div>
+        <div class="ft-ct">La Casa</div>
+        <div class="ft-links">
+          <a href="#historia">Historia</a>
+          <a href="#suites">Suite La Perdiz</a>
+          <a href="#suites">Suite El Abocastro</a>
+          <a href="#suites">Suite El Librillo</a>
+          <a href="#amenidades">Servicios incluidos</a>
+        </div>
+      </div>
+      <div>
+        <div class="ft-ct">Explorar</div>
+        <div class="ft-links">
+          <a href="#planes">Trujillo + Bodegas Habla</a>
+          <a href="#planes">La Vera</a>
+          <a href="#planes">Guadalupe</a>
+          <a href="#planes">Monfragüe</a>
+          <a href="#rutas">Rutas de senderismo</a>
+        </div>
+      </div>
+    </div>
+    <div class="ft-b">
+      <div>
+        <div class="ft-copy">© 2026 La Tajuela Casa Rural · Diseño por ImpulsaAI</div>
+        <div class="ft-reg">Registro Turístico de Extremadura: TR-CC-00651</div>
+      </div>
+      <div class="ft-soc">
+        <a href="https://www.instagram.com/latajuela_casarural/" target="_blank">📸</a>
+        <a href="https://www.facebook.com/p/La-Tajuela-Casa-Rural-61576909643238/" target="_blank">👍</a>
+        <a href="https://wa.me/34630440942" target="_blank">💬</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- WA FLOAT -->
+<a href="https://wa.me/34630440942?text=Hola%2C%20quiero%20consultar%20disponibilidad%20en%20La%20Tajuela" target="_blank" class="wa-f">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- CHAT TRIGGER -->
+<button class="ch-tr" onclick="toggleChat()" id="chTr"><div class="ch-b">1</div>🌿</button>
+
+<!-- CHAT WINDOW -->
+<div class="ch-w" id="chW">
+  <div class="ch-h">
+    <div class="ch-av">🌿</div>
+    <div style="flex:1"><div class="ch-hn">La Tajuela · Asistente</div><div class="ch-hs"><div class="ch-dot"></div> Disponible ahora</div></div>
+    <button class="ch-x" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="ch-ms" id="chMs"></div>
+  <div class="ci-r" id="ciR" style="display:none">
+    <input type="text" class="ci" id="ci" placeholder="Escribe aquí..."/>
+    <button class="cs" id="cs">➤</button>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" onclick="closeLb()">
+  <button class="lb-x" onclick="closeLb()">✕</button>
+  <img id="lb-img" src="" alt=""/>
+</div>
+
+<script>
+// NAV
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('solid',scrollY>80));
+
+// REVEAL
+const ro=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');ro.unobserve(e.target)}})},{threshold:.1});
+document.querySelectorAll('.reveal,.rl,.rr').forEach(el=>ro.observe(el));
+
+// TABS
+function sw(i){
+  document.querySelectorAll('.tab').forEach((t,j)=>t.classList.toggle('on',i===j));
+  document.querySelectorAll('.panel').forEach((p,j)=>p.classList.toggle('on',i===j));
+}
+
+// LIGHTBOX
+function openLb(s){document.getElementById('lb-img').src=s;document.getElementById('lb').classList.add('open')}
+function closeLb(){document.getElementById('lb').classList.remove('open')}
+
+// CHAT
+let open=false,st='start',d={};
+const cw=document.getElementById('chW'),ms=document.getElementById('chMs'),ciR=document.getElementById('ciR'),ci=document.getElementById('ci');
+function toggleChat(){open=!open;cw.classList.toggle('open',open);const b=document.getElementById('chTr').querySelector('.ch-b');if(b)b.style.display=open?'none':'flex';if(open&&ms.children.length===0)setTimeout(start,350)}
+function openChat(){if(!open)toggleChat()}
+function addM(html,bot=true,dl=0){return new Promise(r=>setTimeout(()=>{const d=document.createElement('div');d.className=bot?'mb':'mu';d.innerHTML=html;ms.appendChild(d);ms.scrollTop=ms.scrollHeight;r()},dl))}
+function addT(){const d=document.createElement('div');d.className='cty';d.id='ct';d.innerHTML='<span></span><span></span><span></span>';ms.appendChild(d);ms.scrollTop=ms.scrollHeight}
+function rmT(){const t=document.getElementById('ct');if(t)t.remove()}
+function clrO(){document.querySelectorAll('.cops').forEach(e=>e.remove())}
+function showO(opts){const div=document.createElement('div');div.className='cops';opts.forEach(o=>{const b=document.createElement('button');b.className='cop';b.innerHTML=o.l;b.onclick=o.a;div.appendChild(b)});ms.appendChild(div);ms.scrollTop=ms.scrollHeight}
+function showI(ph){ciR.style.display='flex';ci.placeholder=ph||'Escribe aquí...';setTimeout(()=>ci.focus(),80)}
+function hideI(){ciR.style.display='none';ci.value=''}
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+
+async function start(){addT();await wait(850);rmT();await addM('¡Hola! 👋 Soy el asistente de <strong>La Tajuela</strong>. ¿En qué te ayudo?');showO([{l:'📅 Consultar disponibilidad',a:startRes},{l:'❓ Preguntas frecuentes',a:showFAQ},{l:'📞 Hablar con José Bernardo',a:ctcto}])}
+
+async function startRes(){clrO();await addM('📅 Consultar disponibilidad',false);addT();await wait(600);rmT();await addM('¡Perfecto! 🌿 ¿Cuándo pensáis llegar? <em>(ej: 15 de agosto)</em>');st='fecha';showI('Fecha de llegada...')}
+
+async function showFAQ(){clrO();await addM('❓ Tengo una pregunta',false);addT();await wait(500);rmT();await addM('Dime, ¿sobre qué?');showO([{l:'💰 ¿Cuánto cuesta?',a:fPrecio},{l:'🏊 ¿La piscina está siempre abierta?',a:fPiscina},{l:'🐾 ¿Admitís mascotas?',a:fMasc},{l:'🕐 Check-in y check-out',a:fCheck},{l:'🚗 ¿Cómo llego?',a:fLlego},{l:'⬅️ Volver',a:start}])}
+
+async function fPrecio(){clrO();await addM('💰 Precios',false);addT();await wait(700);rmT();await addM('Precio orientativo según temporada:<br/><br/>🗓️ <strong>Entre semana</strong>: desde <strong>35€/persona/noche</strong><br/>📅 <strong>Fin de semana y festivos</strong>: desde <strong>45€/persona/noche</strong><br/><br/>✅ Incluye la casa completa, pack bienvenida, piscina y descuento en Bodegas Habla. Mínimo 2 noches.');showO([{l:'📅 Consultar mis fechas',a:startRes},{l:'⬅️ Más preguntas',a:showFAQ}])}
+async function fPiscina(){clrO();await addM('🏊 La piscina',false);addT();await wait(600);rmT();await addM('¡Sí! 🎉 Climatizada los <strong>365 días del año</strong>. Completamente privada — solo vuestro grupo, sin horarios ni compartirla.');showO([{l:'📅 ¡Reservar!',a:startRes},{l:'⬅️ Más preguntas',a:showFAQ}])}
+async function fMasc(){clrO();await addM('🐾 Mascotas',false);addT();await wait(500);rmT();await addM('Lo sentimos 🙏 <strong>No admitimos mascotas</strong> para garantizar la comodidad de todos los huéspedes.');showO([{l:'📅 Consultar disponibilidad',a:startRes},{l:'⬅️ Más preguntas',a:showFAQ}])}
+async function fCheck(){clrO();await addM('🕐 Horarios',false);addT();await wait(500);rmT();await addM('📥 <strong>Check-in:</strong> 18:00 – 22:00 h<br/>📤 <strong>Check-out:</strong> 08:00 – 12:00 h<br/><br/>Flexibilidad horaria posible bajo consulta previa.');showO([{l:'📅 Consultar disponibilidad',a:startRes},{l:'⬅️ Más preguntas',a:showFAQ}])}
+async function fLlego(){clrO();await addM('🚗 Cómo llegar',false);addT();await wait(600);rmT();await addM('📍 <strong>Calle Real, 31 · Bohonal de Ibor, Cáceres</strong><br/><br/><strong>Autovía A-5</strong> dirección Badajoz → salida Navalmoral de la Mata. Aprox. <strong>2h desde Madrid</strong>.<br/><br/><a href="https://maps.google.com/?q=Calle+Real+31+Bohonal+de+Ibor+Caceres" target="_blank" class="ml">🗺️ Google Maps</a>');showO([{l:'📅 Reservar',a:startRes},{l:'⬅️ Más preguntas',a:showFAQ}])}
+async function ctcto(){clrO();await addM('📞 Contactar directamente',false);addT();await wait(600);rmT();await addM('José Bernardo te atenderá:<br/><br/><a href="https://wa.me/34630440942?text=Hola%20José%20Bernardo" target="_blank" class="ml ml-wa">💬 WhatsApp ahora</a><br/><br/><a href="tel:+34630440942" class="ml">📞 630 44 09 42</a><br/><br/>✉️ <a href="mailto:hola@latajuelacasarural.es" style="color:var(--gold)">hola@latajuelacasarural.es</a>')}
+
+document.getElementById('cs').onclick=handleI;
+ci.addEventListener('keypress',e=>{if(e.key==='Enter')handleI()});
+async function handleI(){
+  const v=ci.value.trim();if(!v)return;hideI();await addM(v,false);
+  if(st==='fecha'){d.fecha=v;st='noches';addT();await wait(600);rmT();await addM(`Llegada el <strong>${v}</strong> ✅ ¿Cuántas noches?`);showI('Nº de noches...')}
+  else if(st==='noches'){d.noches=v;st='personas';addT();await wait(600);rmT();await addM(`<strong>${v} noches</strong> ✅ ¿Cuántas personas? <em>(máx. 6)</em>`);showI('Nº de personas...')}
+  else if(st==='personas'){const n=parseInt(v);if(n>6){await addM('⚠️ La casa tiene capacidad para <strong>6 personas</strong>. ¿Cuántas sois?');showI('Máx. 6...');return}d.personas=v;st='nombre';addT();await wait(600);rmT();await addM(`¡${v} personas! ✅ ¿Tu nombre?`);showI('Tu nombre...')}
+  else if(st==='nombre'){d.nombre=v;st='tel';addT();await wait(600);rmT();await addM(`Hola <strong>${v}</strong> 🌿 ¿Tu teléfono?`);showI('Tu teléfono...')}
+  else if(st==='tel'){d.tel=v;st='done';addT();await wait(800);rmT();await addM(`Resumen:<br/>📅 <strong>${d.fecha}</strong> · ${d.noches} noches · ${d.personas} personas<br/>👤 ${d.nombre} · 📞 ${d.tel}<br/><br/>¿Enviamos?`);showO([{l:'✅ Sí, enviar',a:confirmar},{l:'✏️ Modificar',a:startRes}])}
+}
+async function confirmar(){
+  clrO();addT();await wait(1000);rmT();
+  const wa=encodeURIComponent(`Hola José Bernardo! Soy ${d.nombre}, quiero consultar disponibilidad en La Tajuela.\n\n📅 Llegada: ${d.fecha}\n🌙 Noches: ${d.noches}\n👥 Personas: ${d.personas}\n📞 Tel: ${d.tel}\n\n¿Hay disponibilidad?`);
+  await addM(`¡Listo, ${d.nombre}! 🎉 José Bernardo te contactará en las próximas horas al ${d.tel}.<br/><br/><a href="https://wa.me/34630440942?text=${wa}" target="_blank" class="ml ml-wa">💬 Confirmar por WhatsApp ahora</a>`);
+}
+</script>
+</body>
+</html>
