@@ -1442,6 +1442,12 @@
         lead.contacto = val;
         await botMsg(`✅ ¡Perfecto, **${lead.nombre}**! Hemos recibido tu solicitud.\n\nTe contactamos en menos de **24 horas** para enseñarte exactamente cómo quedaría tu proyecto. ¡Hasta pronto! 👋`, 1200);
         restart.style.display = 'block';
+
+        // Enviar lead por WhatsApp
+        const msg = `🔔 *Nuevo lead desde la web*\n\n👤 *Nombre:* ${lead.nombre}\n📞 *Contacto:* ${lead.contacto}\n🏢 *Negocio:* ${lead.negocio || '—'}\n💼 *Servicio:* ${lead.servicio || '—'}\n🌐 *Web actual:* ${lead.web || '—'}`;
+        setTimeout(() => {
+            window.open(`https://wa.me/34642397788?text=${encodeURIComponent(msg)}`, '_blank');
+        }, 1500);
     }
 
     // ── FLUJO DUDAS ───────────────────────────────────────────────
