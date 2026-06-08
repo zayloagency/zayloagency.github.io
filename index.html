@@ -1258,8 +1258,8 @@
     if(!canvas) return;
     const ctx = canvas.getContext('2d');
     let W, H, particles, mouse = {x: -9999, y: -9999};
-    const NUM = 90, CONNECT_DIST = 140, MOUSE_DIST = 160;
-    const COLOR = '139,92,246'; // purple
+    const NUM = 90, CONNECT_DIST = 140, REPEL_DIST = 100, REPEL_FORCE = 4;
+    const COLOR = '139,92,246';
 
     function resize(){
         W = canvas.width = canvas.offsetWidth;
@@ -1267,11 +1267,13 @@
     }
 
     function Particle(){
-        this.x = Math.random()*W;
-        this.y = Math.random()*H;
-        this.vx = (Math.random()-0.5)*0.4;
-        this.vy = (Math.random()-0.5)*0.4;
-        this.r = Math.random()*1.8+0.8;
+        this.x  = Math.random()*W;
+        this.y  = Math.random()*H;
+        this.baseVx = (Math.random()-0.5)*0.45;
+        this.baseVy = (Math.random()-0.5)*0.45;
+        this.vx = this.baseVx;
+        this.vy = this.baseVy;
+        this.r  = Math.random()*1.8+0.8;
     }
 
     function init(){
@@ -1282,14 +1284,29 @@
     function draw(){
         ctx.clearRect(0,0,W,H);
 
-        // update positions
         particles.forEach(p=>{
+            // repulsión del ratón
+            const dx = p.x - mouse.x, dy = p.y - mouse.y;
+            const d  = Math.sqrt(dx*dx + dy*dy);
+            if(d < REPEL_DIST && d > 0){
+                const force = (1 - d/REPEL_DIST) * REPEL_FORCE;
+                p.vx += (dx/d) * force;
+                p.vy += (dy/d) * force;
+            }
+            // amortiguación suave hacia velocidad base
+            p.vx += (p.baseVx - p.vx) * 0.04;
+            p.vy += (p.baseVy - p.vy) * 0.04;
+
+            // limitar velocidad máxima
+            const speed = Math.sqrt(p.vx*p.vx + p.vy*p.vy);
+            if(speed > 6){ p.vx = p.vx/speed*6; p.vy = p.vy/speed*6; }
+
             p.x += p.vx; p.y += p.vy;
-            if(p.x<0||p.x>W) p.vx*=-1;
-            if(p.y<0||p.y>H) p.vy*=-1;
+            if(p.x<0||p.x>W){ p.vx*=-1; p.baseVx*=-1; p.x = Math.max(0,Math.min(W,p.x)); }
+            if(p.y<0||p.y>H){ p.vy*=-1; p.baseVy*=-1; p.y = Math.max(0,Math.min(H,p.y)); }
         });
 
-        // draw connections
+        // conexiones entre partículas
         for(let i=0;i<particles.length;i++){
             for(let j=i+1;j<particles.length;j++){
                 const dx=particles[i].x-particles[j].x, dy=particles[i].y-particles[j].y;
@@ -1303,24 +1320,13 @@
                     ctx.stroke();
                 }
             }
-            // mouse connections
-            const mdx=particles[i].x-mouse.x, mdy=particles[i].y-mouse.y;
-            const md=Math.sqrt(mdx*mdx+mdy*mdy);
-            if(md<MOUSE_DIST){
-                ctx.beginPath();
-                ctx.strokeStyle=`rgba(99,102,241,${(1-md/MOUSE_DIST)*0.6})`;
-                ctx.lineWidth=1;
-                ctx.moveTo(particles[i].x,particles[i].y);
-                ctx.lineTo(mouse.x,mouse.y);
-                ctx.stroke();
-            }
         }
 
-        // draw dots
+        // puntos
         particles.forEach(p=>{
             ctx.beginPath();
             ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-            ctx.fillStyle=`rgba(${COLOR},0.7)`;
+            ctx.fillStyle=`rgba(${COLOR},0.75)`;
             ctx.fill();
         });
 
@@ -1334,11 +1340,9 @@
         mouse.y = e.clientY - rect.top;
     });
     hero.addEventListener('mouseleave', ()=>{ mouse.x=-9999; mouse.y=-9999; });
+    window.addEventListener('resize', resize);
 
-    window.addEventListener('resize', ()=>{ resize(); });
-
-    init();
-    draw();
+    init(); draw();
 })();
 </script>
 </body>
