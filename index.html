@@ -631,7 +631,7 @@
 
 <!-- HERO -->
 <section id="hero">
-    <div id="vanta-hero" style="position:absolute;inset:0;z-index:1;"></div>
+    <canvas id="particles-canvas" style="position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;"></canvas>
     <div class="hero-bg">
         <div class="orb orb1"></div>
         <div class="orb orb2"></div>
@@ -1252,24 +1252,104 @@
     });
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js"></script>
 <script>
-VANTA.NET({
-    el: '#vanta-hero',
-    mouseControls: true,
-    touchControls: false,
-    gyroControls: false,
-    minHeight: 200,
-    minWidth: 200,
-    scale: 1.0,
-    color: 0x6366f1,
-    backgroundColor: 0x0d0d1a,
-    points: 11,
-    maxDistance: 22,
-    spacing: 18,
-    showDots: true
-});
+(function(){
+    const canvas = document.getElementById('particles-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let W, H, pts;
+    const N = 85, LINK = 155, REPEL = 115, FORCE = 14;
+    const C = '99,102,241';
+
+    function resize() {
+        W = canvas.width  = canvas.offsetWidth;
+        H = canvas.height = canvas.offsetHeight;
+    }
+
+    function mkPt() {
+        const hx = Math.random()*W, hy = Math.random()*H;
+        return {
+            hx, hy,          // home (deriva lentamente)
+            x: hx, y: hy,   // posición real
+            vx: 0, vy: 0,   // velocidad real
+            dvx: (Math.random()-.5)*.35,  // drift de home
+            dvy: (Math.random()-.5)*.35,
+            r: Math.random()*1.1 + 1.0   // 1–2.1px
+        };
+    }
+
+    function init() { resize(); pts = Array.from({length:N}, mkPt); }
+
+    let mx = -9999, my = -9999;
+
+    function frame() {
+        ctx.clearRect(0,0,W,H);
+
+        pts.forEach(p => {
+            // home deriva suave
+            p.hx += p.dvx; p.hy += p.dvy;
+            if (p.hx < 0 || p.hx > W) p.dvx *= -1;
+            if (p.hy < 0 || p.hy > H) p.dvy *= -1;
+
+            // repulsión ratón
+            const dx = p.x - mx, dy = p.y - my;
+            const d  = Math.sqrt(dx*dx + dy*dy);
+            if (d < REPEL && d > 0) {
+                const f = (1 - d/REPEL) * FORCE;
+                p.vx += dx/d * f;
+                p.vy += dy/d * f;
+            }
+
+            // resorte hacia home
+            p.vx += (p.hx - p.x) * 0.03;
+            p.vy += (p.hy - p.y) * 0.03;
+
+            // amortiguación
+            p.vx *= 0.84;
+            p.vy *= 0.84;
+
+            p.x += p.vx;
+            p.y += p.vy;
+        });
+
+        // líneas
+        for (let i = 0; i < pts.length; i++) {
+            for (let j = i+1; j < pts.length; j++) {
+                const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
+                const d  = Math.sqrt(dx*dx + dy*dy);
+                if (d < LINK) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(${C},${(1 - d/LINK) * 0.38})`;
+                    ctx.lineWidth = 0.6;
+                    ctx.moveTo(pts[i].x, pts[i].y);
+                    ctx.lineTo(pts[j].x, pts[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        // puntos
+        pts.forEach(p => {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+            ctx.fillStyle = `rgba(${C}, 0.8)`;
+            ctx.fill();
+        });
+
+        requestAnimationFrame(frame);
+    }
+
+    const hero = document.getElementById('hero');
+    hero.addEventListener('mousemove', e => {
+        const r = hero.getBoundingClientRect();
+        mx = e.clientX - r.left;
+        my = e.clientY - r.top;
+    });
+    hero.addEventListener('mouseleave', () => { mx = -9999; my = -9999; });
+    window.addEventListener('resize', () => { resize(); });
+
+    init(); frame();
+})();
 </script>
 </body>
 </html>
