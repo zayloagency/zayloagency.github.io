@@ -1281,6 +1281,9 @@
 
     function init() { resize(); pts = Array.from({length:N}, mkPt); }
 
+    // En móvil ocultar canvas
+    if (window.innerWidth < 768) { canvas.style.display = 'none'; return; }
+
     let mx = -9999, my = -9999;
 
     function frame() {
