@@ -631,7 +631,7 @@
 
 <!-- HERO -->
 <section id="hero">
-    <canvas id="particles-canvas" style="position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;"></canvas>
+    <div id="vanta-hero" style="position:absolute;inset:0;z-index:1;"></div>
     <div class="hero-bg">
         <div class="orb orb1"></div>
         <div class="orb orb2"></div>
@@ -1252,105 +1252,24 @@
     });
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js"></script>
 <script>
-(function(){
-    const canvas = document.getElementById('particles-canvas');
-    if(!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let W, H, particles, mouse = {x: -9999, y: -9999};
-    const NUM = 80, CONNECT_DIST = 150, REPEL_DIST = 130, REPEL_FORCE = 12;
-    const COLOR = '139,92,246';
-
-    function resize(){
-        W = canvas.width = canvas.offsetWidth;
-        H = canvas.height = canvas.offsetHeight;
-    }
-
-    function Particle(){
-        this.hx = Math.random()*W;
-        this.hy = Math.random()*H;
-        this.x  = this.hx;
-        this.y  = this.hy;
-        this.dvx = (Math.random()-0.5)*0.5; // drift velocity
-        this.dvy = (Math.random()-0.5)*0.5;
-        this.vx = 0; // actual velocity (for spring)
-        this.vy = 0;
-        this.r  = Math.random()*1.2 + 1.2; // 1.2–2.4px
-    }
-
-    function init(){
-        resize();
-        particles = Array.from({length:NUM}, ()=> new Particle());
-    }
-
-    function draw(){
-        ctx.clearRect(0,0,W,H);
-
-        particles.forEach(p=>{
-            // mueve la home suavemente
-            p.hx += p.dvx; p.hy += p.dvy;
-            if(p.hx < 0 || p.hx > W) p.dvx *= -1;
-            if(p.hy < 0 || p.hy > H) p.dvy *= -1;
-
-            // repulsión del ratón
-            const dx = p.x - mouse.x, dy = p.y - mouse.y;
-            const d  = Math.sqrt(dx*dx + dy*dy);
-            if(d < REPEL_DIST && d > 0){
-                const force = (1 - d/REPEL_DIST) * REPEL_FORCE;
-                p.vx += (dx/d) * force;
-                p.vy += (dy/d) * force;
-            }
-
-            // resorte hacia home (más suave = más recorrido antes de volver)
-            p.vx += (p.hx - p.x) * 0.035;
-            p.vy += (p.hy - p.y) * 0.035;
-
-            // fricción para que no oscile infinito
-            p.vx *= 0.82;
-            p.vy *= 0.82;
-
-            p.x += p.vx;
-            p.y += p.vy;
-        });
-
-        // conexiones
-        for(let i=0;i<particles.length;i++){
-            for(let j=i+1;j<particles.length;j++){
-                const dx=particles[i].x-particles[j].x, dy=particles[i].y-particles[j].y;
-                const d=Math.sqrt(dx*dx+dy*dy);
-                if(d<CONNECT_DIST){
-                    ctx.beginPath();
-                    ctx.strokeStyle=`rgba(${COLOR},${(1-d/CONNECT_DIST)*0.4})`;
-                    ctx.lineWidth=0.7;
-                    ctx.moveTo(particles[i].x,particles[i].y);
-                    ctx.lineTo(particles[j].x,particles[j].y);
-                    ctx.stroke();
-                }
-            }
-        }
-
-        // puntos
-        particles.forEach(p=>{
-            ctx.beginPath();
-            ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-            ctx.fillStyle=`rgba(${COLOR},0.85)`;
-            ctx.fill();
-        });
-
-        requestAnimationFrame(draw);
-    }
-
-    const hero = document.getElementById('hero');
-    hero.addEventListener('mousemove', e=>{
-        const rect = hero.getBoundingClientRect();
-        mouse.x = e.clientX - rect.left;
-        mouse.y = e.clientY - rect.top;
-    });
-    hero.addEventListener('mouseleave', ()=>{ mouse.x=-9999; mouse.y=-9999; });
-    window.addEventListener('resize', resize);
-
-    init(); draw();
-})();
+VANTA.NET({
+    el: '#vanta-hero',
+    mouseControls: true,
+    touchControls: false,
+    gyroControls: false,
+    minHeight: 200,
+    minWidth: 200,
+    scale: 1.0,
+    color: 0x6366f1,
+    backgroundColor: 0x0d0d1a,
+    points: 11,
+    maxDistance: 22,
+    spacing: 18,
+    showDots: true
+});
 </script>
 </body>
 </html>
