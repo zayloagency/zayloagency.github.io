@@ -1672,5 +1672,81 @@
     init(); frame();
 })();
 </script>
+
+<!-- Vapi AI Voice Demo Widget -->
+<style>
+.vapi-demo-bar {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+.vapi-demo-label {
+    background: rgba(10,10,30,0.92);
+    border: 1px solid rgba(99,102,241,0.4);
+    color: #94a3b8;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.3s, transform 0.3s;
+}
+.vapi-demo-bar:hover .vapi-demo-label {
+    opacity: 1;
+    transform: translateY(0);
+}
+</style>
+<div class="vapi-demo-bar">
+    <span class="vapi-demo-label">🎙️ Demo: recepcionista dental con IA</span>
+</div>
+<script>
+(function(d,t){
+    var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src="https://cdn.jsdelivr.net/gh/VapiAI/html-script-tag@latest/dist/assets/index.js";
+    g.defer=true; g.async=true;
+    s.parentNode.insertBefore(g,s);
+    g.onload=function(){
+        window.vapiSDK.run({
+            apiKey: "282dc7ae-730c-49f3-b628-e923ae004512",
+            assistant: "a428e741-bea7-4668-bc86-87727e56223f",
+            config: {
+                position: "bottom-right",
+                offset: "28px",
+                width: "56px",
+                height: "56px",
+                idle: {
+                    color: "#6366f1",
+                    type: "pill",
+                    title: "Demo IA",
+                    subtitle: "Habla con el agente",
+                    icon: "https://unpkg.com/lucide-static@0.321.0/icons/mic.svg"
+                },
+                loading: {
+                    color: "#a855f7",
+                    type: "pill",
+                    title: "Conectando...",
+                    subtitle: ""
+                },
+                active: {
+                    color: "#06b6d4",
+                    type: "pill",
+                    title: "En llamada",
+                    subtitle: "Pulsa para colgar",
+                    icon: "https://unpkg.com/lucide-static@0.321.0/icons/phone-off.svg"
+                }
+            }
+        });
+    };
+})(document,"script");
+</script>
 </body>
 </html>
