@@ -1673,12 +1673,14 @@
 })();
 </script>
 
-<!-- Vapi AI Voice Demo Widget -->
-<style>
-  /* Forzar que el widget de Vapi quede siempre por encima de todo */
-  body > div[style*="position: fixed"],
-  body > div[style*="position:fixed"] { z-index: 99999 !important; }
-</style>
+<!-- Vapi AI Voice Demo Widget — pill personalizado -->
+<div id="vapiPill" style="position:fixed;bottom:100px;right:28px;z-index:99999;display:flex;align-items:center;gap:11px;background:#6366f1;border-radius:100px;padding:11px 18px 11px 13px;box-shadow:0 4px 22px rgba(99,102,241,0.5);cursor:pointer;transition:background 0.2s,box-shadow 0.2s,transform 0.15s;user-select:none;" onmouseover="this.style.transform='scale(1.04)';this.style.boxShadow='0 6px 28px rgba(99,102,241,0.7)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 22px rgba(99,102,241,0.5)'">
+  <svg id="vapiIcon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+  <div style="font-family:'Inter',sans-serif;line-height:1.25;">
+    <div id="vapiTitle" style="font-size:13px;font-weight:700;color:#fff;">🎙 Recepcionista IA</div>
+    <div id="vapiSub" style="font-size:11px;color:rgba(255,255,255,0.75);">Haz una llamada de prueba</div>
+  </div>
+</div>
 <script>
 (function(d,t){
     var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
@@ -1686,49 +1688,39 @@
     g.defer=true; g.async=true;
     s.parentNode.insertBefore(g,s);
     g.onload=function(){
-        var isMobile = window.innerWidth < 768;
-        window.vapiSDK.run({
+        // Cargar SDK oculto (botón nativo off-screen)
+        var vapi = window.vapiSDK.run({
             apiKey: "282dc7ae-730c-49f3-b628-e923ae004512",
             assistant: "a428e741-bea7-4668-bc86-87727e56223f",
-            config: {
-                position: "bottom-right",
-                offset: isMobile ? "28px" : "98px",
-                width: "56px",
-                height: "56px",
-                idle: {
-                    color: "#6366f1",
-                    type: "pill",
-                    title: "🎙 Recepcionista IA",
-                    subtitle: "Haz una llamada de prueba",
-                    icon: "https://unpkg.com/lucide-static@0.321.0/icons/mic.svg"
-                },
-                loading: {
-                    color: "#a855f7",
-                    type: "pill",
-                    title: "Conectando...",
-                    subtitle: ""
-                },
-                active: {
-                    color: "#06b6d4",
-                    type: "pill",
-                    title: "En llamada",
-                    subtitle: "Pulsa para colgar",
-                    icon: "https://unpkg.com/lucide-static@0.321.0/icons/phone-off.svg"
-                }
-            }
+            config: { position: "bottom-right", offset: "-300px" }
         });
-        // Elevar z-index tras renderizar
-        setTimeout(function(){
-            var vapiEl = document.querySelector('div[style*="position: fixed"][style*="right"]');
-            if (vapiEl) vapiEl.style.zIndex = '99999';
-        }, 600);
-        // En móvil: reposicionar encima del botón de WhatsApp
-        if (isMobile) {
-            setTimeout(function(){
-                var vapiEl = document.querySelector('div[style*="position: fixed"][style*="right"]');
-                if (vapiEl) { vapiEl.style.bottom = '100px'; vapiEl.style.zIndex = '99999'; }
-            }, 800);
+        var pill  = document.getElementById('vapiPill');
+        var title = document.getElementById('vapiTitle');
+        var sub   = document.getElementById('vapiSub');
+        var icon  = document.getElementById('vapiIcon');
+        var active = false;
+        var micSVG  = '<path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>';
+        var stopSVG = '<line x1="1" y1="1" x2="23" y2="23"/><path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"/><path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>';
+        function setIdle(){
+            pill.style.background='#6366f1';
+            pill.style.boxShadow='0 4px 22px rgba(99,102,241,0.5)';
+            title.textContent='🎙 Recepcionista IA';
+            sub.textContent='Haz una llamada de prueba';
+            icon.innerHTML=micSVG; active=false;
         }
+        function setActive(){
+            pill.style.background='#06b6d4';
+            pill.style.boxShadow='0 4px 22px rgba(6,182,212,0.55)';
+            title.textContent='En llamada';
+            sub.textContent='Pulsa para colgar';
+            icon.innerHTML=stopSVG; active=true;
+        }
+        pill.addEventListener('click',function(){
+            if(!active){ vapi.start(); setActive(); }
+            else { vapi.stop(); setIdle(); }
+        });
+        vapi.on('call-end', setIdle);
+        vapi.on('error', setIdle);
     };
 })(document,"script");
 </script>
