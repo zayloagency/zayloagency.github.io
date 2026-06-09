@@ -1688,12 +1688,22 @@
     g.defer=true; g.async=true;
     s.parentNode.insertBefore(g,s);
     g.onload=function(){
-        // Cargar SDK oculto (botón nativo off-screen)
+        // Cargar SDK — ocultamos el botón nativo con CSS
         var vapi = window.vapiSDK.run({
             apiKey: "282dc7ae-730c-49f3-b628-e923ae004512",
             assistant: "a428e741-bea7-4668-bc86-87727e56223f",
-            config: { position: "bottom-right", offset: "-300px" }
+            config: { position: "bottom-left", offset: "28px" }
         });
+        // Ocultar el botón nativo de Vapi tras renderizar
+        setTimeout(function(){
+            var native = document.querySelector('.vapi-btn-container, [class*="vapi-btn"], [id*="vapi-btn"]');
+            if(native) native.style.display='none';
+            // Por si usa otro selector
+            document.querySelectorAll('body > div').forEach(function(el){
+                var s = el.style;
+                if(s.position==='fixed' && s.left && !el.id) s.display='none';
+            });
+        }, 1000);
         var pill  = document.getElementById('vapiPill');
         var title = document.getElementById('vapiTitle');
         var sub   = document.getElementById('vapiSub');
