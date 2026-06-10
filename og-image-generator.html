@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>OG Image Generator</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #111; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; gap: 20px; font-family: sans-serif; }
+canvas { border: 1px solid #333; max-width: 100%; }
+button { padding: 12px 32px; background: linear-gradient(135deg, #7c6ff7, #38bdf8); color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; }
+</style>
+</head>
+<body>
+<canvas id="c" width="1200" height="630"></canvas>
+<button onclick="download()">⬇ Descargar og-image.jpg</button>
+<script>
+const c = document.getElementById('c');
+const ctx = c.getContext('2d');
+
+function draw() {
+  // Background
+  const bg = ctx.createLinearGradient(0, 0, 1200, 630);
+  bg.addColorStop(0, '#060610');
+  bg.addColorStop(0.5, '#0d0820');
+  bg.addColorStop(1, '#060610');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, 1200, 630);
+
+  // Grid dots pattern
+  ctx.fillStyle = 'rgba(124,111,247,0.08)';
+  for (let x = 40; x < 1200; x += 60) {
+    for (let y = 40; y < 630; y += 60) {
+      ctx.beginPath();
+      ctx.arc(x, y, 1.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  // Glow circles
+  const g1 = ctx.createRadialGradient(300, 315, 0, 300, 315, 400);
+  g1.addColorStop(0, 'rgba(124,111,247,0.18)');
+  g1.addColorStop(1, 'rgba(124,111,247,0)');
+  ctx.fillStyle = g1;
+  ctx.fillRect(0, 0, 1200, 630);
+
+  const g2 = ctx.createRadialGradient(950, 315, 0, 950, 315, 350);
+  g2.addColorStop(0, 'rgba(56,189,248,0.14)');
+  g2.addColorStop(1, 'rgba(56,189,248,0)');
+  ctx.fillStyle = g2;
+  ctx.fillRect(0, 0, 1200, 630);
+
+  // Left accent bar
+  const bar = ctx.createLinearGradient(0, 180, 0, 450);
+  bar.addColorStop(0, 'rgba(124,111,247,0)');
+  bar.addColorStop(0.5, 'rgba(124,111,247,0.9)');
+  bar.addColorStop(1, 'rgba(56,189,248,0)');
+  ctx.fillStyle = bar;
+  ctx.fillRect(80, 180, 3, 270);
+
+  // Logo — ZAYLO
+  ctx.save();
+  const logoGrad = ctx.createLinearGradient(110, 0, 420, 0);
+  logoGrad.addColorStop(0, '#7c6ff7');
+  logoGrad.addColorStop(0.5, '#a78bfa');
+  logoGrad.addColorStop(1, '#38bdf8');
+  ctx.font = '800 96px "Segoe UI", Arial, sans-serif';
+  ctx.fillStyle = logoGrad;
+  ctx.letterSpacing = '-3px';
+  ctx.fillText('Zaylo', 110, 290);
+  ctx.restore();
+
+  // Tagline
+  ctx.font = '500 28px "Segoe UI", Arial, sans-serif';
+  ctx.fillStyle = 'rgba(255,255,255,0.55)';
+  ctx.fillText('Agencia digital para negocios locales', 110, 345);
+
+  // Divider line
+  ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(110, 380);
+  ctx.lineTo(520, 380);
+  ctx.stroke();
+
+  // Services pills
+  const pills = ['Webs', 'Chatbots', 'SEO', 'Automatizaciones'];
+  let px = 110;
+  pills.forEach(p => {
+    const w = p.length * 14 + 28;
+    ctx.beginPath();
+    ctx.roundRect(px, 400, w, 38, 19);
+    ctx.fillStyle = 'rgba(124,111,247,0.15)';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(124,111,247,0.35)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.font = '600 15px "Segoe UI", Arial, sans-serif';
+    ctx.fillStyle = 'rgba(167,139,250,0.9)';
+    ctx.fillText(p, px + 14, 424);
+    px += w + 12;
+  });
+
+  // Right side — big claim
+  ctx.font = '700 52px "Segoe UI", Arial, sans-serif';
+  ctx.fillStyle = 'rgba(255,255,255,0.92)';
+  ctx.fillText('Tu web lista.', 680, 270);
+  ctx.fillText('En 5 días.', 680, 335);
+
+  const claimGrad = ctx.createLinearGradient(680, 370, 1100, 400);
+  claimGrad.addColorStop(0, '#7c6ff7');
+  claimGrad.addColorStop(1, '#38bdf8');
+  ctx.font = '600 22px "Segoe UI", Arial, sans-serif';
+  ctx.fillStyle = claimGrad;
+  ctx.fillText('Presupuesto gratis sin compromiso', 680, 395);
+
+  // URL bottom right
+  ctx.font = '500 18px "Segoe UI", Arial, sans-serif';
+  ctx.fillStyle = 'rgba(255,255,255,0.2)';
+  ctx.fillText('zaylo.site', 1080, 600);
+
+  // Top border gradient
+  const topBar = ctx.createLinearGradient(0, 0, 1200, 0);
+  topBar.addColorStop(0, 'rgba(124,111,247,0)');
+  topBar.addColorStop(0.3, 'rgba(124,111,247,0.8)');
+  topBar.addColorStop(0.7, 'rgba(56,189,248,0.8)');
+  topBar.addColorStop(1, 'rgba(56,189,248,0)');
+  ctx.fillStyle = topBar;
+  ctx.fillRect(0, 0, 1200, 3);
+}
+
+function download() {
+  draw();
+  const a = document.createElement('a');
+  a.download = 'og-image.jpg';
+  a.href = c.toDataURL('image/jpeg', 0.95);
+  a.click();
+}
+
+draw();
+</script>
+</body>
+</html>
