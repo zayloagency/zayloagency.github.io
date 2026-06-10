@@ -126,6 +126,9 @@
   .hero {
     min-height: 100vh;
     background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 50%, #1f3a5e 100%);
+    background-image: url('https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=1600&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -133,6 +136,12 @@
     overflow: hidden;
     text-align: center;
     padding: 120px 48px 80px;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 20, 45, 0.80);
   }
 
   .hero-bg-pattern {
