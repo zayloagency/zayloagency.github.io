@@ -316,6 +316,101 @@ footer .oro{color:var(--oro)}
 </head>
 <body class="has-demo-banner" oncontextmenu="return false">
 
+<!-- NETFLIX INTRO -->
+<div id="netflix-intro">
+  <div class="nf-logo-wrap">
+    <div class="nf-script">Los Santos</div>
+    <div class="nf-tag">BARBER SHOP</div>
+  </div>
+  <div class="nf-glow"></div>
+</div>
+
+<style>
+#netflix-intro{
+  position:fixed;inset:0;background:#000;z-index:9999999;
+  display:flex;align-items:center;justify-content:center;
+  animation:nf-fade-out .8s ease-in 2.6s forwards;
+  overflow:hidden;
+}
+.nf-logo-wrap{
+  position:relative;z-index:2;text-align:center;
+  animation:nf-zoom 2.6s cubic-bezier(.22,.61,.36,1) forwards;
+  transform-origin:center;
+}
+.nf-script{
+  font-family:'Pacifico',cursive;
+  font-size:clamp(72px,15vw,180px);
+  color:#fff;line-height:1;letter-spacing:-2px;
+  text-shadow:
+    0 0 30px rgba(255,255,255,.4),
+    0 0 60px rgba(201,161,74,.3);
+  white-space:nowrap;
+  animation:nf-glow-text 2.6s ease-in-out forwards;
+}
+.nf-tag{
+  display:inline-block;
+  background:#e53935;color:#fff;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(16px,2.5vw,28px);
+  letter-spacing:4px;padding:6px 18px;
+  margin-top:8px;
+  transform:rotate(-4deg) translateY(-4px);
+  box-shadow:0 8px 20px rgba(229,57,53,.4);
+  opacity:0;
+  animation:nf-tag-in .6s ease-out 1.6s forwards;
+}
+.nf-glow{
+  position:absolute;inset:0;
+  background:radial-gradient(circle at center,rgba(201,161,74,.25),transparent 50%);
+  opacity:0;
+  animation:nf-glow-burst 2.6s ease-out forwards;
+}
+@keyframes nf-zoom{
+  0%{transform:scale(.15);opacity:0;filter:blur(20px)}
+  18%{opacity:1}
+  55%{transform:scale(.85);filter:blur(0)}
+  75%{transform:scale(1.08)}
+  100%{transform:scale(1);opacity:1;filter:blur(0)}
+}
+@keyframes nf-glow-text{
+  0%,50%{text-shadow:0 0 30px rgba(255,255,255,.4),0 0 60px rgba(201,161,74,.3)}
+  70%{text-shadow:0 0 60px rgba(255,255,255,.8),0 0 120px rgba(201,161,74,.7),0 0 180px rgba(201,161,74,.4)}
+  100%{text-shadow:0 0 40px rgba(255,255,255,.5),0 0 80px rgba(201,161,74,.4)}
+}
+@keyframes nf-tag-in{
+  from{opacity:0;transform:rotate(-4deg) translateY(20px) scale(.7)}
+  to{opacity:1;transform:rotate(-4deg) translateY(-4px) scale(1)}
+}
+@keyframes nf-glow-burst{
+  0%,60%{opacity:0;transform:scale(.5)}
+  75%{opacity:1;transform:scale(1.5)}
+  100%{opacity:0;transform:scale(2.5)}
+}
+@keyframes nf-fade-out{
+  to{opacity:0;visibility:hidden;pointer-events:none}
+}
+body.intro-playing{overflow:hidden}
+@media(prefers-reduced-motion:reduce){
+  #netflix-intro{animation:nf-fade-out .3s ease forwards}
+  .nf-logo-wrap,.nf-script,.nf-tag,.nf-glow{animation:none}
+  .nf-tag{opacity:1}
+}
+</style>
+
+<script>
+document.body.classList.add('intro-playing');
+setTimeout(()=>{
+  document.body.classList.remove('intro-playing');
+  const intro=document.getElementById('netflix-intro');
+  if(intro)intro.style.display='none';
+},3500);
+// Skip on click
+document.getElementById('netflix-intro').addEventListener('click',()=>{
+  document.getElementById('netflix-intro').style.animation='nf-fade-out .3s ease forwards';
+  setTimeout(()=>{document.getElementById('netflix-intro').style.display='none';document.body.classList.remove('intro-playing')},300);
+});
+</script>
+
 <!-- DEMO BANNER -->
 <div id="demo-banner">
   <span><span class="pulse"></span><strong>PREVIEW EXCLUSIVA PARA LOS SANTOS BARBER SHOP</strong></span>
