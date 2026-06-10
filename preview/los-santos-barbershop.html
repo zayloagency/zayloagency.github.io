@@ -583,6 +583,133 @@ window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scr
 function openLock(e){if(e)e.preventDefault();document.getElementById('lockModal').classList.add('active');document.body.classList.add('locked')}
 function closeLock(){document.getElementById('lockModal').classList.remove('active');document.body.classList.remove('locked')}
 
+// CHATBOT DEMO
+const waBody=document.getElementById('wa-body');
+const waChat=document.getElementById('wa-chat');
+function toggleChat(){waChat.classList.toggle('open')}
+function waTime(){const d=new Date();return d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0')}
+function waMsg(text,who){
+  const m=document.createElement('div');
+  m.className='wa-msg '+who;
+  m.innerHTML=text+'<div class="wa-time">'+waTime()+'</div>';
+  waBody.appendChild(m);
+  waBody.scrollTop=waBody.scrollHeight;
+}
+function waTyping(){
+  const t=document.createElement('div');
+  t.className='wa-typing';
+  t.id='wa-typing';
+  t.innerHTML='<span></span><span></span><span></span>';
+  waBody.appendChild(t);
+  waBody.scrollTop=waBody.scrollHeight;
+}
+function waStopTyping(){const t=document.getElementById('wa-typing');if(t)t.remove()}
+function waOptions(opts){
+  const c=document.createElement('div');
+  c.className='wa-options';
+  opts.forEach(o=>{
+    const b=document.createElement('button');
+    b.className='wa-option';
+    b.textContent=o.text;
+    b.onclick=()=>{c.remove();waMsg(o.text,'user');setTimeout(()=>o.next(),500)};
+    c.appendChild(b);
+  });
+  waBody.appendChild(c);
+  waBody.scrollTop=waBody.scrollHeight;
+}
+function waBot(text,delay,cb){
+  waTyping();
+  setTimeout(()=>{waStopTyping();waMsg(text,'bot');if(cb)setTimeout(cb,400)},delay||1100);
+}
+
+// Flow
+function chatStart(){
+  waBot('¡Hola! 👋 Soy el asistente de Los Santos Barber Shop. ¿En qué puedo ayudarte?',900,()=>{
+    waOptions([
+      {text:'📅 Reservar cita',next:chatService},
+      {text:'💰 Ver precios',next:chatPrices},
+      {text:'🕐 Horario',next:chatHours},
+    ]);
+  });
+}
+function chatService(){
+  waBot('¡Perfecto! ¿Qué servicio quieres?',900,()=>{
+    waOptions([
+      {text:'✂️ Corte + Bebida — 15€',next:()=>chatDay('Corte + Bebida','15€','40 min')},
+      {text:'🧔 Corte + Barba + Bebida — 20€',next:()=>chatDay('Corte + Barba','20€','1h')},
+      {text:'💆 Corte + Mascarilla — 25€',next:()=>chatDay('Corte + Mascarilla','25€','1h 10 min')},
+      {text:'👀 Cejas — 3€',next:()=>chatDay('Cejas','3€','5 min')},
+    ]);
+  });
+}
+let elegido={};
+function chatDay(serv,precio,dur){
+  elegido={serv,precio,dur};
+  waBot('Genial. ¿Cuándo te viene bien?',800,()=>{
+    waOptions([
+      {text:'📌 Hoy',next:()=>chatHour('hoy')},
+      {text:'📅 Mañana',next:()=>chatHour('mañana')},
+      {text:'🗓️ Otro día',next:()=>chatHour('jueves')},
+    ]);
+  });
+}
+function chatHour(dia){
+  elegido.dia=dia;
+  waBot('Estos huecos están libres '+dia+':',900,()=>{
+    waOptions([
+      {text:'🕓 16:00',next:()=>chatConfirm('16:00')},
+      {text:'🕔 17:30',next:()=>chatConfirm('17:30')},
+      {text:'🕕 19:00',next:()=>chatConfirm('19:00')},
+    ]);
+  });
+}
+function chatConfirm(hora){
+  elegido.hora=hora;
+  waBot('¿Me dices tu nombre para apuntarte?',900,()=>{
+    const input=document.getElementById('wa-text');
+    input.disabled=false;input.focus();
+    input.onkeydown=(e)=>{
+      if(e.key==='Enter'&&input.value.trim()){
+        const nombre=input.value.trim();
+        waMsg(nombre,'user');
+        input.value='';input.disabled=true;input.onkeydown=null;
+        setTimeout(()=>chatDone(nombre),600);
+      }
+    };
+  });
+}
+function chatDone(nombre){
+  waBot('✅ Hecho, <strong>'+nombre+'</strong>.<br><br>Cita confirmada:<br>📌 <strong>'+elegido.serv+'</strong> ('+elegido.dur+')<br>📅 '+elegido.dia+' a las <strong>'+elegido.hora+'</strong><br>💰 '+elegido.precio+'<br><br>Te esperamos en Calle Azabache 14 ✂️',1500,()=>{
+    setTimeout(()=>{
+      const d=document.createElement('div');
+      d.className='wa-demo-badge';
+      d.style.marginTop='12px';
+      d.innerHTML='🎯 Esto que acabas de hacer en 30 segundos es lo que automatizaría Zaylo para vuestro WhatsApp real. <br><br>Sin demos, con vuestro calendario, 24/7.';
+      waBody.appendChild(d);
+      waBody.scrollTop=waBody.scrollHeight;
+    },800);
+  });
+}
+function chatPrices(){
+  waBot('Aquí tienes todos los precios:<br><br>✂️ Corte Jubilado — 10€<br>✂️ Corte + Bebida — 15€<br>👀 Corte + Cejas — 18€<br>🧔 Corte + Barba + Bebida — 20€<br>🧔 Corte + Barba + Cejas — 23€<br>💆 Corte + Mascarilla — 25€<br>💆 Corte + Barba + Mascarilla — 30€<br>🧔 Solo Barba — 10€<br>💆 Mascarilla facial — 12€<br>👀 Cejas — 3€',1200,()=>{
+    waOptions([{text:'📅 Reservar cita',next:chatService}]);
+  });
+}
+function chatHours(){
+  waBot('Nuestro horario:<br><br>📌 Lunes a sábado · 10:30 – 21:00<br>📌 Domingo · 10:30 – 15:00<br><br>📍 Calle Azabache 14 · Carabanchel',1100,()=>{
+    waOptions([{text:'📅 Reservar cita',next:chatService}]);
+  });
+}
+function restartChat(){
+  document.querySelectorAll('.wa-msg, .wa-options, .wa-demo-badge:not(:first-child)').forEach(e=>e.remove());
+  chatStart();
+}
+// Auto-start cuando se abre
+let chatStarted=false;
+document.getElementById('wa-btn').addEventListener('click',()=>{
+  if(!chatStarted){chatStarted=true;setTimeout(chatStart,400)}
+});
+
 // Bloquear devtools shortcuts
 document.addEventListener('keydown',function(e){
   if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='U')){e.preventDefault()}
