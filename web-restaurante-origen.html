@@ -471,13 +471,18 @@
     .historia-deco-inner {
       width: min(380px, 100%);
       aspect-ratio: 3/4;
-      background:
-        radial-gradient(ellipse 70% 60% at 40% 35%, rgba(160,90,20,0.35) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 40% at 70% 70%, rgba(80,40,5,0.4) 0%, transparent 55%),
-        linear-gradient(160deg, #251a0d 0%, #1a1208 50%, #120d06 100%);
+      background-image: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
       border: 1px solid var(--line-gold);
       position: relative;
       overflow: hidden;
+    }
+    .historia-deco-inner::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(15,10,4,0.45) 0%, rgba(15,10,4,0.25) 100%);
     }
 
     .historia-deco-inner::before {
