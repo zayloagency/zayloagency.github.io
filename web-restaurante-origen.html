@@ -1249,18 +1249,18 @@
   <!-- Chat Modal -->
   <div class="chat-modal" id="chatModal" role="dialog" aria-label="Asistente de Restaurante Origen">
     <div class="chat-header">
-      <div class="chat-avatar">🍽️</div>
+      <div class="chat-avatar"></div>
       <div>
         <div class="chat-title">Restaurante Origen</div>
         <div class="chat-subtitle">● Asistente disponible</div>
       </div>
-      <button class="chat-close" id="chatClose" aria-label="Cerrar">✕</button>
+      <button class="chat-close" id="chatClose" aria-label="Cerrar"></button>
     </div>
     <div class="chat-messages" id="chatMessages"></div>
     <div class="chat-buttons" id="chatButtons"></div>
     <div class="chat-input-row" id="chatInputRow" style="display:none">
       <input class="chat-input" id="chatInput" type="text" placeholder="Escribe aquí…" autocomplete="off" />
-      <button class="chat-send" id="chatSend">➤</button>
+      <button class="chat-send" id="chatSend"></button>
     </div>
   </div>
 
@@ -1884,7 +1884,7 @@
         // Auto-trigger reserva after opening if chatbot is fresh
         if (messages.children.length <= 2) {
           setTimeout(() => {
-            showBotMsg("¡Perfecto! Vamos a hacer tu reserva. 🍽️");
+            showBotMsg("¡Perfecto! Vamos a hacer tu reserva. ");
             setTimeout(() => askPersonas(), 600);
           }, 800);
         }
@@ -1971,17 +1971,17 @@
 
       /* ── FLOW ── */
       async function initFlow() {
-        await showBotMsg("¡Hola! 👋 Soy el asistente de <strong>Restaurante Origen</strong>.<br>¿En qué puedo ayudarte?");
+        await showBotMsg("¡Hola!  Soy el asistente de <strong>Restaurante Origen</strong>.<br>¿En qué puedo ayudarte?");
         showButtons([
-          { label: "🍽️ Hacer una reserva", action: () => startReserva() },
-          { label: "❓ Tengo una duda",    action: () => startDudas()   }
+          { label: " Hacer una reserva", action: () => startReserva() },
+          { label: " Tengo una duda",    action: () => startDudas()   }
         ]);
       }
 
       /* RESERVA FLOW */
       function startReserva() {
         state = { flow: "reserva" };
-        showBotMsg("¡Perfecto! Vamos a reservar tu mesa en Origen. 🥂")
+        showBotMsg("¡Perfecto! Vamos a reservar tu mesa en Origen. ")
           .then(() => askPersonas());
       }
 
@@ -1996,9 +1996,9 @@
       }
 
       function groupMsg() {
-        showBotMsg("Para grupos de 5 o más personas, llámanos al <strong>91 576 43 21</strong> o escríbenos a <a href='mailto:reservas@restauranteorigen.es' style='color:var(--gold)'>reservas@restauranteorigen.es</a>.<br><br>Estaremos encantados de preparar algo especial para vosotros. 🙏")
+        showBotMsg("Para grupos de 5 o más personas, llámanos al <strong>91 576 43 21</strong> o escríbenos a <a href='mailto:reservas@restauranteorigen.es' style='color:var(--gold)'>reservas@restauranteorigen.es</a>.<br><br>Estaremos encantados de preparar algo especial para vosotros. ")
           .then(() => showButtons([
-            { label: "🔄 Volver al inicio", action: () => { clearButtons(); messages.innerHTML = ""; initFlow(); } }
+            { label: " Volver al inicio", action: () => { clearButtons(); messages.innerHTML = ""; initFlow(); } }
           ]));
       }
 
@@ -2028,8 +2028,8 @@
       function askTurno() {
         showBotMsg("¿A qué turno?").then(() => {
           showButtons([
-            { label: "🌞 Mediodía (13:30-16:30)", action: () => { state.turno = "mediodía"; askHora("mediodia"); } },
-            { label: "🌙 Noche (21:00-23:30)",    action: () => { state.turno = "noche";    askHora("noche");    } }
+            { label: " Mediodía (13:30-16:30)", action: () => { state.turno = "mediodía"; askHora("mediodia"); } },
+            { label: " Noche (21:00-23:30)",    action: () => { state.turno = "noche";    askHora("noche");    } }
           ]);
         });
       }
@@ -2057,16 +2057,16 @@
 
       function confirmar() {
         showBotMsg(
-          "✅ <strong>¡Reserva confirmada!</strong><br><br>" +
+          " <strong>¡Reserva confirmada!</strong><br><br>" +
           "Mesa para <strong>" + state.personas + "</strong><br>" +
           "Día: <strong>" + state.dia + "</strong> · " + state.turno + "<br>" +
           "Hora: <strong>" + state.hora + "</strong><br>" +
           "A nombre de: <strong>" + state.nombre + "</strong><br><br>" +
-          "Te esperamos en <strong>Calle de Serrano, 82</strong>. Recibirás confirmación por SMS. ¡Hasta pronto! 🥂"
+          "Te esperamos en <strong>Calle de Serrano, 82</strong>. Recibirás confirmación por SMS. ¡Hasta pronto! "
         ).then(() => {
           showButtons([
-            { label: "🔄 Nueva reserva", action: () => { clearButtons(); messages.innerHTML = ""; initFlow(); } },
-            { label: "❓ Tengo otra duda", action: () => startDudas() }
+            { label: " Nueva reserva", action: () => { clearButtons(); messages.innerHTML = ""; initFlow(); } },
+            { label: " Tengo otra duda", action: () => startDudas() }
           ]);
         });
       }
@@ -2075,10 +2075,10 @@
       function startDudas() {
         showBotMsg("Claro, dime. ¿Sobre qué quieres saber?").then(() => {
           showButtons([
-            { label: "⏰ Horario",      action: () => respHorario()     },
-            { label: "🍷 La carta",     action: () => respCarta()       },
-            { label: "🅿️ Aparcamiento", action: () => respParking()     },
-            { label: "📍 Cómo llegar",  action: () => respLlegar()      }
+            { label: " Horario",      action: () => respHorario()     },
+            { label: " La carta",     action: () => respCarta()       },
+            { label: "🅿 Aparcamiento", action: () => respParking()     },
+            { label: " Cómo llegar",  action: () => respLlegar()      }
           ]);
         });
       }
@@ -2086,22 +2086,22 @@
       function respHorario() {
         showBotMsg(
           "Abrimos de <strong>martes a domingo</strong>.<br><br>" +
-          "🌞 Mediodía: 13:30 — 16:30<br>" +
-          "🌙 Noche: 21:00 — 23:30<br><br>" +
+          " Mediodía: 13:30 — 16:30<br>" +
+          " Noche: 21:00 — 23:30<br><br>" +
           "Los lunes permanecemos cerrados para que el equipo pueda descansar."
         ).then(() => showButtons([
-          { label: "🍽️ Hacer una reserva", action: () => startReserva() },
+          { label: " Hacer una reserva", action: () => startReserva() },
           { label: "← Más preguntas",      action: () => startDudas()   }
         ]));
       }
 
       function respCarta() {
         showBotMsg(
-          "Nuestra cocina es <strong>tradicional madrileña de mercado</strong>. 🧑‍🍳<br><br>" +
+          "Nuestra cocina es <strong>tradicional madrileña de mercado</strong>. ‍<br><br>" +
           "Cocido madrileño, rabo de toro, chuletón de Ávila, callos, merluza en salsa verde…<br><br>" +
           "El <strong>menú del día</strong> (ma-v mediodía) son <strong>22€</strong> con primero, segundo, postre y bebida."
         ).then(() => showButtons([
-          { label: "🍽️ Hacer una reserva", action: () => startReserva() },
+          { label: " Hacer una reserva", action: () => startReserva() },
           { label: "← Más preguntas",      action: () => startDudas()   }
         ]));
       }
@@ -2109,23 +2109,23 @@
       function respParking() {
         showBotMsg(
           "Hay <strong>parking público</strong> muy cerca:<br><br>" +
-          "🅿️ Calle de Jorge Juan, 16 — 2 min andando<br>" +
-          "🅿️ Calle Hermosilla — también a 2-3 min<br><br>" +
+          "🅿 Calle de Jorge Juan, 16 — 2 min andando<br>" +
+          "🅿 Calle Hermosilla — también a 2-3 min<br><br>" +
           "Muchos clientes aparcan en la zona azul de la manzana también."
         ).then(() => showButtons([
-          { label: "🍽️ Hacer una reserva", action: () => startReserva() },
+          { label: " Hacer una reserva", action: () => startReserva() },
           { label: "← Más preguntas",      action: () => startDudas()   }
         ]));
       }
 
       function respLlegar() {
         showBotMsg(
-          "Estamos en <strong>Calle de Serrano, 82</strong>, Barrio Salamanca. 📍<br><br>" +
-          "🚇 Metro Núñez de Balboa — L5 y L9 (5 min andando)<br>" +
-          "🚇 Metro Serrano — L4 (8 min andando)<br>" +
-          "🚌 Bus líneas 9, 19 y 51"
+          "Estamos en <strong>Calle de Serrano, 82</strong>, Barrio Salamanca. <br><br>" +
+          " Metro Núñez de Balboa — L5 y L9 (5 min andando)<br>" +
+          " Metro Serrano — L4 (8 min andando)<br>" +
+          " Bus líneas 9, 19 y 51"
         ).then(() => showButtons([
-          { label: "🍽️ Hacer una reserva", action: () => startReserva() },
+          { label: " Hacer una reserva", action: () => startReserva() },
           { label: "← Más preguntas",      action: () => startDudas()   }
         ]));
       }

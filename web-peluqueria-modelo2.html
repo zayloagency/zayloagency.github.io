@@ -507,7 +507,7 @@
   <section id="resenas">
     <div class="container">
       <h2 class="section-title fade-up">Lo que dicen nuestros clientes</h2>
-      <p class="reviews-badge fade-up">4.9 ★ &nbsp;·&nbsp; 312 reseñas en Google</p>
+      <p class="reviews-badge fade-up">4.9  &nbsp;·&nbsp; 312 reseñas en Google</p>
       <div class="reviews-grid">
         <div class="review-card">
           <div class="review-header">
@@ -560,17 +560,17 @@
       </div>
       <div class="contact-grid">
         <div class="contact-item fade-up">
-          <div class="contact-icon">📍</div>
+          <div class="contact-icon"></div>
           <div class="contact-label">Dirección</div>
           <div class="contact-value">Calle de Fuencarral, 42<br>Madrid</div>
         </div>
         <div class="contact-item fade-up">
-          <div class="contact-icon">📞</div>
+          <div class="contact-icon"></div>
           <div class="contact-label">Teléfono</div>
           <div class="contact-value">91 234 56 78</div>
         </div>
         <div class="contact-item fade-up">
-          <div class="contact-icon">⏰</div>
+          <div class="contact-icon"></div>
           <div class="contact-label">Horario</div>
           <div class="contact-value">Lunes – Sábado<br>10:00 – 21:00</div>
         </div>
@@ -592,19 +592,19 @@
 
   <!-- CHATBOT TRIGGER -->
   <button class="chat-trigger" id="chatTrigger" aria-label="Abrir chat">
-    ✂️
+    
     <span class="chat-badge" id="chatBadge">1</span>
   </button>
 
   <!-- CHATBOT WINDOW -->
   <div class="chat-window" id="chatWindow" role="dialog" aria-label="Chat Élite Barber">
     <div class="chat-header">
-      <div class="chat-avatar">✂️</div>
+      <div class="chat-avatar"></div>
       <div class="chat-header-info">
-        <div class="chat-header-name">Élite Barber ✂️</div>
+        <div class="chat-header-name">Élite Barber </div>
         <div class="chat-header-status">● En línea</div>
       </div>
-      <button class="chat-close" id="chatClose" aria-label="Cerrar chat">✕</button>
+      <button class="chat-close" id="chatClose" aria-label="Cerrar chat"></button>
     </div>
     <div class="chat-messages" id="chatMessages"></div>
     <div class="chat-chips" id="chatChips"></div>
@@ -713,7 +713,7 @@
     function startChat() {
       booking = {};
       setTimeout(() => {
-        addMsg('¡Hola! 👋 ¿En qué puedo ayudarte?');
+        addMsg('¡Hola!  ¿En qué puedo ayudarte?');
         setChips(['Reservar cita', 'Precios', 'Cómo llegar', 'Horario'], handleInicio);
       }, 300);
     }
@@ -730,7 +730,7 @@
         }, 400);
       } else if (opt === 'Precios') {
         setTimeout(() => {
-          addMsg('Nuestros precios:<br>✂️ Corte — <strong>20€</strong><br>🌀 Fade — <strong>25€</strong><br>✂️🪒 Corte+Barba — <strong>33€</strong><br>🪒 Barba — <strong>15€</strong><br>🎨 Color/Mechas — <strong>desde 45€</strong>');
+          addMsg('Nuestros precios:<br> Corte — <strong>20€</strong><br> Fade — <strong>25€</strong><br> Corte+Barba — <strong>33€</strong><br> Barba — <strong>15€</strong><br> Color/Mechas — <strong>desde 45€</strong>');
           setChips(['Reservar cita', 'Volver al inicio'], opt2 => {
             if (opt2 === 'Volver al inicio') backToStart();
             else { setTimeout(() => { addMsg('¿Qué servicio quieres?'); setChips(['Corte 20€','Fade 25€','Corte+Barba 33€','Barba 15€','Color desde 45€'], handleServicio); }, 400); }
@@ -738,7 +738,7 @@
         }, 400);
       } else if (opt === 'Cómo llegar') {
         setTimeout(() => {
-          addMsg('📍 Estamos en <strong>Calle de Fuencarral, 42, Madrid</strong>.<br>Metro: Tribunal (L10) o Bilbao (L4).<br>Bus: 3, 40, 149.');
+          addMsg(' Estamos en <strong>Calle de Fuencarral, 42, Madrid</strong>.<br>Metro: Tribunal (L10) o Bilbao (L4).<br>Bus: 3, 40, 149.');
           setChips(['Reservar cita', 'Volver al inicio'], opt2 => {
             if (opt2 === 'Volver al inicio') backToStart();
             else { setTimeout(() => { addMsg('¿Qué servicio quieres?'); setChips(['Corte 20€','Fade 25€','Corte+Barba 33€','Barba 15€','Color desde 45€'], handleServicio); }, 400); }
@@ -746,7 +746,7 @@
         }, 400);
       } else if (opt === 'Horario') {
         setTimeout(() => {
-          addMsg('⏰ Abrimos <strong>Lunes a Sábado de 10:00 a 21:00</strong>.<br>Domingos cerrado.');
+          addMsg(' Abrimos <strong>Lunes a Sábado de 10:00 a 21:00</strong>.<br>Domingos cerrado.');
           setChips(['Reservar cita', 'Volver al inicio'], opt2 => {
             if (opt2 === 'Volver al inicio') backToStart();
             else { setTimeout(() => { addMsg('¿Qué servicio quieres?'); setChips(['Corte 20€','Fade 25€','Corte+Barba 33€','Barba 15€','Color desde 45€'], handleServicio); }, 400); }
@@ -791,10 +791,10 @@
       booking.tel = val;
       setTimeout(() => {
         addMsg(
-          '✅ ¡Perfecto, <strong>' + booking.nombre + '</strong>! Cita solicitada:<br>' +
-          '✂️ ' + booking.servicio + '<br>' +
-          '📅 ' + booking.dia + ' a las ' + booking.hora + '<br><br>' +
-          'Te confirmamos al <strong>' + booking.tel + '</strong> por WhatsApp. ¡Hasta pronto! 💈'
+          ' ¡Perfecto, <strong>' + booking.nombre + '</strong>! Cita solicitada:<br>' +
+          ' ' + booking.servicio + '<br>' +
+          ' ' + booking.dia + ' a las ' + booking.hora + '<br><br>' +
+          'Te confirmamos al <strong>' + booking.tel + '</strong> por WhatsApp. ¡Hasta pronto! '
         );
         setTimeout(() => {
           setChips(['Nueva consulta'], () => {
