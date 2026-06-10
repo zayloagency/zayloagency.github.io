@@ -617,6 +617,7 @@ footer .oro{color:var(--oro)}
 @media(max-width:480px){
   #wa-btn{bottom:20px;right:20px;width:56px;height:56px}
   #wa-chat{bottom:90px;right:10px;left:10px;width:auto;height:70vh}
+  #wa-tip{bottom:90px;right:10px;width:auto;left:10px}
 }
 </style>
 
@@ -641,7 +642,12 @@ function closeLock(){document.getElementById('lockModal').classList.remove('acti
 // CHATBOT DEMO
 const waBody=document.getElementById('wa-body');
 const waChat=document.getElementById('wa-chat');
-function toggleChat(){waChat.classList.toggle('open')}
+function toggleChat(){
+  waChat.classList.toggle('open');
+  const tip=document.getElementById('wa-tip');
+  if(tip)tip.classList.add('hidden');
+}
+function closeTip(e){e.stopPropagation();document.getElementById('wa-tip').classList.add('hidden')}
 function waTime(){const d=new Date();return d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0')}
 function waMsg(text,who){
   const m=document.createElement('div');
