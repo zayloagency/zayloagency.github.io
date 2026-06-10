@@ -1746,6 +1746,13 @@ if (contacto) {
   }, { threshold: 0.2 });
   observer.observe(contacto);
 }
+
+// Fallback: mostrar al llegar al final si aún no se ha mostrado
+window.addEventListener('scroll', function() {
+  var scrolled = window.scrollY + window.innerHeight;
+  var total = document.documentElement.scrollHeight;
+  if (scrolled >= total - 50) showExit();
+}, { passive: true });
 </script>
 </body>
 </html>
