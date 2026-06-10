@@ -316,11 +316,18 @@
       position: absolute;
       inset: 0;
       z-index: 0;
+      background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1600&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
       background:
         radial-gradient(ellipse 60% 70% at 75% 40%, rgba(120,60,15,0.55) 0%, transparent 65%),
         radial-gradient(ellipse 40% 50% at 20% 70%, rgba(80,40,8,0.4) 0%, transparent 60%),
-        radial-gradient(ellipse 80% 60% at 50% 100%, rgba(50,25,5,0.6) 0%, transparent 60%),
-        linear-gradient(165deg, #1a1108 0%, #0f0c08 40%, #0a0805 100%);
+        linear-gradient(165deg, rgba(10,8,5,0.82) 0%, rgba(15,12,8,0.75) 100%);
     }
 
     /* Animated warm light halo */
