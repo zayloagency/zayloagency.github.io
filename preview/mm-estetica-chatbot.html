@@ -495,22 +495,129 @@ function chatOther(){
   });
 }
 function chatBonos(){
-  waBot('¡Sí! Tenemos packs con descuento:<br><br>✨ Pack 5 faciales — 200€ (40€/sesión)<br>✨ Pack masajes mensual — 180€ (4 sesiones)<br>✨ Bono micropigmentación + retoque — 290€<br><br>¿Te interesa alguno?',1300,()=>{
-    waOptions([{text:'📅 Sí, reservar',next:chatService}]);
+  waBot('¡Tenemos varios! Las clientas que repiten cogen pack y ahorran bastante:<br><br>✨ <strong>Pack 5 faciales</strong> — 200€ <em>(ahorras 75€)</em><br>✨ <strong>Pack 10 manicuras semipermanentes</strong> — 220€ <em>(ahorras 30€)</em><br>✨ <strong>Pack mensual masajes</strong> — 180€ (4 sesiones)<br>✨ <strong>Bono novia</strong> (limpieza + manicura + pedicura + lifting pestañas) — 145€<br>✨ <strong>Bono micropigmentación + retoque</strong> — 290€<br><br>¿Cuál te interesa?',1500,()=>{
+    waOptions([
+      {text:'Pack 5 faciales',next:()=>chatDay('Pack 5 faciales','200€','sesiones de 1h')},
+      {text:'Pack 10 manicuras',next:()=>chatDay('Pack 10 manicuras semipermanentes','220€','sesiones de 45 min')},
+      {text:'Bono novia',next:()=>chatDay('Bono novia (4 servicios)','145€','3h total')},
+      {text:'❓ Una duda sobre los bonos',next:chatBonosDuda},
+    ]);
+  });
+}
+function chatBonosDuda(){
+  waBot('Claro, dime:',900,()=>{
+    waOptions([
+      {text:'¿Caducan?',next:()=>{waBot('Los bonos tienen validez de <strong>12 meses</strong> desde la compra. Tiempo de sobra 💕',1100,()=>waOptions([{text:'Reservar',next:chatService}]))}},
+      {text:'¿Se puede regalar?',next:()=>{waBot('¡Sí! Te lo enviamos en formato tarjeta regalo digital o física, lo que prefieras 🎁',1100,()=>waOptions([{text:'Comprar regalo',next:chatRegalo}]))}},
+      {text:'¿Se puede pagar a plazos?',next:()=>{waBot('Sí, los bonos de 200€ o más se pueden fraccionar en 3 pagos sin intereses. Te lo gestionamos al hacer la primera cita 💳',1100,()=>waOptions([{text:'Me interesa, reservar',next:chatService}]))}},
+    ]);
   });
 }
 function chatProductos(){
-  waBot('Sí, trabajamos con cosmética profesional. Cremas, serums, mascarillas faciales — todo dermatológico. Si te interesa algún producto en concreto, dímelo y te digo si lo tenemos disponible 💕',1200,()=>{
-    waOptions([{text:'📅 Mejor pedir cita',next:chatService}]);
+  waBot('Trabajamos con marcas profesionales que también vendemos para casa. Estos son los que más recomiendan las clientas:<br><br>🧴 <strong>Serum vitamina C</strong> — 38€<br>🧴 <strong>Crema hidratante día/noche</strong> — 45€<br>🧴 <strong>Contorno de ojos</strong> — 32€<br>🧴 <strong>Mascarilla hidratante (pack 4)</strong> — 28€<br>🧴 <strong>Protector solar facial 50+</strong> — 24€<br><br>¿Quieres que te asesore con alguno?',1500,()=>{
+    waOptions([
+      {text:'Sí, no sé cuál me iría bien',next:chatAsesoria},
+      {text:'Quiero comprar uno concreto',next:()=>{waBot('Pásate por el centro y lo recoges, o te lo guardamos para tu próxima cita 💕',1000,()=>waOptions([{text:'Ver horarios',next:chatHours},{text:'Pedir cita',next:chatService}]))}},
+    ]);
   });
 }
+function chatAsesoria(){
+  waBot('Te paso al diagnóstico facial gratis. Vienes 15 min al centro, te miran la piel, y te recomiendan exactamente lo que necesitas. Sin compromiso. ¿Te lo reservo?',1300,()=>{
+    waOptions([
+      {text:'Sí, reservar diagnóstico',next:()=>chatDay('Diagnóstico facial gratis','0€ (gratis)','15 min')},
+      {text:'Otra vez, gracias',next:chatStart},
+    ]);
+  });
+}
+function chatRegalo(){
+  waBot('¡Qué buena idea! 🎁 Tenemos tarjetas regalo desde 30€ hasta el importe que quieras. ¿Para qué tipo de regalo?',1100,()=>{
+    waOptions([
+      {text:'💕 Pareja',next:()=>chatRegaloImporte('pareja')},
+      {text:'👯‍♀️ Amiga',next:()=>chatRegaloImporte('amiga')},
+      {text:'👰 Novia',next:()=>chatRegaloImporte('novia')},
+      {text:'👩 Madre',next:()=>chatRegaloImporte('madre')},
+    ]);
+  });
+}
+function chatRegaloImporte(quien){
+  const sugerencias={
+    pareja:'Para pareja te recomiendo el Bono Novia o un masaje de 50€',
+    amiga:'Para amiga lo más popular es un facial (45€) o manicura semipermanente (25€)',
+    novia:'El Bono Novia (145€) es el más completo para ese momento especial',
+    madre:'A las madres les encanta el pack mensual de masajes (180€) o un facial antiedad (75€)'
+  };
+  waBot(sugerencias[quien]+'.<br><br>¿Qué importe quieres regalar?',1100,()=>{
+    waOptions([
+      {text:'30€',next:()=>chatRegaloConfirm('30€')},
+      {text:'50€',next:()=>chatRegaloConfirm('50€')},
+      {text:'75€',next:()=>chatRegaloConfirm('75€')},
+      {text:'100€ o más',next:()=>chatRegaloConfirm('100€')},
+    ]);
+  });
+}
+function chatRegaloConfirm(importe){
+  waBot('Perfecto, '+importe+' de regalo. Te paso enlace para pagarlo online y te lo enviamos al instante en formato digital (PDF o imagen) o por correo si lo quieres físico. ¿Dime tu nombre para preparártelo?',1300,()=>{
+    const input=document.getElementById('wa-text');
+    input.disabled=false;input.focus();
+    input.onkeydown=(e)=>{
+      if(e.key==='Enter'&&input.value.trim()){
+        const nombre=input.value.trim();
+        waMsg(nombre,'user');
+        input.value='';input.disabled=true;input.onkeydown=null;
+        setTimeout(()=>{
+          waBot('Listo <strong>'+nombre+'</strong> ✅ Te paso el link de pago y en cuanto lo hagas te llega la tarjeta regalo. ¿Necesitas algo más?',1300,()=>{
+            waOptions([
+              {text:'No, gracias',next:chatFin},
+              {text:'Sí, otra cosa',next:chatStart},
+            ]);
+          });
+        },600);
+      }
+    };
+  });
+}
+function chatFAQ(){
+  waBot('Claro, dime qué necesitas saber:',900,()=>{
+    waOptions([
+      {text:'¿Puedo pagar con tarjeta?',next:chatFaqPago},
+      {text:'¿Cómo se cancela una cita?',next:chatFaqCancelar},
+      {text:'¿Estoy embarazada, puedo?',next:chatFaqEmbarazo},
+      {text:'¿Tenéis parking cerca?',next:chatFaqParking},
+      {text:'¿Hacéis a domicilio?',next:chatFaqDomicilio},
+      {text:'Tengo piel sensible',next:chatFaqSensible},
+      {text:'Hablar con María directamente',next:chatMaria},
+    ]);
+  });
+}
+function chatFaqPago(){
+  waBot('Sí, aceptamos tarjeta, efectivo y Bizum. También bonos pre-pagados 💳',1000,()=>waOptions([{text:'Reservar cita',next:chatService},{text:'Otra duda',next:chatFAQ}]));
+}
+function chatFaqCancelar(){
+  waBot('Puedes cancelar o cambiar tu cita hasta <strong>24h antes</strong> sin coste. Solo escríbenos por aquí y lo gestionamos. Después de 24h se aplica un 50% del importe 📌',1200,()=>waOptions([{text:'Reservar cita',next:chatService},{text:'Otra duda',next:chatFAQ}]));
+}
+function chatFaqEmbarazo(){
+  waBot('Sí, tenemos tratamientos específicos para embarazo: faciales relajantes, masajes adaptados (lateral) y manicura con esmaltes sin tóxicos. <strong>Evitamos</strong> micropigmentación, depilación con láser y algunos activos. Lo hablamos en consulta 💕',1500,()=>waOptions([{text:'Reservar consulta',next:chatService},{text:'Otra duda',next:chatFAQ}]));
+}
+function chatFaqParking(){
+  waBot('Sí, parking público de Retiro a 2 min andando. También hay zona azul/verde en la calle 🚗',1100,()=>waOptions([{text:'Reservar cita',next:chatService},{text:'Otra duda',next:chatFAQ}]));
+}
+function chatFaqDomicilio(){
+  waBot('Solo para tratamientos puntuales y eventos (bodas, novias, pre-foto). Mínimo 100€ + desplazamiento. ¿Quieres que te pasemos presupuesto?',1200,()=>waOptions([{text:'Sí, presupuesto a domicilio',next:chatMaria},{text:'No, otra cosa',next:chatFAQ}]));
+}
+function chatFaqSensible(){
+  waBot('Tranquila, trabajamos con productos hipoalergénicos y dermatológicamente testados. Antes de cualquier tratamiento te hacemos test cutáneo si nunca has venido. Cuéntame qué tipo de tratamiento te interesa y te aconsejo 💕',1400,()=>waOptions([{text:'Facial suave',next:()=>chatFacial()},{text:'Depilación suave',next:()=>chatDepilacion()},{text:'Otra duda',next:chatFAQ}]));
+}
 function chatMaria(){
-  waBot('Perfecto, le aviso a María que la necesitas. En cuanto pueda te contesta personalmente.<br><br>Mientras tanto, si quieres reservar cita o ver precios, sigo aquí 💕',1100,()=>{
+  waBot('Perfecto, le aviso a María que la necesitas. En cuanto pueda te contesta personalmente — normalmente en menos de 1h en horario.<br><br>Mientras tanto, si quieres reservar o ver más info, sigo aquí 💕',1300,()=>{
     waOptions([
       {text:'📅 Reservar cita',next:chatService},
       {text:'💰 Ver precios',next:chatPrices},
+      {text:'Esperar a María',next:chatFin},
     ]);
   });
+}
+function chatFin(){
+  waBot('¡Perfecto! Cuando me necesites estoy aquí 24/7. Que tengas un buen día 💕',1000);
 }
 function restartChat(){
   waBody.innerHTML='';
