@@ -476,8 +476,11 @@ function chatDone(nombre){
   });
 }
 function chatPrices(){
-  waBot('Aquí tienes nuestra lista de tratamientos:<br><br>💆 <strong>Faciales</strong><br>• Limpieza profunda — 45€<br>• Hidratación intensiva — 55€<br>• Antiedad — 75€<br><br>💪 <strong>Corporales</strong><br>• Masaje relajante — 50€<br>• Reductor — 65€<br>• Reafirmante — 70€<br><br>👁 <strong>Pestañas/Cejas</strong><br>• Lifting — 35€<br>• Extensiones — 55€<br>• Micropigmentación cejas — 250€<br><br>💅 <strong>Manicura/Pedicura</strong><br>• Manicura sencilla — 18€<br>• Semipermanente — 25€<br>• Pedicura — 30€',1500,()=>{
-    waOptions([{text:'📅 Reservar cita',next:chatService}]);
+  waBot('Aquí tienes nuestra lista completa:<br><br>💆 <strong>Tratamientos faciales</strong><br>• Limpieza facial profunda — 45€<br>• Hidratación intensiva — 55€<br>• Tratamiento antiedad — 75€<br>• Peeling químico — 80€<br>• Radiofrecuencia facial — 90€<br><br>💪 <strong>Tratamientos corporales</strong><br>• Masaje relajante — 50€<br>• Tratamiento reductor — 65€<br>• Reafirmante corporal — 70€<br>• Drenaje linfático — 55€<br>• Presoterapia (sesión) — 35€<br><br>👁 <strong>Pestañas / Cejas</strong><br>• Lifting de pestañas — 35€<br>• Extensiones — 55€<br>• Tinte de cejas — 12€<br>• Diseño + tinte cejas — 18€<br>• Micropigmentación cejas — 250€<br>• Micropigmentación labios — 280€<br>• Micropigmentación eyeliner — 220€<br><br>💅 <strong>Manicura / Pedicura</strong><br>• Manicura sencilla — 18€<br>• Manicura semipermanente — 25€<br>• Pedicura completa — 30€<br>• Pedicura spa — 40€<br>• Decoración / nail art — desde 5€<br><br>🪒 <strong>Depilación</strong><br>• Cejas — 8€<br>• Labio — 6€<br>• Axilas — 8€<br>• Ingles brasileñas — 15€<br>• Piernas medias — 18€<br>• Piernas enteras — 22€<br>• Pack completo — 40€',2000,()=>{
+    waOptions([
+      {text:'📅 Reservar cita ahora',next:chatService},
+      {text:'🎁 Ver bonos con descuento',next:chatBonos},
+    ]);
   });
 }
 function chatHours(){
