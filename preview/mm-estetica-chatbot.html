@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>Demo Chatbot WhatsApp — MM Estética</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --rosa:#d4a5a5;
+  --rosa-claro:#f4e4e4;
+  --dorado:#c9a14a;
+  --crema:#fdf9f5;
+  --texto:#2a2a2a;
+  --suave:#f5ebe5;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',sans-serif;color:var(--texto);
+  background:linear-gradient(135deg,#fdf9f5,#f4e4e4);
+  min-height:100vh;padding:32px 20px;line-height:1.6;
+  overflow-x:hidden;
+}
+body.locked{overflow:hidden}
+
+/* DEMO BANNER */
+#demo-banner{
+  position:fixed;top:0;left:0;right:0;z-index:99999;
+  background:linear-gradient(135deg,#fff,#fdf9f5);
+  color:#2a2a2a;padding:10px 24px;font-size:13px;
+  display:flex;align-items:center;justify-content:center;gap:24px;
+  border-bottom:2px solid var(--dorado);
+  flex-wrap:wrap;
+}
+#demo-banner strong{color:var(--dorado)}
+#demo-banner .pulse{
+  display:inline-block;width:8px;height:8px;background:var(--dorado);
+  border-radius:50%;margin-right:8px;animation:pulse 1.5s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+#demo-banner a{color:var(--dorado);font-weight:700;text-decoration:underline}
+body.has-demo-banner{padding-top:80px}
+
+.container{
+  max-width:900px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;
+}
+@media(max-width:768px){.container{grid-template-columns:1fr;gap:32px}}
+
+.intro h1{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(40px,5vw,56px);color:var(--texto);
+  line-height:1.1;margin-bottom:20px;font-weight:400;
+}
+.intro h1 span{color:var(--dorado)}
+.intro .subtitle{
+  font-size:16px;color:#666;margin-bottom:32px;
+}
+.benefits{display:flex;flex-direction:column;gap:14px;margin-bottom:32px}
+.benefit{
+  display:flex;align-items:flex-start;gap:14px;
+  background:rgba(255,255,255,.6);padding:14px 18px;
+  border-radius:12px;border:1px solid rgba(212,165,165,.3);
+}
+.benefit-icon{
+  width:32px;height:32px;flex-shrink:0;
+  background:var(--dorado);color:#fff;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:14px;
+}
+.benefit-text strong{display:block;color:var(--texto);font-size:14px;margin-bottom:2px}
+.benefit-text span{font-size:13px;color:#666;line-height:1.5}
+
+.cta-box{
+  background:#fff;padding:20px;border-radius:14px;
+  border:1px solid var(--rosa);text-align:center;
+}
+.cta-box p{font-size:13px;color:#666;margin-bottom:12px}
+.cta-box .arrow{font-size:24px;color:var(--dorado);animation:arrow 1.5s infinite}
+@keyframes arrow{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* PHONE MOCKUP */
+.phone-frame{
+  background:#1a1a1a;border-radius:38px;padding:12px;
+  box-shadow:0 30px 80px rgba(212,165,165,.4);
+  width:340px;max-width:100%;margin:0 auto;
+  position:relative;
+}
+.phone-notch{
+  position:absolute;top:12px;left:50%;transform:translateX(-50%);
+  width:100px;height:24px;background:#000;border-radius:0 0 12px 12px;z-index:10;
+}
+.phone-screen{
+  background:#0b141a;border-radius:28px;overflow:hidden;
+  height:600px;display:flex;flex-direction:column;
+  position:relative;
+}
+.wa-header{
+  background:#202c33;padding:14px 16px 14px 12px;
+  padding-top:32px;
+  display:flex;align-items:center;gap:12px;
+  border-bottom:1px solid #2a3942;
+}
+.wa-back{color:#8696a0;font-size:22px;cursor:pointer;line-height:1}
+.wa-avatar{
+  width:40px;height:40px;border-radius:50%;
+  background:linear-gradient(135deg,var(--rosa),var(--dorado));
+  color:#fff;display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:14px;letter-spacing:1px;
+}
+.wa-info{flex:1}
+.wa-name{color:#fff;font-weight:600;font-size:14px;line-height:1.2}
+.wa-status{color:#8696a0;font-size:11px;display:flex;align-items:center;gap:5px;margin-top:2px}
+.wa-dot{width:7px;height:7px;background:#25D366;border-radius:50%;display:inline-block}
+.wa-actions{display:flex;gap:16px;color:#8696a0;font-size:16px}
+.wa-body{
+  flex:1;overflow-y:auto;padding:14px 10px;
+  background:#0b141a;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' opacity='.03'%3E%3Cpath fill='%23fff' d='M50 30c5 0 9 4 9 9s-4 9-9 9-9-4-9-9 4-9 9-9z'/%3E%3C/svg%3E");
+  display:flex;flex-direction:column;gap:6px;
+}
+.wa-msg{
+  max-width:78%;padding:8px 11px;border-radius:8px;
+  font-size:14px;line-height:1.4;color:#fff;
+  animation:wa-in .25s ease-out;position:relative;
+}
+.wa-msg.bot{background:#202c33;align-self:flex-start;border-bottom-left-radius:2px}
+.wa-msg.user{background:#005c4b;align-self:flex-end;border-bottom-right-radius:2px}
+.wa-msg .wa-time{font-size:10px;color:#8696a0;margin-top:4px;text-align:right;display:block}
+.wa-msg.user .wa-time::after{content:" ✓✓";color:#53bdeb}
+@keyframes wa-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.wa-typing{
+  align-self:flex-start;background:#202c33;
+  padding:12px 14px;border-radius:8px;border-bottom-left-radius:2px;
+  display:flex;gap:4px;
+}
+.wa-typing span{
+  width:7px;height:7px;background:#8696a0;border-radius:50%;
+  animation:wa-blink 1.4s infinite;
+}
+.wa-typing span:nth-child(2){animation-delay:.2s}
+.wa-typing span:nth-child(3){animation-delay:.4s}
+@keyframes wa-blink{0%,80%,100%{opacity:.3}40%{opacity:1}}
+.wa-options{display:flex;flex-direction:column;gap:5px;margin:3px 0 6px}
+.wa-option{
+  background:#202c33;border:1px solid #2a3942;color:#fff;
+  padding:9px 12px;text-align:left;border-radius:8px;cursor:pointer;
+  font-size:12.5px;transition:all .2s;font-family:inherit;
+}
+.wa-option:hover{background:#2a3942;border-color:var(--dorado)}
+.wa-input-bar{
+  padding:8px 12px;background:#202c33;display:flex;gap:8px;align-items:center;
+  border-top:1px solid #2a3942;
+}
+.wa-input-bar input{
+  flex:1;background:#2a3942;border:none;border-radius:20px;
+  padding:8px 14px;color:#fff;font-size:13px;font-family:inherit;outline:none;
+}
+.wa-input-bar button{
+  background:#00a884;border:none;color:#fff;width:34px;height:34px;
+  border-radius:50%;cursor:pointer;font-size:14px;
+}
+
+.restart-btn{
+  display:block;margin:24px auto 0;
+  background:var(--dorado);color:#fff;border:none;
+  padding:12px 28px;border-radius:50px;font-size:13px;
+  letter-spacing:1.5px;text-transform:uppercase;font-weight:600;
+  cursor:pointer;font-family:inherit;transition:transform .2s;
+}
+.restart-btn:hover{transform:scale(1.05)}
+
+.footer-note{
+  text-align:center;margin-top:48px;font-size:12px;color:#888;
+}
+.footer-note strong{color:var(--dorado)}
+</style>
+</head>
+<body class="has-demo-banner" oncontextmenu="return false">
+
+<!-- DEMO BANNER -->
+<div id="demo-banner">
+  <span><span class="pulse"></span><strong>DEMO EXCLUSIVA PARA MM ESTÉTICA</strong></span>
+  <span>Caduca el <strong>18/06/2026</strong></span>
+  <span>Por <a href="https://zaylo.site" target="_blank">Zaylo</a></span>
+</div>
+
+<div class="container">
+
+  <!-- INTRO -->
+  <div class="intro">
+    <h1>Vuestro WhatsApp, <span>respondiendo solo</span></h1>
+    <p class="subtitle">Así se vería vuestro WhatsApp si tuviérais el asistente automático que monta Zaylo. <strong>Probadlo →</strong></p>
+
+    <div class="benefits">
+      <div class="benefit">
+        <div class="benefit-icon">1</div>
+        <div class="benefit-text">
+          <strong>Responde 24/7</strong>
+          <span>Aunque estés cerrada, con cliente, o de vacaciones</span>
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">2</div>
+        <div class="benefit-text">
+          <strong>Filtra las preguntas frecuentes</strong>
+          <span>Precios, horarios, tratamientos — resuelve solo el 80% de los mensajes</span>
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">3</div>
+        <div class="benefit-text">
+          <strong>Te apunta las citas</strong>
+          <span>El cliente elige servicio, día y hora — tú solo confirmas</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-box">
+      <p>Toca cualquier opción del WhatsApp →<br>El bot responde solo, como funcionaría con vuestras clientas</p>
+      <div class="arrow">↓</div>
+    </div>
+  </div>
+
+  <!-- PHONE MOCKUP -->
+  <div>
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+        <div class="wa-header">
+          <div class="wa-back">‹</div>
+          <div class="wa-avatar">MM</div>
+          <div class="wa-info">
+            <div class="wa-name">MM Estética</div>
+            <div class="wa-status"><span class="wa-dot"></span> en línea</div>
+          </div>
+          <div class="wa-actions">📞 ⋮</div>
+        </div>
+        <div class="wa-body" id="wa-body"></div>
+        <div class="wa-input-bar">
+          <input type="text" id="wa-text" placeholder="Mensaje" disabled>
+          <button>➤</button>
+        </div>
+      </div>
+    </div>
+    <button class="restart-btn" onclick="restartChat()">↻ Volver a empezar</button>
+  </div>
+
+</div>
+
+<div class="footer-note">
+  Demo personalizada por <strong>Zaylo</strong> · zaylo.site · 642 39 77 88
+</div>
+
+<script>
+const waBody=document.getElementById('wa-body');
+function waTime(){const d=new Date();return d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0')}
+function waMsg(text,who){
+  const m=document.createElement('div');
+  m.className='wa-msg '+who;
+  m.innerHTML=text+'<span class="wa-time">'+waTime()+'</span>';
+  waBody.appendChild(m);
+  waBody.scrollTop=waBody.scrollHeight;
+}
+function waTyping(){
+  const t=document.createElement('div');
+  t.className='wa-typing';t.id='wa-typing';
+  t.innerHTML='<span></span><span></span><span></span>';
+  waBody.appendChild(t);
+  waBody.scrollTop=waBody.scrollHeight;
+}
+function waStopTyping(){const t=document.getElementById('wa-typing');if(t)t.remove()}
+function waOptions(opts){
+  const c=document.createElement('div');
+  c.className='wa-options';
+  opts.forEach(o=>{
+    const b=document.createElement('button');
+    b.className='wa-option';b.textContent=o.text;
+    b.onclick=()=>{c.remove();waMsg(o.text,'user');setTimeout(()=>o.next(),500)};
+    c.appendChild(b);
+  });
+  waBody.appendChild(c);
+  waBody.scrollTop=waBody.scrollHeight;
+}
+function waBot(text,delay,cb){
+  waTyping();
+  setTimeout(()=>{waStopTyping();waMsg(text,'bot');if(cb)setTimeout(cb,400)},delay||1100);
+}
+
+// FLOW
+function chatStart(){
+  waBot('¡Hola guapa! 💆‍♀️ Soy el asistente de <strong>MM Estética</strong>. ¿En qué te ayudo?',900,()=>{
+    waOptions([
+      {text:'📅 Reservar cita',next:chatService},
+      {text:'💰 Ver tratamientos y precios',next:chatPrices},
+      {text:'📍 Horario y ubicación',next:chatHours},
+      {text:'❓ Otra pregunta',next:chatOther},
+    ]);
+  });
+}
+function chatService(){
+  waBot('¡Genial! ¿Qué tratamiento te apetece?',900,()=>{
+    waOptions([
+      {text:'✨ Tratamiento facial',next:()=>chatFacial()},
+      {text:'💆 Tratamiento corporal',next:()=>chatCorporal()},
+      {text:'👁 Pestañas / Cejas',next:()=>chatPestanas()},
+      {text:'💅 Manicura / Pedicura',next:()=>chatManicura()},
+      {text:'🪒 Depilación',next:()=>chatDepilacion()},
+    ]);
+  });
+}
+let elegido={};
+function chatFacial(){
+  elegido.cat='Facial';
+  waBot('Tenemos estos tratamientos faciales:',900,()=>{
+    waOptions([
+      {text:'Limpieza facial profunda — 45€',next:()=>chatDay('Limpieza facial profunda','45€','1h')},
+      {text:'Hidratación intensiva — 55€',next:()=>chatDay('Hidratación intensiva','55€','1h')},
+      {text:'Tratamiento antiedad — 75€',next:()=>chatDay('Tratamiento antiedad','75€','1h 15 min')},
+    ]);
+  });
+}
+function chatCorporal(){
+  elegido.cat='Corporal';
+  waBot('Estos son los tratamientos corporales:',900,()=>{
+    waOptions([
+      {text:'Masaje relajante — 50€',next:()=>chatDay('Masaje relajante','50€','1h')},
+      {text:'Tratamiento reductor — 65€',next:()=>chatDay('Tratamiento reductor','65€','1h 15 min')},
+      {text:'Reafirmante corporal — 70€',next:()=>chatDay('Reafirmante corporal','70€','1h 15 min')},
+    ]);
+  });
+}
+function chatPestanas(){
+  elegido.cat='Pestañas/Cejas';
+  waBot('Aquí tienes:',900,()=>{
+    waOptions([
+      {text:'Lifting de pestañas — 35€',next:()=>chatDay('Lifting de pestañas','35€','1h')},
+      {text:'Extensiones de pestañas — 55€',next:()=>chatDay('Extensiones de pestañas','55€','1h 30 min')},
+      {text:'Micropigmentación cejas — 250€',next:()=>chatDay('Micropigmentación cejas','250€','2h')},
+    ]);
+  });
+}
+function chatManicura(){
+  elegido.cat='Manicura/Pedicura';
+  waBot('Estos son los servicios:',900,()=>{
+    waOptions([
+      {text:'Manicura sencilla — 18€',next:()=>chatDay('Manicura sencilla','18€','30 min')},
+      {text:'Manicura semipermanente — 25€',next:()=>chatDay('Manicura semipermanente','25€','45 min')},
+      {text:'Pedicura completa — 30€',next:()=>chatDay('Pedicura completa','30€','45 min')},
+    ]);
+  });
+}
+function chatDepilacion(){
+  elegido.cat='Depilación';
+  waBot('¿Qué zona te depilas?',900,()=>{
+    waOptions([
+      {text:'Piernas enteras — 22€',next:()=>chatDay('Depilación piernas enteras','22€','30 min')},
+      {text:'Axilas — 8€',next:()=>chatDay('Depilación axilas','8€','15 min')},
+      {text:'Ingles brasileñas — 15€',next:()=>chatDay('Depilación ingles brasileñas','15€','20 min')},
+      {text:'Pack completo — 40€',next:()=>chatDay('Pack depilación completa','40€','1h')},
+    ]);
+  });
+}
+function chatDay(serv,precio,dur){
+  elegido={...elegido,serv,precio,dur};
+  waBot('Apuntado: <strong>'+serv+'</strong> ('+dur+' · '+precio+'). ¿Cuándo te viene bien?',900,()=>{
+    waOptions([
+      {text:'📌 Hoy',next:()=>chatHour('hoy')},
+      {text:'📅 Mañana',next:()=>chatHour('mañana')},
+      {text:'🗓 Esta semana',next:()=>chatHour('el viernes')},
+    ]);
+  });
+}
+function chatHour(dia){
+  elegido.dia=dia;
+  waBot('Estos huecos están libres '+dia+':',900,()=>{
+    waOptions([
+      {text:'🕙 10:30',next:()=>chatConfirm('10:30')},
+      {text:'🕐 13:00',next:()=>chatConfirm('13:00')},
+      {text:'🕔 17:00',next:()=>chatConfirm('17:00')},
+      {text:'🕖 19:30',next:()=>chatConfirm('19:30')},
+    ]);
+  });
+}
+function chatConfirm(hora){
+  elegido.hora=hora;
+  waBot('¿Me dices tu nombre para confirmar?',900,()=>{
+    const input=document.getElementById('wa-text');
+    input.disabled=false;input.focus();
+    input.onkeydown=(e)=>{
+      if(e.key==='Enter'&&input.value.trim()){
+        const nombre=input.value.trim();
+        waMsg(nombre,'user');
+        input.value='';input.disabled=true;input.onkeydown=null;
+        setTimeout(()=>chatDone(nombre),600);
+      }
+    };
+  });
+}
+function chatDone(nombre){
+  waBot('✅ Listo, <strong>'+nombre+'</strong>.<br><br>📌 <strong>'+elegido.serv+'</strong><br>📅 '+elegido.dia+' a las <strong>'+elegido.hora+'</strong><br>💰 '+elegido.precio+'<br>⏱ '+elegido.dur+'<br><br>Te esperamos 💕',1500,()=>{
+    setTimeout(()=>{
+      const d=document.createElement('div');
+      d.className='wa-msg bot';
+      d.style.background='rgba(201,161,74,.2)';
+      d.style.border='1px solid rgba(201,161,74,.4)';
+      d.innerHTML='✨ <strong>Esta cita acaba de quedar guardada automáticamente en tu calendario.</strong><br><br>Esto es exactamente lo que haría Zaylo en tu WhatsApp real.<span class="wa-time">'+waTime()+'</span>';
+      waBody.appendChild(d);
+      waBody.scrollTop=waBody.scrollHeight;
+    },800);
+  });
+}
+function chatPrices(){
+  waBot('Aquí tienes nuestra lista de tratamientos:<br><br>💆 <strong>Faciales</strong><br>• Limpieza profunda — 45€<br>• Hidratación intensiva — 55€<br>• Antiedad — 75€<br><br>💪 <strong>Corporales</strong><br>• Masaje relajante — 50€<br>• Reductor — 65€<br>• Reafirmante — 70€<br><br>👁 <strong>Pestañas/Cejas</strong><br>• Lifting — 35€<br>• Extensiones — 55€<br>• Micropigmentación cejas — 250€<br><br>💅 <strong>Manicura/Pedicura</strong><br>• Manicura sencilla — 18€<br>• Semipermanente — 25€<br>• Pedicura — 30€',1500,()=>{
+    waOptions([{text:'📅 Reservar cita',next:chatService}]);
+  });
+}
+function chatHours(){
+  waBot('📍 <strong>MM Estética</strong><br>Madrid<br><br>🕐 <strong>Horario:</strong><br>Lunes a viernes · 10:00 – 20:00<br>Sábados · 10:00 – 14:00<br><br>¿Quieres pedir cita?',1100,()=>{
+    waOptions([{text:'📅 Sí, pedir cita',next:chatService}]);
+  });
+}
+function chatOther(){
+  waBot('Cuéntame, ¿en qué te puedo ayudar? Si es algo que no puedo resolver yo, te paso con María directamente.',900,()=>{
+    waOptions([
+      {text:'¿Hacéis bonos / packs?',next:chatBonos},
+      {text:'¿Tenéis productos para vender?',next:chatProductos},
+      {text:'Hablar con María',next:chatMaria},
+    ]);
+  });
+}
+function chatBonos(){
+  waBot('¡Sí! Tenemos packs con descuento:<br><br>✨ Pack 5 faciales — 200€ (40€/sesión)<br>✨ Pack masajes mensual — 180€ (4 sesiones)<br>✨ Bono micropigmentación + retoque — 290€<br><br>¿Te interesa alguno?',1300,()=>{
+    waOptions([{text:'📅 Sí, reservar',next:chatService}]);
+  });
+}
+function chatProductos(){
+  waBot('Sí, trabajamos con cosmética profesional. Cremas, serums, mascarillas faciales — todo dermatológico. Si te interesa algún producto en concreto, dímelo y te digo si lo tenemos disponible 💕',1200,()=>{
+    waOptions([{text:'📅 Mejor pedir cita',next:chatService}]);
+  });
+}
+function chatMaria(){
+  waBot('Perfecto, le aviso a María que la necesitas. En cuanto pueda te contesta personalmente.<br><br>Mientras tanto, si quieres reservar cita o ver precios, sigo aquí 💕',1100,()=>{
+    waOptions([
+      {text:'📅 Reservar cita',next:chatService},
+      {text:'💰 Ver precios',next:chatPrices},
+    ]);
+  });
+}
+function restartChat(){
+  waBody.innerHTML='';
+  const input=document.getElementById('wa-text');
+  input.value='';input.disabled=true;
+  chatStart();
+}
+setTimeout(chatStart,400);
+</script>
+</body>
+</html>
