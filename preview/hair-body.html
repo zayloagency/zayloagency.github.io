@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>Hair & Body — Estética y Peluquería en Tetuán, Madrid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+:root{
+  --noir:#1a1a1a;
+  --crema:#faf6f0;
+  --rosa:#e8d5c4;
+  --rosa-claro:#f5e8dd;
+  --dorado:#b8956a;
+  --dorado-claro:#d4b896;
+  --texto:#2a2a2a;
+  --gris:#8a8a8a;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--texto);background:var(--crema);line-height:1.6;overflow-x:hidden}
+body.locked{overflow:hidden}
+
+/* DEMO BANNER */
+#demo-banner{
+  position:fixed;top:0;left:0;right:0;z-index:99999;
+  background:linear-gradient(135deg,var(--noir),#333);
+  color:#fff;padding:10px 24px;font-size:13px;
+  display:flex;align-items:center;justify-content:center;gap:24px;
+  border-bottom:2px solid var(--dorado);
+  flex-wrap:wrap;
+}
+#demo-banner strong{color:var(--dorado-claro)}
+#demo-banner .pulse{
+  display:inline-block;width:8px;height:8px;background:var(--dorado);
+  border-radius:50%;margin-right:8px;animation:pulse 1.5s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+#demo-banner a{color:var(--dorado-claro);font-weight:700;text-decoration:underline}
+body.has-demo-banner{padding-top:44px}
+
+.watermark{
+  position:fixed;bottom:20px;right:20px;z-index:99998;
+  background:rgba(184,149,106,.95);color:#fff;padding:8px 14px;
+  border-radius:20px;font-size:11px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;pointer-events:none;
+}
+
+/* NAV */
+nav{
+  position:fixed;top:44px;left:0;right:0;z-index:1000;
+  padding:20px 8%;display:flex;justify-content:space-between;align-items:center;
+  background:rgba(250,246,240,.95);backdrop-filter:blur(20px);
+  transition:all .3s ease;border-bottom:1px solid rgba(184,149,106,.15);
+}
+nav.scrolled{padding:14px 8%;box-shadow:0 4px 30px rgba(0,0,0,.08)}
+.logo{font-family:'Pacifico',cursive;font-size:28px;color:var(--noir);letter-spacing:-.5px;line-height:1}
+.logo span{color:var(--dorado)}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{color:var(--noir);text-decoration:none;font-weight:500;font-size:13px;letter-spacing:1px;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--dorado)}
+.nav-cta{
+  background:var(--noir);color:#fff;padding:12px 26px;border-radius:0;
+  text-decoration:none;font-weight:600;font-size:12px;letter-spacing:2px;
+  text-transform:uppercase;transition:all .3s;border:1px solid var(--noir);
+}
+.nav-cta:hover{background:var(--dorado);border-color:var(--dorado)}
+@media(max-width:768px){.nav-links{display:none}nav{padding:14px 5%}}
+
+/* HERO */
+.hero{
+  min-height:100vh;display:flex;align-items:center;
+  background-image:linear-gradient(135deg,rgba(26,26,26,.5),rgba(26,26,26,.3)),url('https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1800&q=80');
+  background-size:cover;background-position:center;background-attachment:fixed;
+  color:#fff;padding:120px 8% 80px;position:relative;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 70% 30%,rgba(184,149,106,.2),transparent 60%);
+}
+.hero-content{position:relative;z-index:2;max-width:900px;width:100%}
+.hero-tag{
+  display:inline-block;padding:8px 20px;border:1px solid var(--dorado-claro);
+  color:var(--dorado-claro);font-size:11px;font-weight:500;
+  letter-spacing:3px;text-transform:uppercase;margin-bottom:32px;
+  background:rgba(0,0,0,.2);
+}
+.hero h1{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(56px,9vw,128px);font-weight:500;
+  line-height:.95;letter-spacing:-2px;margin-bottom:24px;
+}
+.hero h1 .script{
+  font-family:'Pacifico',cursive;font-style:normal;
+  color:var(--dorado-claro);display:block;font-size:.6em;margin-bottom:-8px;
+}
+.hero-subtitle{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(20px,2.5vw,28px);font-weight:400;
+  max-width:680px;margin-bottom:24px;color:rgba(255,255,255,.95);
+}
+.hero-stars{
+  display:flex;align-items:center;gap:14px;font-size:15px;
+  color:var(--dorado-claro);margin-bottom:48px;font-weight:500;
+}
+.hero-stars .estrellas{color:var(--dorado-claro);font-size:18px;letter-spacing:2px}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap}
+.btn-primary{
+  background:var(--dorado);color:#fff;padding:18px 38px;
+  text-decoration:none;font-weight:600;font-size:12px;letter-spacing:2px;
+  text-transform:uppercase;display:inline-flex;align-items:center;gap:10px;
+  transition:all .3s;border:1px solid var(--dorado);cursor:pointer;
+}
+.btn-primary:hover{background:transparent;color:var(--dorado-claro);transform:translateY(-2px)}
+.btn-secondary{
+  background:transparent;color:#fff;padding:18px 38px;
+  text-decoration:none;font-weight:500;font-size:12px;letter-spacing:2px;
+  text-transform:uppercase;display:inline-flex;align-items:center;gap:10px;
+  transition:all .3s;border:1px solid rgba(255,255,255,.4);
+}
+.btn-secondary:hover{border-color:var(--dorado-claro);color:var(--dorado-claro)}
+
+/* SECTIONS */
+section{padding:120px 8%}
+.section-tag{
+  display:inline-block;font-size:11px;font-weight:600;letter-spacing:3px;
+  color:var(--dorado);text-transform:uppercase;margin-bottom:16px;
+}
+.section-title{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(40px,5vw,68px);font-weight:500;line-height:1.05;
+  color:var(--noir);margin-bottom:20px;letter-spacing:-1px;
+}
+.section-title .script{
+  font-family:'Pacifico',cursive;font-style:normal;
+  color:var(--dorado);font-size:.85em;
+}
+.section-sub{font-size:16px;color:var(--gris);max-width:640px;margin-bottom:64px;line-height:1.7}
+
+/* MARIA */
+.maria{background:#fff}
+.maria-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1300px;margin:0 auto}
+.maria-text p{font-size:16px;color:#4a4a4a;margin-bottom:18px;line-height:1.8}
+.maria-text p .destaca{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:var(--noir)}
+.firma{
+  font-family:'Pacifico',cursive;font-size:38px;color:var(--dorado);
+  margin-top:24px;line-height:1;
+}
+.firma-sub{font-size:11px;letter-spacing:3px;color:var(--gris);text-transform:uppercase;margin-top:4px}
+.maria-img{
+  height:580px;background-size:cover;background-position:center;
+  background-image:url('https://images.unsplash.com/photo-1595475884562-073c30d45670?w=900&q=80');
+  position:relative;
+}
+.maria-img::after{
+  content:'';position:absolute;inset:0;
+  border:1px solid var(--dorado);transform:translate(20px,20px);
+  pointer-events:none;
+}
+@media(max-width:900px){.maria-grid{grid-template-columns:1fr;gap:40px}.maria-img{height:380px}}
+
+/* SOCIAL PROOF */
+.proof{
+  background:linear-gradient(135deg,var(--noir),#2a2a2a);
+  color:#fff;padding:80px 8%;text-align:center;
+}
+.proof-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;max-width:1100px;margin:0 auto}
+.proof-item{}
+.proof-num{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:64px;font-weight:500;color:var(--dorado-claro);
+  line-height:1;margin-bottom:8px;
+}
+.proof-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.7);font-weight:600}
+@media(max-width:768px){.proof-grid{grid-template-columns:1fr 1fr;gap:24px}.proof-num{font-size:48px}}
+
+/* SERVICIOS */
+.servicios{background:var(--crema)}
+.serv-categorias{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:28px;max-width:1300px;margin:0 auto 64px;
+}
+.serv-cat{
+  background:#fff;padding:40px 28px;text-align:center;
+  border:1px solid rgba(184,149,106,.15);
+  transition:all .3s;cursor:pointer;
+}
+.serv-cat:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,.08);border-color:var(--dorado)}
+.serv-cat-icon{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:42px;color:var(--dorado);margin-bottom:14px;font-weight:500;
+}
+.serv-cat h4{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:24px;font-weight:500;color:var(--noir);margin-bottom:8px;
+}
+.serv-cat p{font-size:13px;color:var(--gris);line-height:1.6}
+
+.precio-tabla{
+  max-width:900px;margin:0 auto;background:#fff;
+  border:1px solid rgba(184,149,106,.15);padding:48px 56px;
+}
+.precio-tabla h3{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:32px;color:var(--noir);margin-bottom:30px;text-align:center;font-weight:500;
+}
+.precio-grupo{margin-bottom:32px}
+.precio-grupo h5{
+  font-size:11px;letter-spacing:3px;color:var(--dorado);text-transform:uppercase;
+  font-weight:700;margin-bottom:16px;padding-bottom:10px;
+  border-bottom:1px solid rgba(184,149,106,.2);
+}
+.precio-fila{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 0;border-bottom:1px dotted rgba(0,0,0,.06);font-size:14.5px;
+}
+.precio-fila:last-child{border-bottom:none}
+.precio-fila .nombre{color:var(--noir);font-weight:500}
+.precio-fila .precio{color:var(--dorado);font-weight:700;font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic}
+@media(max-width:768px){.precio-tabla{padding:32px 24px}.precio-fila{flex-direction:column;align-items:flex-start;gap:4px}}
+
+/* MARCAS */
+.marcas{background:#fff;text-align:center;padding:80px 8%}
+.marcas-tag{font-size:11px;letter-spacing:3px;color:var(--gris);text-transform:uppercase;margin-bottom:20px}
+.marcas-list{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:48px;
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:28px;color:var(--noir);font-weight:500;
+}
+@media(max-width:768px){.marcas-list{font-size:20px;gap:24px}}
+
+/* RESERVA */
+.reserva{
+  background-image:linear-gradient(135deg,rgba(26,26,26,.8),rgba(26,26,26,.6)),url('https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=1800&q=80');
+  background-size:cover;background-position:center;background-attachment:fixed;
+  text-align:center;padding:140px 8%;
+}
+.reserva h2{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(40px,5vw,72px);color:#fff;
+  margin-bottom:20px;font-weight:500;
+}
+.reserva p{font-size:18px;color:rgba(255,255,255,.9);margin-bottom:40px;max-width:600px;margin-left:auto;margin-right:auto}
+
+/* CONTACTO */
+.contacto{background:var(--crema)}
+.contacto-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;max-width:1200px;margin:0 auto}
+.info-item{margin-bottom:32px;padding-bottom:32px;border-bottom:1px solid rgba(184,149,106,.15)}
+.info-item:last-child{border-bottom:none}
+.info-label{font-size:11px;color:var(--dorado);text-transform:uppercase;letter-spacing:2px;font-weight:700;margin-bottom:8px}
+.info-value{font-size:18px;color:var(--noir);font-weight:500}
+.info-value a{color:var(--noir);text-decoration:none}
+.info-value a:hover{color:var(--dorado)}
+.mapa{
+  height:100%;min-height:400px;
+  background:#f5e8dd url('https://maps.googleapis.com/maps/api/staticmap?center=Calle+Avila+23+Madrid&zoom=15&size=600x400');
+  background-size:cover;background-position:center;
+  display:flex;align-items:flex-end;padding:24px;
+}
+.mapa-pin{
+  background:var(--noir);color:#fff;padding:14px 22px;
+  font-weight:600;text-transform:uppercase;letter-spacing:2px;font-size:12px;
+}
+@media(max-width:900px){.contacto-grid{grid-template-columns:1fr}}
+
+footer{
+  background:var(--noir);padding:40px 8%;text-align:center;
+  border-top:1px solid rgba(184,149,106,.2);
+}
+footer p{color:rgba(255,255,255,.6);font-size:13px;letter-spacing:1px}
+footer .dorado{color:var(--dorado-claro)}
+
+/* LOCK MODAL */
+.lock-modal{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);
+  z-index:999999;align-items:center;justify-content:center;padding:20px;
+}
+.lock-modal.active{display:flex}
+.lock-content{
+  background:#fff;border:1px solid var(--dorado);
+  padding:48px;max-width:520px;width:100%;text-align:center;
+}
+.lock-icon{font-size:48px;margin-bottom:24px}
+.lock-content h3{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:32px;color:var(--noir);margin-bottom:16px;font-weight:500;
+}
+.lock-content p{color:#4a4a4a;font-size:15px;line-height:1.7;margin-bottom:32px}
+.lock-content strong{color:var(--dorado)}
+.lock-close{
+  background:var(--noir);color:#fff;border:none;padding:14px 32px;
+  font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;
+  font-size:12px;font-family:'Inter',sans-serif;
+}
+
+/* CHATBOT */
+#wa-btn{
+  position:fixed;bottom:30px;right:30px;width:64px;height:64px;
+  background:#25D366;border-radius:50%;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 24px rgba(37,211,102,.4);z-index:99996;
+}
+.wa-badge{
+  position:absolute;top:-2px;right:-2px;
+  background:#ff3b30;color:#fff;width:22px;height:22px;
+  border-radius:50%;font-size:12px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  border:2px solid #fff;
+}
+#wa-tip{
+  position:fixed;bottom:110px;right:30px;width:300px;
+  background:#fff;border-radius:14px;padding:14px 16px;
+  box-shadow:0 12px 40px rgba(0,0,0,.2);z-index:99995;
+  cursor:pointer;animation:wa-tip-in .5s ease-out .8s both, wa-tip-bounce 2.5s ease-in-out 2s infinite;
+  border:1px solid rgba(0,0,0,.06);
+}
+#wa-tip.hidden{display:none}
+#wa-tip::after{
+  content:'';position:absolute;bottom:-8px;right:30px;
+  width:0;height:0;border:8px solid transparent;border-top-color:#fff;border-bottom:0;
+}
+.wa-tip-header{display:flex;align-items:center;gap:8px;font-size:12px;color:#555;margin-bottom:6px}
+.wa-tip-header strong{color:#111}
+.wa-tip-dot{width:8px;height:8px;background:#25D366;border-radius:50%;animation:wa-pulse-dot 1.5s infinite}
+@keyframes wa-pulse-dot{0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.7)}50%{box-shadow:0 0 0 6px rgba(37,211,102,0)}}
+.wa-tip-close{margin-left:auto;background:none;border:none;color:#999;font-size:18px;cursor:pointer;line-height:1}
+.wa-tip-msg{font-size:13.5px;color:#222;line-height:1.4;margin-bottom:8px}
+.wa-tip-cta{font-size:12px;color:#25D366;font-weight:700;text-transform:uppercase}
+@keyframes wa-tip-in{from{opacity:0;transform:translateY(10px) scale(.95)}to{opacity:1}}
+@keyframes wa-tip-bounce{0%,90%,100%{transform:translateY(0)}45%{transform:translateY(-6px)}}
+
+#wa-chat{
+  position:fixed;bottom:110px;right:30px;width:360px;max-width:calc(100vw - 40px);
+  height:560px;max-height:calc(100vh - 140px);
+  background:#0a1014;border-radius:14px;
+  display:none;flex-direction:column;overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.4);z-index:99997;
+  border:1px solid rgba(184,149,106,.2);
+}
+#wa-chat.open{display:flex}
+.wa-header{background:#202c33;padding:14px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #2a3942}
+.wa-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--rosa),var(--dorado));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;letter-spacing:1px}
+.wa-name{color:#fff;font-weight:600;font-size:14px}
+.wa-status{color:#8696a0;font-size:11px;display:flex;align-items:center;gap:5px;margin-top:2px}
+.wa-dot{width:7px;height:7px;background:#25D366;border-radius:50%}
+.wa-close{margin-left:auto;background:none;border:none;color:#8696a0;font-size:28px;cursor:pointer;line-height:1}
+.wa-body{flex:1;overflow-y:auto;padding:16px 12px;background:#0b141a;display:flex;flex-direction:column;gap:8px}
+.wa-msg{max-width:80%;padding:8px 12px;border-radius:8px;font-size:14px;line-height:1.4;color:#fff;animation:wa-in .25s ease-out}
+.wa-msg.bot{background:#202c33;align-self:flex-start;border-bottom-left-radius:2px}
+.wa-msg.user{background:#005c4b;align-self:flex-end;border-bottom-right-radius:2px}
+.wa-msg .wa-time{font-size:10px;color:#8696a0;margin-top:4px;text-align:right;display:block}
+@keyframes wa-in{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
+.wa-typing{align-self:flex-start;background:#202c33;padding:12px 14px;border-radius:8px;border-bottom-left-radius:2px;display:flex;gap:4px}
+.wa-typing span{width:7px;height:7px;background:#8696a0;border-radius:50%;animation:wa-blink 1.4s infinite}
+.wa-typing span:nth-child(2){animation-delay:.2s}
+.wa-typing span:nth-child(3){animation-delay:.4s}
+@keyframes wa-blink{0%,80%,100%{opacity:.3}40%{opacity:1}}
+.wa-options{display:flex;flex-direction:column;gap:6px;margin:4px 0 8px}
+.wa-option{background:#202c33;border:1px solid #2a3942;color:#fff;padding:10px 14px;text-align:left;border-radius:8px;cursor:pointer;font-size:13px;transition:all .2s;font-family:inherit}
+.wa-option:hover{background:#2a3942;border-color:var(--dorado)}
+.wa-input{padding:10px 12px;background:#202c33;display:flex;gap:8px;border-top:1px solid #2a3942}
+.wa-input input{flex:1;background:#2a3942;border:none;border-radius:20px;padding:9px 14px;color:#fff;font-size:13px;font-family:inherit;outline:none}
+.wa-input button{background:var(--dorado);border:none;color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer}
+
+/* MOBILE */
+@media(max-width:768px){
+  section{padding:70px 5%}
+  .hero{padding:130px 5% 60px;background-attachment:scroll;min-height:90vh}
+  .hero h1{font-size:clamp(52px,12vw,88px)}
+  .hero-subtitle{font-size:18px}
+  .reserva{padding:80px 5%;background-attachment:scroll}
+  #demo-banner{font-size:10px;padding:6px 10px;gap:8px}
+  body.has-demo-banner{padding-top:64px}
+  nav{top:54px;padding:12px 5%}
+  .logo{font-size:22px}
+  .hero-ctas{flex-direction:column;width:100%;gap:12px}
+  .btn-primary,.btn-secondary{width:100%;justify-content:center;padding:15px 20px;font-size:12px}
+  .watermark{font-size:9px;padding:5px 9px;bottom:90px;right:10px;opacity:.85}
+  .section-title{font-size:clamp(36px,8vw,52px)}
+  .maria-grid{gap:32px}
+  .maria-img{height:340px}
+  .marcas-list{font-size:18px;gap:18px}
+  #wa-btn{bottom:18px;right:18px;width:58px;height:58px}
+  #wa-tip{bottom:88px;right:14px;left:14px;width:auto}
+  #wa-chat{bottom:88px;right:10px;left:10px;width:auto;height:75vh;max-height:600px}
+}
+</style>
+</head>
+<body class="has-demo-banner" oncontextmenu="return false">
+
+<!-- DEMO BANNER -->
+<div id="demo-banner">
+  <span><span class="pulse"></span><strong>PREVIEW PARA HAIR &amp; BODY · MARÍA PEÑA</strong></span>
+  <span>Caduca el <strong>18/06/2026</strong></span>
+  <span>Por <a href="https://zaylo.site" target="_blank">Zaylo</a></span>
+</div>
+
+<div class="watermark">Preview by Zaylo</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="logo">Hair &amp; <span>Body</span></div>
+  <ul class="nav-links">
+    <li><a href="#maria">María</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <a href="#" class="nav-cta" onclick="openLock(event)">Reservar</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-tag">— Tetuán · Cuatro Caminos · Madrid</span>
+    <h1><span class="script">Hair &amp;</span>Body<em style="font-size:.5em;display:block;color:var(--dorado-claro);font-family:'Cormorant Garamond',serif">por María Peña</em></h1>
+    <p class="hero-subtitle">Estética y peluquería que cuidan de ti como en casa, en pleno corazón de Tetuán.</p>
+    <div class="hero-stars">
+      <span class="estrellas">★★★★★</span>
+      <span>4.9 / 5 · <strong>232 reseñas verificadas</strong></span>
+    </div>
+    <div class="hero-ctas">
+      <a href="#" class="btn-primary" onclick="openLock(event)">Reservar cita</a>
+      <a href="#servicios" class="btn-secondary">Ver servicios</a>
+    </div>
+  </div>
+</section>
+
+<!-- MARIA -->
+<section class="maria" id="maria">
+  <div class="maria-grid">
+    <div class="maria-text">
+      <span class="section-tag">— El alma del salón</span>
+      <h2 class="section-title">Conoce a <span class="script">María</span></h2>
+      <p>Soy María Peña, y este salón es el sueño que llevo cuidando con cariño durante años. Aquí no eres una clienta más — eres la persona a la que conozco por el nombre, cuyo color recuerdo de la última visita, y a la que escucho cuando me cuenta cómo le ha ido la semana.</p>
+      <p class="destaca">"Mi obsesión es que salgas del salón sintiéndote mejor de lo que entraste."</p>
+      <p>Trabajamos con las marcas más exigentes del sector — Kérastase, Redken, Crisnail, Masglo — porque tu pelo, tu piel y tus manos merecen lo mejor. Mi equipo, con Sol al frente de las uñas y los masajes, comparte la misma filosofía: tiempo, atención y resultado.</p>
+      <div class="firma">María Peña</div>
+      <div class="firma-sub">Fundadora · Hair &amp; Body</div>
+    </div>
+    <div class="maria-img"></div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="proof">
+  <div class="proof-grid">
+    <div class="proof-item">
+      <div class="proof-num">232</div>
+      <div class="proof-label">Reseñas verificadas</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-num">4.9★</div>
+      <div class="proof-label">Valoración media</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-num">+10</div>
+      <div class="proof-label">Años en Tetuán</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-num">6</div>
+      <div class="proof-label">Servicios premium</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section class="servicios" id="servicios">
+  <div style="text-align:center;max-width:780px;margin:0 auto 64px">
+    <span class="section-tag">— Lo que hacemos</span>
+    <h2 class="section-title">Servicios <span class="script">premium</span></h2>
+    <p class="section-sub" style="margin:0 auto">Peluquería, estética facial y corporal, manicura, depilación y masajes — todo bajo el mismo techo, con la misma atención.</p>
+  </div>
+
+  <div class="serv-categorias">
+    <div class="serv-cat">
+      <div class="serv-cat-icon">✂</div>
+      <h4>Peluquería</h4>
+      <p>Cortes, color, mechas y peinados con Kérastase y Redken</p>
+    </div>
+    <div class="serv-cat">
+      <div class="serv-cat-icon">✨</div>
+      <h4>Estética facial</h4>
+      <p>Limpiezas profundas y tratamientos personalizados</p>
+    </div>
+    <div class="serv-cat">
+      <div class="serv-cat-icon">💅</div>
+      <h4>Manicura &amp; pedicura</h4>
+      <p>Semipermanente, tradicional y nail art con Crisnail y Masglo</p>
+    </div>
+    <div class="serv-cat">
+      <div class="serv-cat-icon">💆</div>
+      <h4>Masajes</h4>
+      <p>Relajantes y reductores para cuerpo y mente</p>
+    </div>
+    <div class="serv-cat">
+      <div class="serv-cat-icon">🌿</div>
+      <h4>Depilación</h4>
+      <p>Cera de calidad, técnica precisa, mínima molestia</p>
+    </div>
+    <div class="serv-cat">
+      <div class="serv-cat-icon">💎</div>
+      <h4>Tratamientos corporales</h4>
+      <p>Reafirmantes, reductores y exfoliaciones a medida</p>
+    </div>
+  </div>
+
+  <div class="precio-tabla">
+    <h3>Carta de precios</h3>
+
+    <div class="precio-grupo">
+      <h5>✂ Peluquería</h5>
+      <div class="precio-fila"><span class="nombre">Corte mujer</span><span class="precio">18€</span></div>
+      <div class="precio-fila"><span class="nombre">Corte + lavado + peinado</span><span class="precio">33€</span></div>
+      <div class="precio-fila"><span class="nombre">Cambio de look</span><span class="precio">25€</span></div>
+      <div class="precio-fila"><span class="nombre">Tinte / mechas</span><span class="precio">desde 28€</span></div>
+      <div class="precio-fila"><span class="nombre">Corte hombre</span><span class="precio">15€</span></div>
+      <div class="precio-fila"><span class="nombre">Corte niños</span><span class="precio">10€</span></div>
+    </div>
+
+    <div class="precio-grupo">
+      <h5>✨ Estética facial</h5>
+      <div class="precio-fila"><span class="nombre">Limpieza facial profunda</span><span class="precio">75€</span></div>
+      <div class="precio-fila"><span class="nombre">Tratamientos personalizados</span><span class="precio">desde 75€</span></div>
+    </div>
+
+    <div class="precio-grupo">
+      <h5>💅 Manicura &amp; pedicura</h5>
+      <div class="precio-fila"><span class="nombre">Manicura</span><span class="precio">desde 5€</span></div>
+      <div class="precio-fila"><span class="nombre">Manicura semipermanente</span><span class="precio">19€</span></div>
+      <div class="precio-fila"><span class="nombre">Pedicura</span><span class="precio">desde 5€</span></div>
+    </div>
+
+    <div class="precio-grupo">
+      <h5>💆 Masajes &amp; corporales</h5>
+      <div class="precio-fila"><span class="nombre">Masaje relajante (45 min)</span><span class="precio">67€</span></div>
+      <div class="precio-fila"><span class="nombre">Masaje reductor</span><span class="precio">desde 18€</span></div>
+      <div class="precio-fila"><span class="nombre">Exfoliación corporal</span><span class="precio">65€</span></div>
+    </div>
+
+    <div class="precio-grupo" style="margin-bottom:0">
+      <h5>🌿 Depilación</h5>
+      <div class="precio-fila"><span class="nombre">Piernas enteras</span><span class="precio">18€</span></div>
+      <div class="precio-fila"><span class="nombre">Íntima</span><span class="precio">desde 15€</span></div>
+      <div class="precio-fila"><span class="nombre">Facial</span><span class="precio">desde 6€</span></div>
+      <div class="precio-fila"><span class="nombre">Cejas / pestañas</span><span class="precio">10€</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARCAS -->
+<section class="marcas">
+  <div class="marcas-tag">— Trabajamos con</div>
+  <div class="marcas-list">
+    <span>Kérastase</span>
+    <span>Redken</span>
+    <span>Crisnail</span>
+    <span>Masglo</span>
+    <span>Thuya</span>
+    <span>Summe Cosmetics</span>
+  </div>
+</section>
+
+<!-- RESERVA -->
+<section class="reserva">
+  <h2>Tu cita te espera</h2>
+  <p>Reserva en 30 segundos. Te confirmamos por WhatsApp.</p>
+  <a href="#" class="btn-primary" onclick="openLock(event)">Reservar ahora</a>
+</section>
+
+<!-- CONTACTO -->
+<section class="contacto" id="contacto">
+  <div style="text-align:center;max-width:780px;margin:0 auto 64px">
+    <span class="section-tag">— Cómo encontrarnos</span>
+    <h2 class="section-title">En el corazón <span class="script">de Tetuán</span></h2>
+  </div>
+  <div class="contacto-grid">
+    <div>
+      <div class="info-item">
+        <div class="info-label">Dirección</div>
+        <div class="info-value">Calle de Ávila, 23<br>28020 Madrid · Tetuán</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Teléfono</div>
+        <div class="info-value"><a href="tel:627753461">627 753 461</a></div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Instagram</div>
+        <div class="info-value"><a href="https://www.instagram.com/hairandbodyesteticaypeluqueria/" target="_blank">@hairandbodyesteticaypeluqueria</a></div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Horario</div>
+        <div class="info-value">Lunes a viernes · 10:00 – 20:00<br>Sábado y domingo · Cerrado</div>
+      </div>
+    </div>
+    <div class="mapa">
+      <div class="mapa-pin">📍 C/ Ávila 23</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 HAIR &amp; BODY ESTÉTICA Y PELUQUERÍA · Preview diseñada por <span class="dorado">Zaylo</span></p>
+</footer>
+
+<!-- LOCK MODAL -->
+<div class="lock-modal" id="lockModal">
+  <div class="lock-content">
+    <div class="lock-icon">🔒</div>
+    <h3>Esto es una preview</h3>
+    <p>Esta web es una demo personalizada para <strong>Hair &amp; Body</strong>. El sistema de reservas se activa al contratar el servicio con <strong>Zaylo</strong>.</p>
+    <p>¿Quieres activarlo? Escríbenos: <strong>642 39 77 88</strong></p>
+    <button class="lock-close" onclick="closeLock()">Entendido</button>
+  </div>
+</div>
+
+<!-- CHATBOT -->
+<div id="wa-tip" onclick="toggleChat()">
+  <div class="wa-tip-header">
+    <span class="wa-tip-dot"></span>
+    <span><strong>Asistente automático</strong> · 24/7</span>
+    <button class="wa-tip-close" onclick="closeTip(event)">×</button>
+  </div>
+  <div class="wa-tip-msg">¡Hola! 👋 Soy el asistente de Hair &amp; Body. Reserva tu cita en 30 segundos sin tener que llamar.</div>
+  <div class="wa-tip-cta">Pruébame →</div>
+</div>
+
+<div id="wa-btn" onclick="toggleChat()">
+  <svg viewBox="0 0 32 32" fill="#fff" width="30" height="30"><path d="M16 .4C7.4.4.4 7.4.4 16c0 2.8.7 5.4 2 7.7L.5 31.6l8.2-2.1c2.2 1.2 4.7 1.9 7.3 1.9 8.6 0 15.6-7 15.6-15.6S24.6.4 16 .4zm0 28.5c-2.4 0-4.7-.6-6.8-1.9l-.5-.3-5 1.3 1.3-4.9-.3-.5C3.5 20.5 2.8 18.3 2.8 16 2.8 8.7 8.7 2.8 16 2.8s13.2 5.9 13.2 13.2-5.9 13.2-13.2 13.2zm7.4-9.9c-.4-.2-2.4-1.2-2.7-1.3-.4-.1-.6-.2-.9.2-.3.4-1 1.3-1.3 1.6-.2.3-.5.3-.9.1-.4-.2-1.7-.6-3.2-2-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.5.6-.7.2-.2.3-.4.4-.6.1-.3 0-.5 0-.7 0-.2-.9-2.1-1.2-2.9-.3-.8-.6-.7-.9-.7h-.7c-.3 0-.7.1-1 .5-.4.4-1.4 1.3-1.4 3.3 0 1.9 1.4 3.8 1.6 4.1.2.3 2.8 4.2 6.7 5.9.9.4 1.7.6 2.2.8.9.3 1.8.3 2.5.2.8-.1 2.4-1 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"/></svg>
+  <span class="wa-badge">1</span>
+</div>
+
+<div id="wa-chat">
+  <div class="wa-header">
+    <div class="wa-avatar">HB</div>
+    <div>
+      <div class="wa-name">Hair &amp; Body</div>
+      <div class="wa-status"><span class="wa-dot"></span> En línea · Responde al momento</div>
+    </div>
+    <button class="wa-close" onclick="toggleChat()">×</button>
+  </div>
+  <div class="wa-body" id="wa-body"></div>
+  <div class="wa-input">
+    <input type="text" id="wa-text" placeholder="Escribe un mensaje..." disabled>
+    <button onclick="restartChat()">↻</button>
+  </div>
+</div>
+
+<script>
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>50)});
+
+function openLock(e){if(e)e.preventDefault();document.getElementById('lockModal').classList.add('active');document.body.classList.add('locked')}
+function closeLock(){document.getElementById('lockModal').classList.remove('active');document.body.classList.remove('locked')}
+function closeTip(e){e.stopPropagation();document.getElementById('wa-tip').classList.add('hidden')}
+
+// CHATBOT
+const waBody=document.getElementById('wa-body');
+const waChat=document.getElementById('wa-chat');
+function toggleChat(){
+  waChat.classList.toggle('open');
+  document.getElementById('wa-tip').classList.add('hidden');
+  if(waChat.classList.contains('open')&&!chatStarted){chatStarted=true;setTimeout(chatStart,400)}
+}
+function waTime(){const d=new Date();return d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0')}
+function waMsg(text,who){const m=document.createElement('div');m.className='wa-msg '+who;m.innerHTML=text+'<span class="wa-time">'+waTime()+'</span>';waBody.appendChild(m);waBody.scrollTop=waBody.scrollHeight}
+function waTyping(){const t=document.createElement('div');t.className='wa-typing';t.id='wa-typing';t.innerHTML='<span></span><span></span><span></span>';waBody.appendChild(t);waBody.scrollTop=waBody.scrollHeight}
+function waStopTyping(){const t=document.getElementById('wa-typing');if(t)t.remove()}
+function waOptions(opts){const c=document.createElement('div');c.className='wa-options';opts.forEach(o=>{const b=document.createElement('button');b.className='wa-option';b.textContent=o.text;b.onclick=()=>{c.remove();waMsg(o.text,'user');setTimeout(()=>o.next(),500)};c.appendChild(b)});waBody.appendChild(c);waBody.scrollTop=waBody.scrollHeight}
+function waBot(text,delay,cb){waTyping();setTimeout(()=>{waStopTyping();waMsg(text,'bot');if(cb)setTimeout(cb,400)},delay||1100)}
+let chatStarted=false;
+let elegido={};
+
+function chatStart(){
+  waBot('¡Hola guapa! 💕 Soy el asistente de <strong>Hair &amp; Body</strong>, el salón de María. ¿En qué te ayudo?',900,()=>{
+    waOptions([
+      {text:'📅 Reservar cita',next:chatCategoria},
+      {text:'💰 Ver precios',next:chatPrecios},
+      {text:'📍 Horario y dirección',next:chatHorario},
+      {text:'❓ Tengo una duda',next:chatFAQ},
+    ]);
+  });
+}
+function chatCategoria(){
+  waBot('¿Qué te apetece hoy?',900,()=>{
+    waOptions([
+      {text:'✂️ Peluquería',next:chatPelu},
+      {text:'✨ Estética facial',next:chatFacial},
+      {text:'💅 Manicura/Pedicura',next:chatUnas},
+      {text:'💆 Masaje',next:chatMasaje},
+      {text:'🌿 Depilación',next:chatDepi},
+    ]);
+  });
+}
+function chatPelu(){
+  elegido.cat='Peluquería';
+  waBot('Tenemos estos servicios de peluquería:',900,()=>{
+    waOptions([
+      {text:'Corte mujer — 18€',next:()=>chatDia('Corte mujer','18€','45 min')},
+      {text:'Corte + lavado + peinado — 33€',next:()=>chatDia('Corte + lavado + peinado','33€','1h')},
+      {text:'Cambio de look — 25€',next:()=>chatDia('Cambio de look','25€','45 min')},
+      {text:'Tinte / mechas — desde 28€',next:()=>chatDia('Tinte / mechas','desde 28€','1h 30 min')},
+      {text:'Corte hombre — 15€',next:()=>chatDia('Corte hombre','15€','30 min')},
+    ]);
+  });
+}
+function chatFacial(){
+  elegido.cat='Facial';
+  waBot('Faciales personalizados:',900,()=>{
+    waOptions([
+      {text:'Limpieza facial profunda — 75€',next:()=>chatDia('Limpieza facial profunda','75€','1h')},
+      {text:'Tratamiento personalizado — 75€',next:()=>chatDia('Tratamiento facial personalizado','75€','1h 15 min')},
+    ]);
+  });
+}
+function chatUnas(){
+  elegido.cat='Uñas';
+  waBot('Para tus manos y pies:',900,()=>{
+    waOptions([
+      {text:'Manicura sencilla — 5€',next:()=>chatDia('Manicura sencilla','5€','30 min')},
+      {text:'Manicura semipermanente — 19€',next:()=>chatDia('Manicura semipermanente','19€','1h')},
+      {text:'Pedicura — desde 5€',next:()=>chatDia('Pedicura','desde 5€','45 min')},
+    ]);
+  });
+}
+function chatMasaje(){
+  elegido.cat='Masaje';
+  waBot('Para que desconectes:',900,()=>{
+    waOptions([
+      {text:'Masaje relajante (45min) — 67€',next:()=>chatDia('Masaje relajante','67€','45 min')},
+      {text:'Masaje reductor — 18€',next:()=>chatDia('Masaje reductor','18€','30 min')},
+      {text:'Exfoliación corporal — 65€',next:()=>chatDia('Exfoliación corporal','65€','1h')},
+    ]);
+  });
+}
+function chatDepi(){
+  elegido.cat='Depilación';
+  waBot('¿Qué zona?',900,()=>{
+    waOptions([
+      {text:'Piernas enteras — 18€',next:()=>chatDia('Depilación piernas enteras','18€','30 min')},
+      {text:'Íntima — desde 15€',next:()=>chatDia('Depilación íntima','15€','20 min')},
+      {text:'Cejas / pestañas — 10€',next:()=>chatDia('Cejas / pestañas','10€','15 min')},
+      {text:'Facial — desde 6€',next:()=>chatDia('Depilación facial','6€','15 min')},
+    ]);
+  });
+}
+function chatDia(serv,precio,dur){
+  elegido={...elegido,serv,precio,dur};
+  waBot('Apuntado: <strong>'+serv+'</strong> ('+dur+' · '+precio+'). ¿Cuándo te viene bien?',900,()=>{
+    waOptions([
+      {text:'📌 Mañana',next:()=>chatHora('mañana')},
+      {text:'📅 Pasado mañana',next:()=>chatHora('pasado mañana')},
+      {text:'🗓 Esta semana',next:()=>chatHora('el viernes')},
+    ]);
+  });
+}
+function chatHora(dia){
+  elegido.dia=dia;
+  waBot('Estos huecos están libres '+dia+':',900,()=>{
+    waOptions([
+      {text:'🕙 10:30',next:()=>chatNombre('10:30')},
+      {text:'🕛 12:00',next:()=>chatNombre('12:00')},
+      {text:'🕔 17:00',next:()=>chatNombre('17:00')},
+      {text:'🕖 19:00',next:()=>chatNombre('19:00')},
+    ]);
+  });
+}
+function chatNombre(hora){
+  elegido.hora=hora;
+  waBot('¿Cómo te llamas para apuntarte?',900,()=>{
+    const input=document.getElementById('wa-text');
+    input.disabled=false;input.focus();
+    input.onkeydown=(e)=>{
+      if(e.key==='Enter'&&input.value.trim()){
+        const nombre=input.value.trim();
+        waMsg(nombre,'user');
+        input.value='';input.disabled=true;input.onkeydown=null;
+        setTimeout(()=>chatFin(nombre),600);
+      }
+    };
+  });
+}
+function chatFin(nombre){
+  waBot('✅ Listo <strong>'+nombre+'</strong>.<br><br>📌 <strong>'+elegido.serv+'</strong><br>📅 '+elegido.dia+' a las <strong>'+elegido.hora+'</strong><br>💰 '+elegido.precio+'<br>⏱ '+elegido.dur+'<br>📍 Calle de Ávila 23<br><br>Te esperamos 💕',1500,()=>{
+    setTimeout(()=>{
+      const d=document.createElement('div');
+      d.className='wa-msg bot';
+      d.style.background='rgba(184,149,106,.25)';
+      d.style.border='1px solid rgba(184,149,106,.4)';
+      d.innerHTML='✨ <strong>Esta cita se guardaría automáticamente en tu calendario.</strong><br><br>Esto es lo que haría Zaylo en el WhatsApp real de Hair &amp; Body.<span class="wa-time">'+waTime()+'</span>';
+      waBody.appendChild(d);
+      waBody.scrollTop=waBody.scrollHeight;
+    },800);
+  });
+}
+function chatPrecios(){
+  waBot('Aquí va la lista completa:<br><br>✂ <strong>Peluquería</strong><br>• Corte mujer — 18€<br>• Corte + lavado + peinado — 33€<br>• Cambio de look — 25€<br>• Tinte / mechas — desde 28€<br>• Corte hombre — 15€<br>• Corte niños — 10€<br><br>✨ <strong>Estética facial</strong><br>• Limpieza facial profunda — 75€<br>• Tratamientos personalizados — desde 75€<br><br>💅 <strong>Uñas</strong><br>• Manicura — desde 5€<br>• Manicura semipermanente — 19€<br>• Pedicura — desde 5€<br><br>💆 <strong>Masajes</strong><br>• Relajante (45min) — 67€<br>• Reductor — desde 18€<br>• Exfoliación corporal — 65€<br><br>🌿 <strong>Depilación</strong><br>• Piernas enteras — 18€<br>• Íntima — desde 15€<br>• Cejas / pestañas — 10€',2000,()=>{
+    waOptions([{text:'📅 Reservar cita',next:chatCategoria}]);
+  });
+}
+function chatHorario(){
+  waBot('📍 <strong>Hair &amp; Body</strong><br>Calle de Ávila, 23 · Tetuán<br>28020 Madrid<br><br>🕐 <strong>Horario:</strong><br>Lunes a viernes · 10:00 – 20:00<br>Sábado y domingo · Cerrado<br><br>📞 627 753 461',1300,()=>{
+    waOptions([{text:'📅 Reservar cita',next:chatCategoria}]);
+  });
+}
+function chatFAQ(){
+  waBot('Dime, ¿qué quieres saber?',900,()=>{
+    waOptions([
+      {text:'¿Cómo pago?',next:()=>{waBot('Aceptamos efectivo, tarjeta y Bizum 💳',1000,()=>waOptions([{text:'Reservar',next:chatCategoria}]))}},
+      {text:'¿Y si tengo que cancelar?',next:()=>{waBot('Puedes cancelar o cambiar hasta 24h antes sin coste. Solo escríbenos por aquí 💕',1100,()=>waOptions([{text:'Reservar',next:chatCategoria}]))}},
+      {text:'¿Qué productos usáis?',next:()=>{waBot('Trabajamos con las mejores marcas:<br><br>✨ Kérastase<br>✨ Redken<br>✨ Crisnail<br>✨ Masglo<br>✨ Thuya<br>✨ Summe Cosmetics',1300,()=>waOptions([{text:'Reservar',next:chatCategoria}]))}},
+      {text:'¿Tenéis bonos / packs?',next:()=>{waBot('¡Sí! Pregúntale a María al venir, te asesora con el que más te encaje según el tratamiento que más te guste 💕',1100,()=>waOptions([{text:'Reservar',next:chatCategoria}]))}},
+      {text:'Hablar con María',next:()=>{waBot('Perfecto, le aviso. María te contesta en cuanto pueda 💕',1000)}},
+    ]);
+  });
+}
+function restartChat(){waBody.innerHTML='';chatStart()}
+</script>
+</body>
+</html>
