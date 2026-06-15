@@ -6,8 +6,11 @@
     <script>if (history.scrollRestoration) history.scrollRestoration = 'manual'; window.scrollTo(0,0);</script>
 
     <meta name="google-site-verification" content="pRgzRcF_VLg2wy7XqZwkTw-zTsNJn1z9LPOUqMyFMBU">
-    <meta name="description" content="Creamos webs profesionales con chatbot de citas integrado para negocios locales en Madrid. Tu web lista en 5 días con posicionamiento SEO incluido. Presupuesto gratis.">
-    <title>Zaylo — Agencia digital para negocios locales</title>
+    <meta name="description" content="Webs profesionales para barberías, restaurantes, peluquerías, clínicas y negocios locales en Madrid. Chatbot de WhatsApp integrado, SEO local y entrega en 5 días. Presupuesto gratis.">
+    <meta name="keywords" content="diseño web negocios locales Madrid, web barbería Madrid, web restaurante Madrid, chatbot WhatsApp citas, agencia digital Madrid, web peluquería, SEO local Madrid">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Zaylo">
+    <title>Zaylo — Webs y chatbots para negocios locales en Madrid | En 5 días</title>
     <link rel="canonical" href="https://zaylo.site/">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png">
@@ -26,7 +29,8 @@
     <meta name="twitter:description" content="Webs profesionales y chatbots de WhatsApp. Tu negocio digital en 5 días.">
     <meta name="twitter:image" content="https://zaylo.site/og-image.jpg">
     <!-- Schema -->
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"Zaylo","url":"https://zaylo.site","description":"Agencia digital para negocios locales. Webs, chatbots de WhatsApp y SEO local.","telephone":"+34634142337","email":"zaylo.site@gmail.com","address":{"@type":"PostalAddress","addressLocality":"Madrid","addressCountry":"ES"},"areaServed":"Madrid","serviceType":["Diseño web","Chatbot WhatsApp","SEO Local"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"Zaylo","url":"https://zaylo.site","description":"Agencia digital para negocios locales en Madrid. Webs profesionales, chatbots de WhatsApp y SEO local. Entrega en 5 días.","telephone":"+34634142337","email":"zaylo.site@gmail.com","address":{"@type":"PostalAddress","addressLocality":"Madrid","addressRegion":"Comunidad de Madrid","addressCountry":"ES"},"geo":{"@type":"GeoCoordinates","latitude":"40.4168","longitude":"-3.7038"},"areaServed":["Madrid","Getafe","Leganés","Alcorcón","Móstoles","Fuenlabrada"],"serviceType":["Diseño web","Chatbot WhatsApp","SEO Local","Web barbería","Web restaurante","Web peluquería","Web clínica dental","Web veterinaria"],"priceRange":"€€","openingHours":"Mo-Fr 09:00-20:00","sameAs":["https://wa.me/34634142337"],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Servicios web para negocios locales","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Web Esencial","description":"Web profesional para negocios locales en Madrid. Diseño personalizado, adaptada a móvil, SEO incluido."},"price":"497","priceCurrency":"EUR"},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Web + Chatbot WhatsApp","description":"Web profesional con chatbot de citas por WhatsApp integrado. Reservas automáticas 24h."},"price":"797","priceCurrency":"EUR"}]}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Cuánto tarda en estar lista mi web?","acceptedAnswer":{"@type":"Answer","text":"Entregamos tu web lista y publicada en 5 días laborables desde la primera reunión."}},{"@type":"Question","name":"¿Cuánto cuesta una web para negocios locales?","acceptedAnswer":{"@type":"Answer","text":"La web esencial cuesta 497€ pago único. La web con chatbot de WhatsApp integrado cuesta 797€ pago único. Sin mensualidades."}},{"@type":"Question","name":"¿Para qué tipo de negocios hacéis webs?","acceptedAnswer":{"@type":"Answer","text":"Hacemos webs para barberías, peluquerías, restaurantes, clínicas dentales, veterinarias, gimnasios, estéticas y negocios locales en general en Madrid y alrededores."}}]}</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -755,6 +759,83 @@
         }
 
         /* ==========================================
+           DEMOS — EL TRABAJO HABLA POR NOSOTROS
+        ========================================== */
+        #demos-trabajo { background: var(--bg2); position: relative; overflow: hidden; }
+        #demos-trabajo::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--a1) 30%, var(--a2) 70%, transparent);
+        }
+        .demos-head { margin-bottom: 56px; }
+        .demos-count {
+            font-size: 12px; color: var(--text3); font-weight: 600;
+            letter-spacing: 0.1em; text-transform: uppercase;
+        }
+        .demos-list-work { display: flex; flex-direction: column; gap: 0; }
+        .demo-work-row {
+            position: relative; display: flex; align-items: center;
+            justify-content: space-between; gap: 24px;
+            padding: 26px 0; border-bottom: 1px solid var(--border);
+            text-decoration: none; color: inherit;
+            transition: padding-left 0.35s cubic-bezier(0.16,1,0.3,1), background 0.35s;
+            overflow: hidden;
+        }
+        .demo-work-row::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(90deg, rgba(99,102,241,0.05), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+        }
+        .demo-work-row:hover::before { transform: translateX(0); }
+        .demo-work-row:hover { padding-left: 18px; }
+        .dwr-left {
+            display: flex; align-items: center; gap: 20px;
+            position: relative; z-index: 1; min-width: 0;
+        }
+        .dwr-num {
+            font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+            color: var(--text3); width: 24px; flex-shrink: 0;
+        }
+        .dwr-sector {
+            font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+            text-transform: uppercase; color: var(--a1);
+            width: 130px; flex-shrink: 0;
+        }
+        .dwr-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(17px, 2.2vw, 24px); font-weight: 600;
+            color: var(--text); transition: color 0.2s; white-space: nowrap;
+        }
+        .demo-work-row:hover .dwr-name { color: #a5b4fc; }
+        .dwr-right {
+            display: flex; align-items: center; gap: 24px;
+            position: relative; z-index: 1; flex-shrink: 0;
+        }
+        .dwr-preview {
+            width: 160px; height: 95px; border-radius: 8px; overflow: hidden;
+            border: 1px solid var(--border); background: var(--card);
+            opacity: 0; transform: scale(0.9) translateY(6px);
+            transition: opacity 0.3s, transform 0.3s; flex-shrink: 0;
+        }
+        .demo-work-row:hover .dwr-preview { opacity: 1; transform: scale(1) translateY(0); }
+        .dwr-preview iframe {
+            width: 300%; height: 300%; transform: scale(0.333);
+            transform-origin: top left; pointer-events: none; border: none;
+        }
+        .dwr-arrow {
+            font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+            text-transform: uppercase; color: var(--text3);
+            transition: color 0.2s, transform 0.2s; white-space: nowrap;
+        }
+        .demo-work-row:hover .dwr-arrow { color: #a5b4fc; transform: translateX(4px); }
+        @media (max-width: 768px) {
+            .dwr-preview { display: none; }
+            .dwr-sector { display: none; }
+            .dwr-name { font-size: 17px; white-space: normal; }
+        }
+        @media (max-width: 500px) { .dwr-num { display: none; } }
+
+        /* ==========================================
            FAQ
         ========================================== */
         .faq-item {
@@ -963,7 +1044,7 @@
             <a href="#hero" class="nav-logo">Zayl<span>o</span></a>
             <ul class="nav-links">
                 <li><a href="#services">Servicios</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#demos-trabajo">Demos</a></li>
                 <li><a href="#como-funciona">Cómo funciona</a></li>
             <li><a href="#faq">FAQ</a></li>
             <li><a href="#precios">Precios</a></li>
@@ -1077,6 +1158,108 @@
                 <p class="svc-desc">Aparecer en Google cuando alguien busca tu negocio o tu sector en tu barrio. Optimización completa de tu ficha de Google Maps y posicionamiento en búsquedas locales para captar clientes orgánicamente.</p>
                 <span class="svc-pill">Más visibilidad en Google</span>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- EL TRABAJO HABLA POR NOSOTROS -->
+<section id="demos-trabajo" class="section">
+    <div class="wrap">
+        <div class="demos-head rv">
+            <div class="tag">Demos en vivo</div>
+            <h2 style="font-size:clamp(36px,5vw,56px);margin-bottom:12px;">El trabajo habla<br><em class="grad-text">por nosotros.</em></h2>
+            <p class="section-subtitle" style="margin-top:0;">Cada demo es un proyecto real. Así es exactamente cómo quedará la web de tu negocio.</p>
+        </div>
+
+        <div class="demos-list-work">
+            <a class="demo-work-row rv d1" href="web-barberia-elite.html" target="_blank" rel="noopener" aria-label="Ver demo barbería Élite Barber Madrid">
+                <div class="dwr-left">
+                    <span class="dwr-num">01</span>
+                    <span class="dwr-sector">Barbería</span>
+                    <span class="dwr-name">Élite Barber Madrid</span>
+                </div>
+                <div class="dwr-right">
+                    <div class="dwr-preview" aria-hidden="true">
+                        <iframe src="web-barberia-elite.html" loading="lazy" tabindex="-1" title="Preview barbería"></iframe>
+                    </div>
+                    <span class="dwr-arrow">Ver demo →</span>
+                </div>
+            </a>
+
+            <a class="demo-work-row rv d2" href="web-restaurante-cinematic.html" target="_blank" rel="noopener" aria-label="Ver demo restaurante">
+                <div class="dwr-left">
+                    <span class="dwr-num">02</span>
+                    <span class="dwr-sector">Restaurante</span>
+                    <span class="dwr-name">Origen · Restaurante Madrid</span>
+                </div>
+                <div class="dwr-right">
+                    <div class="dwr-preview" aria-hidden="true">
+                        <iframe src="web-restaurante-cinematic.html" loading="lazy" tabindex="-1" title="Preview restaurante"></iframe>
+                    </div>
+                    <span class="dwr-arrow">Ver demo →</span>
+                </div>
+            </a>
+
+            <a class="demo-work-row rv d3" href="web-dental-modelo.html" target="_blank" rel="noopener" aria-label="Ver demo clínica dental">
+                <div class="dwr-left">
+                    <span class="dwr-num">03</span>
+                    <span class="dwr-sector">Clínica Dental</span>
+                    <span class="dwr-name">Essen · Clínica Dental</span>
+                </div>
+                <div class="dwr-right">
+                    <div class="dwr-preview" aria-hidden="true">
+                        <iframe src="web-dental-modelo.html" loading="lazy" tabindex="-1" title="Preview dental"></iframe>
+                    </div>
+                    <span class="dwr-arrow">Ver demo →</span>
+                </div>
+            </a>
+
+            <a class="demo-work-row rv d4" href="web-peluqueria-modelo2.html" target="_blank" rel="noopener" aria-label="Ver demo peluquería">
+                <div class="dwr-left">
+                    <span class="dwr-num">04</span>
+                    <span class="dwr-sector">Peluquería</span>
+                    <span class="dwr-name">Glamour Studio · Peluquería</span>
+                </div>
+                <div class="dwr-right">
+                    <div class="dwr-preview" aria-hidden="true">
+                        <iframe src="web-peluqueria-modelo2.html" loading="lazy" tabindex="-1" title="Preview peluquería"></iframe>
+                    </div>
+                    <span class="dwr-arrow">Ver demo →</span>
+                </div>
+            </a>
+
+            <a class="demo-work-row rv d5" href="web-veterinaria-modelo.html" target="_blank" rel="noopener" aria-label="Ver demo clínica veterinaria">
+                <div class="dwr-left">
+                    <span class="dwr-num">05</span>
+                    <span class="dwr-sector">Veterinaria</span>
+                    <span class="dwr-name">AlmaVet · Clínica Veterinaria</span>
+                </div>
+                <div class="dwr-right">
+                    <div class="dwr-preview" aria-hidden="true">
+                        <iframe src="web-veterinaria-modelo.html" loading="lazy" tabindex="-1" title="Preview veterinaria"></iframe>
+                    </div>
+                    <span class="dwr-arrow">Ver demo →</span>
+                </div>
+            </a>
+
+            <a class="demo-work-row rv d6" href="web-peluqueria-modelo.html" target="_blank" rel="noopener" aria-label="Ver demo peluquería con sistema de citas">
+                <div class="dwr-left">
+                    <span class="dwr-num">06</span>
+                    <span class="dwr-sector">Peluquería + Citas</span>
+                    <span class="dwr-name">Studio Belleza · Reservas automáticas</span>
+                </div>
+                <div class="dwr-right">
+                    <div class="dwr-preview" aria-hidden="true">
+                        <iframe src="web-peluqueria-modelo.html" loading="lazy" tabindex="-1" title="Preview peluquería citas automáticas"></iframe>
+                    </div>
+                    <span class="dwr-arrow">Ver demo →</span>
+                </div>
+            </a>
+        </div>
+
+        <div class="rv" style="text-align:center;margin-top:56px;">
+            <p style="font-size:14px;color:var(--text3);margin-bottom:20px;">¿Tu sector no está aquí? Lo hacemos igual.</p>
+            <a href="#contact" class="btn btn-p">Pide tu demo personalizada →</a>
         </div>
     </div>
 </section>
