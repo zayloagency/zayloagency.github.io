@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Panel Comerciales — ImpulsaAI</title>
+<title>Panel Comerciales — Zaylo</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -191,7 +191,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div class="setup-title">Modo local — los datos no se comparten entre dispositivos</div>
       Para sincronización en tiempo real entre comerciales, configura Firebase (gratis):
       <div class="setup-steps">
-        <div class="setup-step"><strong>1.</strong> Ve a <code>console.firebase.google.com</code> → crea proyecto "ImpulsaAI"</div>
+        <div class="setup-step"><strong>1.</strong> Ve a <code>console.firebase.google.com</code> → crea proyecto "Zaylo"</div>
         <div class="setup-step"><strong>2.</strong> Realtime Database → Crear base de datos → Modo de prueba</div>
         <div class="setup-step"><strong>3.</strong> Configuración del proyecto → Añadir app web → copia el objeto <code>firebaseConfig</code></div>
         <div class="setup-step"><strong>4.</strong> Pégalo en <code>comerciales.html</code> donde pone <code>PEGA TU CONFIG AQUÍ</code></div>
@@ -204,7 +204,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <!-- GATE -->
 <div id="gate">
   <div class="gate-box">
-    <div class="gate-logo">Impulsa<span>AI</span></div>
+    <div class="gate-logo">Z<span>aylo</span></div>
     <h2>Panel Comerciales</h2>
     <p>Introduce tu nombre y el código de acceso que te ha dado Gonzalo</p>
     <input class="gate-input" type="text" id="g-name" placeholder="Tu nombre (ej: Juan)" autocomplete="off">
@@ -220,9 +220,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
   <div class="hdr">
     <div class="hdr-top">
-      <div class="hdr-logo">Impulsa<span>AI</span> <span style="color:var(--muted);font-weight:400;font-size:11px">· Comerciales</span></div>
+      <div class="hdr-logo">Z<span>aylo</span> <span style="color:var(--muted);font-weight:400;font-size:11px">· Comerciales</span></div>
       <div class="hdr-user">
         <span id="mode-indicator" style="font-size:10px;color:var(--muted)"></span>
+        <a href="https://wa.me/34634142337?text=Hola%20Gonzalo%2C%20soy%20" id="wa-gonzalo" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:#25d36618;color:#25d366;border:1px solid #25d36630;border-radius:20px;padding:3px 10px;font-size:11px;font-weight:700;text-decoration:none">💬 Gonzalo</a>
         <span class="user-pill" id="user-display"></span>
         <button class="btn-logout" onclick="logout()">Salir</button>
       </div>
@@ -301,7 +302,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         </div>
       </div>
       <div class="com-note" style="margin-top:10px;padding:10px 14px">
-        🎯 <strong>Meta de Gonzalo:</strong> 900€/mes en ventas. Con 2 dentales a 450€ ya está. Cuanto antes cerremos, antes empezamos el siguiente ciclo y todos ganamos más.
+        🎯 <strong>Meta del mes:</strong> 900€ en ventas. Con 2 dentales a 450€ ya está. Cuanto antes cerremos, antes empezamos el siguiente ciclo y todos ganamos más.
+      </div>
+      <div class="com-note" style="margin-top:8px;padding:10px 14px;background:#25d36610;border:1px solid #25d36620">
+        💬 <strong>¿Necesitas una preview o modelo para un sector concreto?</strong> Escríbele a Gonzalo — te manda el ejemplo en minutos. <a id="wa-modelo" href="https://wa.me/34634142337?text=Hola%20Gonzalo%2C%20necesito%20un%20modelo%20para%20ense%C3%B1arle%20a%20un%20cliente" target="_blank" style="color:#25d366;font-weight:700;text-decoration:none">→ Escribirle ahora</a>
       </div>
     </div>
   </div>
@@ -465,6 +469,7 @@ function login() {
   document.getElementById('gate').style.display = 'none';
   document.getElementById('app').style.display = 'block';
   document.getElementById('user-display').textContent = (isAdmin ? '🔐 ' : '') + name;
+  document.getElementById('wa-gonzalo').href = `https://wa.me/34634142337?text=Hola%20Gonzalo%2C%20soy%20${encodeURIComponent(name)}%20`;
   if (isAdmin) document.getElementById('admin-section').style.display = 'block';
   initFirebase();
   loadData();
@@ -486,6 +491,7 @@ window.addEventListener('DOMContentLoaded', () => {
       document.getElementById('gate').style.display = 'none';
       document.getElementById('app').style.display = 'block';
       document.getElementById('user-display').textContent = (isAdmin?'🔐 ':'') + currentUser;
+      document.getElementById('wa-gonzalo').href = `https://wa.me/34634142337?text=Hola%20Gonzalo%2C%20soy%20${encodeURIComponent(currentUser)}%20`;
       if (isAdmin) document.getElementById('admin-section').style.display = 'block';
       initFirebase();
       loadData();
@@ -660,7 +666,7 @@ function render() {
       );
       const bc = BC[b.barrio] || 'v';
       const mapsUrl = 'https://www.google.com/maps/search/' + encodeURIComponent(b.maps||b.name);
-      const waMsg = encodeURIComponent(`Hola, le escribo de ImpulsaAI. He hablado con usted sobre aparecer en Google. Le adjunto el ejemplo de web para su sector: ${DEMOS[b.sector]||''} — ¿cuándo podemos hablar 10 minutos?`);
+      const waMsg = encodeURIComponent(`Hola, le escribo de Zaylo. He hablado con usted sobre aparecer en Google. Le adjunto el ejemplo de web para su sector: ${DEMOS[b.sector]||''} — ¿cuándo podemos hablar 10 minutos?`);
       const raw = (b.phone||'').replace(/\s/g,'');
       const callerInfo = b.calledBy ? `<div class="card-caller">Llamado por <strong>${b.calledBy}</strong>${b.calledAt ? ' · ' + fmtDate(b.calledAt) : ''}</div>` : '';
 
