@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel Comerciales — ImpulsaAI</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0c0c0f;--bg2:#16161a;--bg3:#1e1e24;--border:#26262e;
+  --text:#eeeef5;--muted:#777;
+  --dental:#10b981;--resto:#f97316;--vet:#3b82f6;--gym:#a855f7;
+  --green:#10b981;--accent:#6366f1;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+/* SETUP BANNER */
+#setup-banner{background:#1a1508;border-bottom:1px solid #f9731640;padding:12px 16px;display:none}
+.setup-inner{max-width:900px;margin:0 auto;display:flex;gap:12px;align-items:flex-start}
+.setup-inner .icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.setup-title{font-size:13px;font-weight:700;color:#f97316;margin-bottom:4px}
+.setup-body{font-size:12px;color:#ccc;line-height:1.6}
+.setup-body code{background:#00000040;padding:1px 5px;border-radius:4px;font-family:monospace;color:#fcd34d;font-size:11px}
+.setup-steps{margin-top:8px;display:flex;flex-direction:column;gap:4px}
+.setup-step{display:flex;gap:8px;font-size:12px;color:#ccc}
+.setup-step strong{color:#f97316;flex-shrink:0}
+.mode-badge{display:inline-flex;align-items:center;gap:5px;background:#f9731618;color:#f97316;border:1px solid #f9731630;border-radius:20px;padding:2px 9px;font-size:10px;font-weight:700;margin-top:6px}
+.mode-badge.live{background:#10b98118;color:#10b981;border-color:#10b98130}
+
+/* GATE */
+#gate{position:fixed;inset:0;background:#0c0c0f;z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px}
+.gate-box{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:36px 32px;max-width:380px;width:100%;text-align:center}
+.gate-logo{font-size:20px;font-weight:900;letter-spacing:-.5px;margin-bottom:20px}
+.gate-logo span{color:var(--accent)}
+.gate-box h2{font-size:18px;font-weight:800;margin-bottom:6px}
+.gate-box p{font-size:13px;color:var(--muted);margin-bottom:24px}
+.gate-input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;padding:11px 14px;margin-bottom:10px;font-family:inherit;transition:.15s}
+.gate-input:focus{outline:none;border-color:#555}
+.gate-btn{width:100%;background:var(--accent);color:#fff;font-size:15px;font-weight:700;padding:12px;border-radius:10px;border:none;cursor:pointer;margin-top:4px;transition:.15s}
+.gate-btn:hover{background:#4f51d4}
+.gate-err{font-size:12px;color:#ef4444;margin-top:8px;min-height:18px}
+.gate-hint{font-size:11px;color:var(--muted);margin-top:16px}
+
+/* HEADER */
+.hdr{position:sticky;top:0;z-index:100;background:rgba(12,12,15,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:10px 16px}
+.hdr-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px;flex-wrap:wrap}
+.hdr-logo{font-size:13px;font-weight:800}.hdr-logo span{color:var(--accent)}
+.hdr-user{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
+.user-pill{background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:3px 10px;color:var(--text);font-weight:600}
+.btn-logout{background:none;border:none;color:var(--muted);font-size:11px;cursor:pointer;text-decoration:underline}
+.btn-logout:hover{color:var(--text)}
+.stats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.stat{font-size:11px;color:var(--muted);background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:3px 9px;display:flex;gap:4px;align-items:center;cursor:default}
+.stat b{color:var(--text);font-size:12px}
+.s-int b{color:#10b981}.s-rel b{color:#3b82f6}.s-cer b{color:#f59e0b}.s-no b{color:#ef4444}.s-yo b{color:var(--accent)}
+.filters{display:flex;gap:5px;flex-wrap:wrap}
+.fb{font-size:11px;padding:4px 11px;border-radius:20px;border:1px solid var(--border);background:var(--bg2);color:var(--muted);cursor:pointer;transition:.15s}
+.fb:hover{color:var(--text);border-color:#444}
+.fb.active{font-weight:700;border-color:transparent;color:#fff}
+.fb[data-f="todos"].active{background:#444;color:var(--text)}
+.fb[data-f="dental"].active{background:#10b981}
+.fb[data-f="resto"].active{background:#f97316}
+.fb[data-f="vet"].active{background:#3b82f6}
+.fb[data-f="gym"].active{background:#a855f7}
+.fb[data-f="mios"].active{background:var(--accent)}
+.fb[data-f="cerrados"].active{background:#f59e0b}
+
+/* COMMISSIONS BANNER */
+.com-banner{background:linear-gradient(135deg,#16161a,#1a1520);border-bottom:1px solid var(--border);padding:0}
+.com-summary{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;cursor:pointer;max-width:900px;margin:0 auto;user-select:none}
+.com-summary h3{font-size:13px;font-weight:700;display:flex;align-items:center;gap:7px}
+.com-summary .toggle{font-size:16px;color:var(--muted);transition:.2s}
+.com-body{display:none;padding:0 16px 16px;max-width:900px;margin:0 auto}
+.com-body.open{display:block}
+.com-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:2px}
+.com-card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+.com-card h4{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:10px}
+.com-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border)}
+.com-row:last-child{border-bottom:none;padding-bottom:0}
+.com-label{font-size:13px;color:var(--text)}
+.com-val{font-size:14px;font-weight:800}
+.com-val.green{color:#10b981}.com-val.yellow{color:#f59e0b}.com-val.orange{color:#f97316}.com-val.purple{color:#a855f7}
+.com-badge{font-size:9px;background:#10b98120;color:#10b981;border-radius:6px;padding:1px 5px;margin-left:4px;font-weight:700}
+.com-note{font-size:11px;color:var(--muted);margin-top:10px;padding:8px 10px;background:var(--bg);border-radius:8px;line-height:1.5}
+.com-note strong{color:var(--text)}
+
+/* MAIN */
+.main{max-width:900px;margin:0 auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+
+/* ADMIN ADD FORM */
+.admin-section{background:var(--bg2);border:1px solid #6366f130;border-radius:14px;padding:16px;margin-bottom:4px}
+.admin-title{font-size:12px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.admin-form{display:flex;gap:8px;flex-wrap:wrap}
+.admin-input{flex:1;min-width:140px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;padding:8px 10px;font-family:inherit}
+.admin-input:focus{outline:none;border-color:#555}
+.admin-select{background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;padding:8px 10px;font-family:inherit}
+.admin-btn{background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;padding:8px 14px;cursor:pointer;white-space:nowrap}
+.admin-btn:hover{background:#4f51d4}
+.admin-btn.secondary{background:var(--bg3);color:var(--muted);border:1px solid var(--border)}
+.admin-btn.secondary:hover{color:var(--text);border-color:#555}
+
+/* SECTION HEADER */
+.sec-hdr{display:flex;align-items:center;gap:8px;padding:6px 2px 2px}
+.sec-hdr h2{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px}
+.sec-hdr.dental h2{color:var(--dental)}.sec-hdr.resto h2{color:var(--resto)}.sec-hdr.vet h2{color:var(--vet)}.sec-hdr.gym h2{color:var(--gym)}
+.sec-count{font-size:11px;color:var(--muted);background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:1px 8px}
+
+/* CARD */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;transition:.2s}
+.card:hover{border-color:#32323a}
+.card.st-interesado{border-left:3px solid #10b981}
+.card.st-llamado{border-left:3px solid #6b7280}
+.card.st-buzon{border-left:3px solid #f97316}
+.card.st-rellamar{border-left:3px solid #3b82f6}
+.card.st-cerrado{border-left:3px solid #f59e0b;background:#1a170a}
+.card.st-nointeresa{border-left:3px solid #ef4444;opacity:.5}
+.card.hidden{display:none}
+
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.card-info{flex:1;min-width:0}
+.card-name{font-size:14px;font-weight:700;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card-meta{display:flex;gap:5px;flex-wrap:wrap}
+.badge{font-size:9px;font-weight:800;padding:2px 6px;border-radius:8px;text-transform:uppercase;letter-spacing:.5px}
+.badge.dental{background:#10b98118;color:#10b981}
+.badge.resto{background:#f9731618;color:#f97316}
+.badge.vet{background:#3b82f618;color:#3b82f6}
+.badge.gym{background:#a855f718;color:#a855f7}
+.badge.v{background:#60a5fa18;color:#60a5fa}
+.badge.u{background:#a78bfa18;color:#a78bfa}
+.badge.c{background:#fbbf2418;color:#fbbf24}
+.card-right{text-align:right;flex-shrink:0}
+.card-phone{font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:.5px}
+.card-caller{font-size:10px;color:var(--muted);margin-top:3px}
+.card-caller strong{color:var(--accent)}
+
+/* BUTTONS */
+.card-actions{display:flex;gap:5px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:7px;font-size:11px;font-weight:700;border:none;cursor:pointer;transition:.15s;text-decoration:none;white-space:nowrap}
+.btn-call{background:#10b981;color:#fff}.btn-call:hover{background:#0da368}
+.btn-maps{background:var(--bg3);color:var(--muted);border:1px solid var(--border)}.btn-maps:hover{color:var(--text)}
+.btn-wa{background:#25d366;color:#fff}.btn-wa:hover{background:#1db954}
+.btn-del{background:none;border:none;color:#ef444450;cursor:pointer;font-size:11px;margin-left:auto}.btn-del:hover{color:#ef4444}
+
+/* STATUS CHIPS */
+.chips{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+.chip{padding:3px 9px;border-radius:20px;font-size:10px;font-weight:700;cursor:pointer;border:1px solid transparent;transition:.15s;opacity:.3}
+.chip:hover{opacity:.6}
+.chip.on{opacity:1}
+.chip.pendiente{background:#ffffff10;color:#888;border-color:#ffffff18}
+.chip.llamado{background:#6b728018;color:#9ca3af;border-color:#6b728030}
+.chip.buzon{background:#f9731618;color:#f97316;border-color:#f9731630}
+.chip.rellamar{background:#3b82f618;color:#3b82f6;border-color:#3b82f630}
+.chip.interesado{background:#10b98118;color:#10b981;border-color:#10b98130}
+.chip.cerrado{background:#f59e0b18;color:#f59e0b;border-color:#f59e0b30}
+.chip.nointeresa{background:#ef444418;color:#ef4444;border-color:#ef444430}
+
+/* NOTES */
+.note-row{display:flex;gap:8px;align-items:flex-start}
+.note-input{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:11px;padding:7px 10px;resize:none;height:50px;font-family:inherit;transition:.15s}
+.note-input:focus{outline:none;border-color:#555}
+.note-save{background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:11px;font-weight:700;padding:0 10px;cursor:pointer;flex-shrink:0;transition:.15s;align-self:stretch}
+.note-save:hover{color:var(--text)}
+.note-meta{font-size:10px;color:var(--muted);margin-top:2px}
+
+/* PRICE INPUT (when cerrado) */
+.price-row{display:flex;align-items:center;gap:8px;padding:6px 10px;background:#1a170a;border:1px solid #f59e0b30;border-radius:8px}
+.price-row label{font-size:11px;color:#f59e0b;font-weight:700;flex-shrink:0}
+.price-input{background:transparent;border:none;color:#f59e0b;font-size:14px;font-weight:800;width:70px;font-family:inherit;font-variant-numeric:tabular-nums}
+.price-input:focus{outline:none}
+.price-info{font-size:10px;color:var(--muted);margin-left:4px}
+.price-info strong{color:#f59e0b}
+
+/* EMPTY STATE */
+.empty{text-align:center;padding:48px 20px;color:var(--muted);font-size:13px}
+
+@media(max-width:600px){
+  .main{padding:10px}
+  .com-grid{grid-template-columns:1fr}
+  .card{padding:10px 12px}
+  .card-name{font-size:13px}
+}
+</style>
+</head>
+<body>
+
+<!-- SETUP BANNER -->
+<div id="setup-banner">
+  <div class="setup-inner">
+    <div class="icon">⚠️</div>
+    <div class="setup-body">
+      <div class="setup-title">Modo local — los datos no se comparten entre dispositivos</div>
+      Para sincronización en tiempo real entre comerciales, configura Firebase (gratis):
+      <div class="setup-steps">
+        <div class="setup-step"><strong>1.</strong> Ve a <code>console.firebase.google.com</code> → crea proyecto "ImpulsaAI"</div>
+        <div class="setup-step"><strong>2.</strong> Realtime Database → Crear base de datos → Modo de prueba</div>
+        <div class="setup-step"><strong>3.</strong> Configuración del proyecto → Añadir app web → copia el objeto <code>firebaseConfig</code></div>
+        <div class="setup-step"><strong>4.</strong> Pégalo en <code>comerciales.html</code> donde pone <code>PEGA TU CONFIG AQUÍ</code></div>
+      </div>
+      <span class="mode-badge" id="mode-badge">📵 Modo local — solo tú ves los datos</span>
+    </div>
+  </div>
+</div>
+
+<!-- GATE -->
+<div id="gate">
+  <div class="gate-box">
+    <div class="gate-logo">Impulsa<span>AI</span></div>
+    <h2>Panel Comerciales</h2>
+    <p>Introduce tu nombre y el código de acceso que te ha dado Gonzalo</p>
+    <input class="gate-input" type="text" id="g-name" placeholder="Tu nombre (ej: Juan)" autocomplete="off">
+    <input class="gate-input" type="password" id="g-pwd" placeholder="Código de acceso" autocomplete="off">
+    <button class="gate-btn" onclick="login()">Entrar</button>
+    <div class="gate-err" id="g-err"></div>
+    <div class="gate-hint">¿No tienes código? Escríbele a Gonzalo por WhatsApp</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app" style="display:none">
+
+  <div class="hdr">
+    <div class="hdr-top">
+      <div class="hdr-logo">Impulsa<span>AI</span> <span style="color:var(--muted);font-weight:400;font-size:11px">· Comerciales</span></div>
+      <div class="hdr-user">
+        <span id="mode-indicator" style="font-size:10px;color:var(--muted)"></span>
+        <span class="user-pill" id="user-display"></span>
+        <button class="btn-logout" onclick="logout()">Salir</button>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><span>Total</span><b id="st-tot">0</b></div>
+      <div class="stat s-int"><span>✓ Interesados</span><b id="st-int">0</b></div>
+      <div class="stat s-cer"><span>💰 Cerrados</span><b id="st-cer">0</b></div>
+      <div class="stat s-rel"><span>↻ Re-llamar</span><b id="st-rel">0</b></div>
+      <div class="stat s-no"><span>✗ No interesa</span><b id="st-no">0</b></div>
+      <div class="stat s-yo"><span>Mis llamadas</span><b id="st-yo">0</b></div>
+    </div>
+    <div class="filters">
+      <button class="fb active" data-f="todos" onclick="setFilter('todos')">Todos</button>
+      <button class="fb" data-f="mios" onclick="setFilter('mios')">🙋 Mis llamadas</button>
+      <button class="fb" data-f="dental" onclick="setFilter('dental')">🦷 Dental</button>
+      <button class="fb" data-f="resto" onclick="setFilter('resto')">🍽 Restaurante</button>
+      <button class="fb" data-f="vet" onclick="setFilter('vet')">🐾 Veterinaria</button>
+      <button class="fb" data-f="gym" onclick="setFilter('gym')">💪 Gimnasio</button>
+      <button class="fb" data-f="cerrados" onclick="setFilter('cerrados')">💰 Cerrados</button>
+    </div>
+  </div>
+
+  <!-- COMMISSIONS PANEL -->
+  <div class="com-banner">
+    <div class="com-summary" onclick="toggleCom()">
+      <h3>💰 Comisiones y precios <span style="font-size:11px;color:var(--muted);font-weight:400">— toca para ver</span></h3>
+      <span class="toggle" id="com-toggle">▸</span>
+    </div>
+    <div class="com-body" id="com-body">
+      <div class="com-grid">
+        <div class="com-card">
+          <h4>💰 Tu comisión por cierre</h4>
+          <div class="com-row">
+            <span class="com-label">1.ª venta del mes</span>
+            <span class="com-val green">75€</span>
+          </div>
+          <div class="com-row">
+            <span class="com-label">2.ª venta del mes</span>
+            <span class="com-val yellow">100€ <span class="com-badge">+25€</span></span>
+          </div>
+          <div class="com-row">
+            <span class="com-label">3.ª venta del mes</span>
+            <span class="com-val orange">120€ <span class="com-badge">+20€</span></span>
+          </div>
+          <div class="com-row">
+            <span class="com-label">4.ª venta y siguientes</span>
+            <span class="com-val purple">135€ <span class="com-badge">+15€</span></span>
+          </div>
+          <div class="com-note">
+            <strong>Ejemplo:</strong> 3 cierres en el mes → 75 + 100 + 120 = <strong>295€ para ti</strong>
+          </div>
+        </div>
+        <div class="com-card">
+          <h4>🏷 Precio que puedes ofrecer</h4>
+          <div class="com-row">
+            <span class="com-label">Restaurante / Pelo / Barbería</span>
+            <span class="com-val green">350€</span>
+          </div>
+          <div class="com-row">
+            <span class="com-label">Veterinaria / Gimnasio</span>
+            <span class="com-val yellow">400€</span>
+          </div>
+          <div class="com-row">
+            <span class="com-label">Clínica dental</span>
+            <span class="com-val orange">450-500€</span>
+          </div>
+          <div class="com-row">
+            <span class="com-label">Precio máximo</span>
+            <span class="com-val purple">500€</span>
+          </div>
+          <div class="com-note">
+            Nunca bajes de 350€. Si piden descuento, di que incluís dominio y 3 meses de cambios gratis.
+          </div>
+        </div>
+      </div>
+      <div class="com-note" style="margin-top:10px;padding:10px 14px">
+        🎯 <strong>Meta de Gonzalo:</strong> 900€/mes en ventas. Con 2 dentales a 450€ ya está. Cuanto antes cerremos, antes empezamos el siguiente ciclo y todos ganamos más.
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main" id="main">
+
+    <!-- ADMIN SECTION -->
+    <div class="admin-section" id="admin-section" style="display:none">
+      <div class="admin-title">🔐 Panel Admin (Gonzalo)</div>
+      <div class="admin-form" id="add-form">
+        <input class="admin-input" type="text" id="af-name" placeholder="Nombre del negocio">
+        <select class="admin-select" id="af-sector">
+          <option value="dental">🦷 Dental</option>
+          <option value="resto">🍽 Restaurante</option>
+          <option value="vet">🐾 Veterinaria</option>
+          <option value="gym">💪 Gimnasio</option>
+        </select>
+        <select class="admin-select" id="af-barrio">
+          <option value="Villaverde">Villaverde</option>
+          <option value="Carabanchel">Carabanchel</option>
+          <option value="Usera">Usera</option>
+        </select>
+        <input class="admin-input" type="text" id="af-phone" placeholder="Teléfono" style="max-width:130px">
+        <button class="admin-btn" onclick="addBusiness()">+ Añadir</button>
+        <button class="admin-btn secondary" onclick="loadInitial()" title="Carga los 41 negocios de prospección">⬇️ Cargar lista inicial</button>
+      </div>
+    </div>
+
+    <div id="cards-container"></div>
+    <div class="empty" id="empty" style="display:none">No hay negocios con este filtro</div>
+
+  </div>
+</div>
+
+<!-- Firebase SDKs (v8 compat) -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<script>
+// ══════════════════════════════════════════════
+// CONFIG — PEGA TU CONFIG DE FIREBASE AQUÍ
+// ══════════════════════════════════════════════
+const FIREBASE_CONFIG = {
+  // apiKey: "tu-api-key",
+  // authDomain: "tu-proyecto.firebaseapp.com",
+  // databaseURL: "https://tu-proyecto-default-rtdb.europe-west1.firebasedatabase.app",
+  // projectId: "tu-proyecto",
+  // storageBucket: "tu-proyecto.appspot.com",
+  // messagingSenderId: "123456789",
+  // appId: "1:123456789:web:abc123"
+};
+
+const ACCESS_CODE  = "impulsa2026";   // Código para comerciales
+const ADMIN_CODE   = "admin2026";     // Código solo para Gonzalo — CAMBIAR
+
+// ══════════════════════════════════════════════
+// NEGOCIOS INICIALES (41 en total)
+// ══════════════════════════════════════════════
+const INITIAL = [
+  // DENTAL — Villaverde
+  {id:'d01',sector:'dental',name:'FINADENT',barrio:'Villaverde',phone:'913 180 646',maps:'FINADENT clínica dental Villaverde Madrid'},
+  {id:'d02',sector:'dental',name:'Clínica Dental a Tu Salud',barrio:'Villaverde',phone:'917 100 373',maps:'Clínica Dental a Tu Salud Villaverde Madrid'},
+  {id:'d03',sector:'dental',name:'Clínica Dental Villaverde',barrio:'Villaverde',phone:'917 100 395',maps:'Clínica Dental Villaverde Madrid'},
+  {id:'d04',sector:'dental',name:'Cruz Briceño Dental',barrio:'Villaverde',phone:'917 962 841',maps:'Cruz Briceño dental Villaverde Madrid'},
+  {id:'d05',sector:'dental',name:'Noemident',barrio:'Villaverde',phone:'915 054 005',maps:'Noemident dental Villaverde Madrid'},
+  {id:'d06',sector:'dental',name:'Ge Clinic Dental',barrio:'Villaverde',phone:'917 951 967',maps:'Ge Clinic dental Villaverde Madrid'},
+  {id:'d07',sector:'dental',name:'MOFERDENT',barrio:'Villaverde',phone:'915 051 937',maps:'MOFERDENT dental Villaverde Madrid'},
+  {id:'d08',sector:'dental',name:'Dental Los Ángeles',barrio:'Villaverde',phone:'915 050 117',maps:'Dental Los Angeles Villaverde Madrid'},
+  {id:'d09',sector:'dental',name:'Ibersalud Dental',barrio:'Villaverde',phone:'913 180 018',maps:'Ibersalud dental Villaverde Madrid'},
+  {id:'d10',sector:'dental',name:'Clínica Dental Arce',barrio:'Villaverde',phone:'910 255 029',maps:'Clínica Dental Arce Villaverde Madrid'},
+  {id:'d11',sector:'dental',name:'Biostar Dental',barrio:'Villaverde',phone:'913 854 251',maps:'Biostar Dental Villaverde Madrid'},
+  // DENTAL — Carabanchel
+  {id:'d12',sector:'dental',name:'Ortho-Sanmar',barrio:'Carabanchel',phone:'915 099 712',maps:'Ortho-Sanmar ortodoncia Carabanchel Madrid'},
+  {id:'d13',sector:'dental',name:'Especialidades Odontológicas',barrio:'Carabanchel',phone:'914 666 865',maps:'Especialidades Odontológicas Carabanchel Madrid'},
+  {id:'d14',sector:'dental',name:'Salud Dental Blanco',barrio:'Carabanchel',phone:'917 793 855',maps:'Salud Dental Blanco Carabanchel Madrid'},
+  {id:'d15',sector:'dental',name:'Clínica Dental Onix',barrio:'Carabanchel',phone:'914 719 131',maps:'Clínica Dental Onix Carabanchel Madrid'},
+  {id:'d16',sector:'dental',name:'ORODENT',barrio:'Carabanchel',phone:'915 652 808',maps:'ORODENT clínica dental Carabanchel Madrid'},
+  {id:'d17',sector:'dental',name:'Instituto Dental Dr. Carreño',barrio:'Carabanchel',phone:'914 662 095',maps:'Instituto Dental Dr Carreño Carabanchel Madrid'},
+  {id:'d18',sector:'dental',name:'FAMADENT',barrio:'Carabanchel',phone:'914 727 159',maps:'FAMADENT clínica dental Carabanchel Madrid'},
+  {id:'d19',sector:'dental',name:'Clínica Dental Dr. Villar',barrio:'Carabanchel',phone:'915 254 500',maps:'Clínica Dental Dr Villar Carabanchel Madrid'},
+  {id:'d20',sector:'dental',name:'GOAL Dental',barrio:'Carabanchel',phone:'914 690 112',maps:'GOAL clínica dental Carabanchel Madrid'},
+  {id:'d21',sector:'dental',name:'Codenta',barrio:'Carabanchel',phone:'914 662 770',maps:'Codenta clínica dental Carabanchel Madrid'},
+  {id:'d22',sector:'dental',name:'Clínica Frieben y Buesa',barrio:'Carabanchel',phone:'914 667 609',maps:'Clínica Dental Frieben y Buesa Carabanchel Madrid'},
+  // RESTAURANTES
+  {id:'r01',sector:'resto',name:'Restaurante Miguel Angel',barrio:'Villaverde',phone:'917 955 280',maps:'Restaurante Miguel Angel Villaverde Madrid'},
+  {id:'r02',sector:'resto',name:'Taberna de Alex',barrio:'Carabanchel',phone:'638 749 000',maps:'Taberna de Alex Carabanchel Madrid'},
+  {id:'r03',sector:'resto',name:'Restaurante Amezua',barrio:'Carabanchel',phone:'912 300 713',maps:'Restaurante Amezua Carabanchel Madrid'},
+  {id:'r04',sector:'resto',name:'Xian Yang Long',barrio:'Usera',phone:'914 109 459',maps:'Xian Yang Long restaurante Usera Madrid'},
+  {id:'r05',sector:'resto',name:'La Alegría de Enrique',barrio:'Usera',phone:'915 002 261',maps:'La Alegría de Enrique restaurante Usera Madrid'},
+  {id:'r06',sector:'resto',name:'La Cuchara de Usera',barrio:'Usera',phone:'917 923 889',maps:'La Cuchara de Usera restaurante Madrid'},
+  {id:'r07',sector:'resto',name:'La Taberna de Usera',barrio:'Usera',phone:'914 764 721',maps:'La Taberna de Usera restaurante Madrid'},
+  {id:'r08',sector:'resto',name:'Asador Parrilla La Cuchara',barrio:'Villaverde',phone:'918 321 504',maps:'Asador Parrilla La Cuchara Villaverde Madrid'},
+  // VETERINARIAS
+  {id:'v01',sector:'vet',name:'Oroquieta Veterinarios',barrio:'Villaverde',phone:'913 176 076',maps:'Oroquieta veterinarios Villaverde Madrid'},
+  {id:'v02',sector:'vet',name:'Mascotas Clínica Veterinaria',barrio:'Villaverde',phone:'915 050 298',maps:'Mascotas clínica veterinaria Villaverde Madrid'},
+  {id:'v03',sector:'vet',name:'Centro Veterinario Instinto Animal',barrio:'Villaverde',phone:'917 569 648',maps:'Centro Veterinario Instinto Animal Villaverde Madrid'},
+  {id:'v04',sector:'vet',name:'Clínica Los Rosales',barrio:'Villaverde',phone:'915 053 622',maps:'Clínica Los Rosales veterinaria Villaverde Madrid'},
+  // GIMNASIOS
+  {id:'g01',sector:'gym',name:'CrossFit Country House',barrio:'Carabanchel',phone:'676 966 966',maps:'CrossFit Country House Carabanchel Madrid'},
+  {id:'g02',sector:'gym',name:'Ifitness',barrio:'Carabanchel',phone:'915 990 120',maps:'Ifitness gimnasio Carabanchel Madrid'},
+  {id:'g03',sector:'gym',name:'Gimnasio Vázquez Moratinos',barrio:'Carabanchel',phone:'912 256 939',maps:'Gimnasio Vazquez Moratinos Carabanchel Madrid'},
+  {id:'g04',sector:'gym',name:'Trust Fitness Center',barrio:'Carabanchel',phone:'637 893 801',maps:'Trust Fitness Center gimnasio Carabanchel Madrid'},
+  {id:'g05',sector:'gym',name:'Fitness Place',barrio:'Carabanchel',phone:'914 697 361',maps:'Fitness Place gimnasio Carabanchel Madrid'},
+  {id:'g06',sector:'gym',name:'Gimnasio Kime',barrio:'Carabanchel',phone:'915 600 726',maps:'Gimnasio Kime Carabanchel Madrid'},
+  {id:'g07',sector:'gym',name:'Gimnasio Estudio Praga',barrio:'Carabanchel',phone:'915 609 408',maps:'Gimnasio Estudio Praga Carabanchel Madrid'},
+];
+
+const SECTOR_LABEL = {dental:'Dental',resto:'Restaurante',vet:'Veterinaria',gym:'Gimnasio'};
+const DEMOS = {
+  dental:'https://impulsaai-agency.github.io/web-dental-modelo.html',
+  resto:'https://impulsaai-agency.github.io/web-restaurante-cinematic.html',
+  vet:'https://impulsaai-agency.github.io/web-veterinaria-modelo.html',
+  gym:'https://impulsaai-agency.github.io/web-peluqueria-modelo.html',
+};
+
+// ══════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════
+let currentUser = null, isAdmin = false, isFirebase = false, db = null;
+let businesses = {}, currentFilter = 'todos';
+const LS_KEY = 'impulsa-crm-v1', LS_AUTH = 'impulsa-crm-auth';
+
+// ══════════════════════════════════════════════
+// FIREBASE INIT
+// ══════════════════════════════════════════════
+function initFirebase() {
+  if (!FIREBASE_CONFIG.apiKey) {
+    document.getElementById('setup-banner').style.display = 'block';
+    document.getElementById('mode-indicator').textContent = '📵 Modo local';
+    return false;
+  }
+  try {
+    firebase.initializeApp(FIREBASE_CONFIG);
+    db = firebase.database();
+    isFirebase = true;
+    const badge = document.getElementById('mode-badge');
+    if (badge) { badge.textContent = '🟢 Modo compartido en tiempo real'; badge.className = 'mode-badge live'; }
+    document.getElementById('mode-indicator').textContent = '🟢 En vivo';
+    return true;
+  } catch(e) {
+    console.error('Firebase init error:', e);
+    document.getElementById('setup-banner').style.display = 'block';
+    return false;
+  }
+}
+
+// ══════════════════════════════════════════════
+// AUTH
+// ══════════════════════════════════════════════
+function login() {
+  const name = document.getElementById('g-name').value.trim();
+  const pwd  = document.getElementById('g-pwd').value.trim();
+  const err  = document.getElementById('g-err');
+  if (!name) { err.textContent = 'Escribe tu nombre'; return; }
+  if (!pwd)  { err.textContent = 'Escribe el código de acceso'; return; }
+  if (pwd === ADMIN_CODE) { isAdmin = true; }
+  else if (pwd !== ACCESS_CODE) { err.textContent = 'Código incorrecto — pídele el código a Gonzalo'; return; }
+  currentUser = name;
+  localStorage.setItem(LS_AUTH, JSON.stringify({ name, isAdmin }));
+  document.getElementById('gate').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  document.getElementById('user-display').textContent = (isAdmin ? '🔐 ' : '') + name;
+  if (isAdmin) document.getElementById('admin-section').style.display = 'block';
+  initFirebase();
+  loadData();
+}
+
+function logout() {
+  localStorage.removeItem(LS_AUTH);
+  location.reload();
+}
+
+// Auto-restore session
+window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('g-pwd').addEventListener('keydown', e => { if(e.key==='Enter') login(); });
+  const saved = localStorage.getItem(LS_AUTH);
+  if (saved) {
+    try {
+      const s = JSON.parse(saved);
+      currentUser = s.name; isAdmin = s.isAdmin;
+      document.getElementById('gate').style.display = 'none';
+      document.getElementById('app').style.display = 'block';
+      document.getElementById('user-display').textContent = (isAdmin?'🔐 ':'') + currentUser;
+      if (isAdmin) document.getElementById('admin-section').style.display = 'block';
+      initFirebase();
+      loadData();
+    } catch(e) { localStorage.removeItem(LS_AUTH); }
+  }
+});
+
+// ══════════════════════════════════════════════
+// DATA
+// ══════════════════════════════════════════════
+function loadData() {
+  if (isFirebase) {
+    db.ref('businesses').on('value', snap => {
+      businesses = snap.val() || {};
+      if (Object.keys(businesses).length === 0 && isAdmin) {
+        if (confirm('No hay negocios en la base de datos. ¿Cargar los 41 negocios iniciales?')) loadInitial();
+        return;
+      }
+      render();
+    });
+  } else {
+    businesses = JSON.parse(localStorage.getItem(LS_KEY) || '{}');
+    if (Object.keys(businesses).length === 0 && isAdmin) {
+      loadInitial();
+    } else {
+      render();
+    }
+  }
+}
+
+function save() {
+  if (!isFirebase) localStorage.setItem(LS_KEY, JSON.stringify(businesses));
+}
+
+function updateBiz(id, data) {
+  if (isFirebase) {
+    db.ref('businesses/' + id).update(data);
+  } else {
+    businesses[id] = { ...businesses[id], ...data };
+    save();
+    render();
+  }
+}
+
+function loadInitial() {
+  const data = {};
+  INITIAL.forEach(b => {
+    data[b.id] = { ...b, status:'pendiente', note:'', calledBy:null, calledAt:null, price:null, addedAt:Date.now() };
+  });
+  if (isFirebase) {
+    db.ref('businesses').update(data);
+  } else {
+    businesses = data;
+    save();
+    render();
+  }
+}
+
+function addBusiness() {
+  const name  = document.getElementById('af-name').value.trim();
+  const sector= document.getElementById('af-sector').value;
+  const barrio= document.getElementById('af-barrio').value;
+  const phone = document.getElementById('af-phone').value.trim();
+  if (!name || !phone) { alert('Nombre y teléfono son obligatorios'); return; }
+  const id = 'x' + Date.now();
+  const biz = { id, sector, name, barrio, phone, maps: name + ' ' + barrio + ' Madrid', status:'pendiente', note:'', calledBy:null, calledAt:null, price:null, addedAt:Date.now() };
+  if (isFirebase) {
+    db.ref('businesses/' + id).set(biz);
+  } else {
+    businesses[id] = biz;
+    save();
+    render();
+  }
+  document.getElementById('af-name').value = '';
+  document.getElementById('af-phone').value = '';
+}
+
+function deleteBiz(id) {
+  if (!confirm('¿Eliminar este negocio? No se puede deshacer.')) return;
+  if (isFirebase) {
+    db.ref('businesses/' + id).remove();
+  } else {
+    delete businesses[id];
+    save();
+    render();
+  }
+}
+
+// ══════════════════════════════════════════════
+// STATUS / NOTES / PRICE
+// ══════════════════════════════════════════════
+function setStatus(id, status) {
+  const cur = businesses[id]?.status;
+  const newSt = cur === status ? 'pendiente' : status;
+  updateBiz(id, { status: newSt, calledBy: currentUser, calledAt: Date.now() });
+}
+
+function saveNote(id) {
+  const val = document.getElementById('note-' + id)?.value || '';
+  updateBiz(id, { note: val, noteBy: currentUser, noteAt: Date.now() });
+  const btn = document.getElementById('note-save-' + id);
+  if (btn) { btn.textContent = '✓'; setTimeout(() => { btn.textContent = 'Guardar'; }, 1500); }
+}
+
+function setPrice(id, val) {
+  updateBiz(id, { price: parseInt(val) || null });
+}
+
+// ══════════════════════════════════════════════
+// RENDER
+// ══════════════════════════════════════════════
+function setFilter(f) {
+  currentFilter = f;
+  document.querySelectorAll('.fb').forEach(b => b.classList.toggle('active', b.dataset.f === f));
+  render();
+}
+
+const BC = { Villaverde:'v', Carabanchel:'c', Usera:'u' };
+const STATUSES = ['pendiente','llamado','buzon','rellamar','interesado','cerrado','nointeresa'];
+
+function cardSt(st) {
+  if (!st || st==='pendiente') return '';
+  return 'st-' + (st==='nointeresa'?'nointeresa':st);
+}
+
+function render() {
+  const container = document.getElementById('cards-container');
+  const sectors = ['dental','resto','vet','gym'];
+  let html = '';
+  let total=0, intCount=0, cerCount=0, relCount=0, noCount=0, yoCount=0;
+
+  Object.values(businesses).forEach(b => {
+    total++;
+    const st = b.status || 'pendiente';
+    if(st==='interesado') intCount++;
+    if(st==='cerrado') cerCount++;
+    if(st==='rellamar') relCount++;
+    if(st==='nointeresa') noCount++;
+    if(b.calledBy===currentUser) yoCount++;
+  });
+
+  document.getElementById('st-tot').textContent = total;
+  document.getElementById('st-int').textContent = intCount;
+  document.getElementById('st-cer').textContent = cerCount;
+  document.getElementById('st-rel').textContent = relCount;
+  document.getElementById('st-no').textContent  = noCount;
+  document.getElementById('st-yo').textContent  = yoCount;
+
+  sectors.forEach(s => {
+    const list = Object.values(businesses)
+      .filter(b => b.sector === s)
+      .sort((a,b) => (a.name||'').localeCompare(b.name||''));
+    if (!list.length) return;
+
+    const visible = list.filter(b => {
+      if (currentFilter==='todos') return true;
+      if (currentFilter==='mios') return b.calledBy===currentUser;
+      if (currentFilter==='cerrados') return b.status==='cerrado';
+      return b.sector===currentFilter;
+    });
+
+    const secCls = currentFilter !== 'todos' && currentFilter !== s && currentFilter !== 'mios' && currentFilter !== 'cerrados' ? ' hidden':'';
+    const SLAB = {dental:'🦷 Clínicas Dentales',resto:'🍽 Restaurantes',vet:'🐾 Veterinarias',gym:'💪 Gimnasios'};
+    html += `<div class="sec-hdr ${s}${secCls}" data-sector="${s}"><h2>${SLAB[s]}</h2><span class="sec-count">${list.length}</span></div>`;
+
+    list.forEach(b => {
+      const st = b.status || 'pendiente';
+      const hidden = currentFilter!=='todos' && (
+        (currentFilter==='mios' && b.calledBy!==currentUser) ||
+        (currentFilter==='cerrados' && st!=='cerrado') ||
+        (currentFilter!=='mios' && currentFilter!=='cerrados' && b.sector!==currentFilter)
+      );
+      const bc = BC[b.barrio] || 'v';
+      const mapsUrl = 'https://www.google.com/maps/search/' + encodeURIComponent(b.maps||b.name);
+      const waMsg = encodeURIComponent(`Hola, le escribo de ImpulsaAI. He hablado con usted sobre aparecer en Google. Le adjunto el ejemplo de web para su sector: ${DEMOS[b.sector]||''} — ¿cuándo podemos hablar 10 minutos?`);
+      const raw = (b.phone||'').replace(/\s/g,'');
+      const callerInfo = b.calledBy ? `<div class="card-caller">Llamado por <strong>${b.calledBy}</strong>${b.calledAt ? ' · ' + fmtDate(b.calledAt) : ''}</div>` : '';
+
+      html += `<div class="card ${cardSt(st)}${hidden?' hidden':''}" id="card-${b.id}" data-sector="${b.sector}">
+<div class="card-top">
+  <div class="card-info">
+    <div class="card-name">${b.name}</div>
+    <div class="card-meta">
+      <span class="badge ${b.sector}">${SECTOR_LABEL[b.sector]}</span>
+      <span class="badge ${bc}">${b.barrio}</span>
+    </div>
+  </div>
+  <div class="card-right">
+    <div class="card-phone">${b.phone||'—'}</div>
+    ${callerInfo}
+  </div>
+</div>
+<div class="card-actions">
+  <a class="btn btn-call" href="tel:${raw}">📞 Llamar</a>
+  <a class="btn btn-wa" href="https://wa.me/34${raw}?text=${waMsg}" target="_blank">💬 WA</a>
+  <a class="btn btn-maps" href="${mapsUrl}" target="_blank">🗺 Maps</a>
+  <a class="btn btn-maps" href="${DEMOS[b.sector]||'#'}" target="_blank">👁 Demo</a>
+  ${isAdmin ? `<button class="btn-del" onclick="deleteBiz('${b.id}')">✕</button>` : ''}
+</div>
+<div class="chips">
+  ${STATUSES.map(cs => `<span class="chip ${cs} ${st===cs?'on':''}" onclick="setStatus('${b.id}','${cs}')">${chipLabel(cs)}</span>`).join('')}
+</div>
+${st==='cerrado' ? `<div class="price-row">
+  <label>💰 Precio cerrado:</label>
+  <input class="price-input" type="number" id="price-${b.id}" value="${b.price||''}" placeholder="450" onchange="setPrice('${b.id}',this.value)">€
+  <span class="price-info">${b.price ? `tu comisión: <strong>${calcCom(b.id)}€</strong>` : 'introduce el precio'}</span>
+</div>` : ''}
+<div class="note-row">
+  <textarea class="note-input" id="note-${b.id}" placeholder="Nota: qué dijo, cuándo volver a llamar...">${b.note||''}</textarea>
+  <button class="note-save" id="note-save-${b.id}" onclick="saveNote('${b.id}')">Guardar</button>
+</div>
+${b.note && b.noteBy ? `<div class="note-meta">Nota de <strong>${b.noteBy}</strong> · ${b.noteAt ? fmtDate(b.noteAt) : ''}</div>` : ''}
+</div>`;
+    });
+  });
+
+  container.innerHTML = html;
+  document.getElementById('empty').style.display = html.trim() === '' ? 'block' : 'none';
+}
+
+function chipLabel(s) {
+  return {pendiente:'Pendiente',llamado:'📞 Llamado',buzon:'📵 Buzón',rellamar:'↻ Re-llamar',interesado:'✓ Interesado',cerrado:'💰 Cerrado',nointeresa:'✗ No interesa'}[s] || s;
+}
+
+function calcCom(id) {
+  const closed = Object.values(businesses).filter(b => b.status==='cerrado' && b.calledBy===currentUser);
+  const rank = closed.findIndex(b => b.id===id);
+  const n = rank + 1;
+  if (n===1) return 75;
+  if (n===2) return 100;
+  if (n===3) return 120;
+  return 135;
+}
+
+function fmtDate(ts) {
+  const d = new Date(ts);
+  const days=['dom','lun','mar','mié','jue','vie','sáb'];
+  return `${days[d.getDay()]} ${d.getDate()}/${d.getMonth()+1} ${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}`;
+}
+
+// ══════════════════════════════════════════════
+// COMMISSIONS PANEL
+// ══════════════════════════════════════════════
+function toggleCom() {
+  const body = document.getElementById('com-body');
+  const tog  = document.getElementById('com-toggle');
+  const open = body.classList.toggle('open');
+  tog.textContent = open ? '▾' : '▸';
+}
+</script>
+</body>
+</html>
