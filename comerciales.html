@@ -9,7 +9,7 @@
 :root{
   --bg:#0c0c0f;--bg2:#16161a;--bg3:#1e1e24;--border:#26262e;
   --text:#eeeef5;--muted:#777;
-  --dental:#10b981;--resto:#f97316;--vet:#3b82f6;--gym:#a855f7;
+  --dental:#10b981;--resto:#f97316;--vet:#3b82f6;--gym:#a855f7;--peluqueria:#ec4899;--academia:#f59e0b;
   --green:#10b981;--accent:#6366f1;
 }
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
@@ -52,6 +52,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .fb[data-f="gym"].active{background:#a855f7}
 .fb[data-f="mios"].active{background:var(--accent)}
 .fb[data-f="cerrados"].active{background:#f59e0b}
+.fb[data-f="peluqueria"].active{background:#ec4899}
+.fb[data-f="academia"].active{background:#f59e0b}
+.badge.peluqueria{background:#ec489918;color:#ec4899}
+.badge.academia{background:#f59e0b18;color:#f59e0b}
+.sec-hdr.peluqueria h2{color:#ec4899}.sec-hdr.academia h2{color:#f59e0b}
 
 /* COMMISSIONS BANNER */
 .com-banner{background:linear-gradient(135deg,#16161a,#1a1520);border-bottom:1px solid var(--border);padding:0}
@@ -294,6 +299,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <button class="fb" data-f="resto" onclick="setFilter('resto')">🍽 Restaurante</button>
       <button class="fb" data-f="vet" onclick="setFilter('vet')">🐾 Veterinaria</button>
       <button class="fb" data-f="gym" onclick="setFilter('gym')">💪 Gimnasio</button>
+      <button class="fb" data-f="peluqueria" onclick="setFilter('peluqueria')">✂️ Peluquería</button>
+      <button class="fb" data-f="academia" onclick="setFilter('academia')">🚗 Autoescuela</button>
       <button class="fb" data-f="cerrados" onclick="setFilter('cerrados')">💰 Cerrados</button>
     </div>
   </div>
@@ -440,60 +447,70 @@ const ADMIN_CODE   = "admin2026";     // Código solo para Gonzalo — CAMBIAR
 // NEGOCIOS INICIALES (41 en total)
 // ══════════════════════════════════════════════
 const INITIAL = [
-  // DENTAL — Villaverde
+  // DENTAL — Sin web verificado
   {id:'d01',sector:'dental',name:'FINADENT',barrio:'Villaverde',phone:'913 180 646',maps:'FINADENT clínica dental Villaverde Madrid'},
-  {id:'d02',sector:'dental',name:'Clínica Dental a Tu Salud',barrio:'Villaverde',phone:'917 100 373',maps:'Clínica Dental a Tu Salud Villaverde Madrid'},
-  {id:'d03',sector:'dental',name:'Clínica Dental Villaverde',barrio:'Villaverde',phone:'917 100 395',maps:'Clínica Dental Villaverde Madrid'},
-  {id:'d04',sector:'dental',name:'Cruz Briceño Dental',barrio:'Villaverde',phone:'917 962 841',maps:'Cruz Briceño dental Villaverde Madrid'},
-  {id:'d05',sector:'dental',name:'Noemident',barrio:'Villaverde',phone:'915 054 005',maps:'Noemident dental Villaverde Madrid'},
   {id:'d06',sector:'dental',name:'Ge Clinic Dental',barrio:'Villaverde',phone:'917 951 967',maps:'Ge Clinic dental Villaverde Madrid'},
   {id:'d07',sector:'dental',name:'MOFERDENT',barrio:'Villaverde',phone:'915 051 937',maps:'MOFERDENT dental Villaverde Madrid'},
   {id:'d08',sector:'dental',name:'Dental Los Ángeles',barrio:'Villaverde',phone:'915 050 117',maps:'Dental Los Angeles Villaverde Madrid'},
-  {id:'d09',sector:'dental',name:'Ibersalud Dental',barrio:'Villaverde',phone:'913 180 018',maps:'Ibersalud dental Villaverde Madrid'},
-  {id:'d10',sector:'dental',name:'Clínica Dental Arce',barrio:'Villaverde',phone:'910 255 029',maps:'Clínica Dental Arce Villaverde Madrid'},
-  {id:'d11',sector:'dental',name:'Biostar Dental',barrio:'Villaverde',phone:'913 854 251',maps:'Biostar Dental Villaverde Madrid'},
-  // DENTAL — Carabanchel
-  {id:'d12',sector:'dental',name:'Ortho-Sanmar',barrio:'Carabanchel',phone:'915 099 712',maps:'Ortho-Sanmar ortodoncia Carabanchel Madrid'},
   {id:'d13',sector:'dental',name:'Especialidades Odontológicas',barrio:'Carabanchel',phone:'914 666 865',maps:'Especialidades Odontológicas Carabanchel Madrid'},
-  {id:'d14',sector:'dental',name:'Salud Dental Blanco',barrio:'Carabanchel',phone:'917 793 855',maps:'Salud Dental Blanco Carabanchel Madrid'},
-  {id:'d15',sector:'dental',name:'Clínica Dental Onix',barrio:'Carabanchel',phone:'914 719 131',maps:'Clínica Dental Onix Carabanchel Madrid'},
   {id:'d16',sector:'dental',name:'ORODENT',barrio:'Carabanchel',phone:'915 652 808',maps:'ORODENT clínica dental Carabanchel Madrid'},
-  {id:'d17',sector:'dental',name:'Instituto Dental Dr. Carreño',barrio:'Carabanchel',phone:'914 662 095',maps:'Instituto Dental Dr Carreño Carabanchel Madrid'},
   {id:'d18',sector:'dental',name:'FAMADENT',barrio:'Carabanchel',phone:'914 727 159',maps:'FAMADENT clínica dental Carabanchel Madrid'},
-  {id:'d19',sector:'dental',name:'Clínica Dental Dr. Villar',barrio:'Carabanchel',phone:'915 254 500',maps:'Clínica Dental Dr Villar Carabanchel Madrid'},
-  {id:'d20',sector:'dental',name:'GOAL Dental',barrio:'Carabanchel',phone:'914 690 112',maps:'GOAL clínica dental Carabanchel Madrid'},
-  {id:'d21',sector:'dental',name:'Codenta',barrio:'Carabanchel',phone:'914 662 770',maps:'Codenta clínica dental Carabanchel Madrid'},
-  {id:'d22',sector:'dental',name:'Clínica Frieben y Buesa',barrio:'Carabanchel',phone:'914 667 609',maps:'Clínica Dental Frieben y Buesa Carabanchel Madrid'},
-  // RESTAURANTES
+  {id:'n01',sector:'dental',name:'Urgencias Dental Carabanchel',barrio:'Carabanchel',phone:'695 825 036',maps:'Urgencias Dental Carabanchel Madrid'},
+  {id:'n02',sector:'dental',name:'Clínica Dental Usera',barrio:'Usera',phone:'913 609 309',maps:'Clínica Dental Usera Madrid'},
+  {id:'n03',sector:'dental',name:'Clínica Odontológica Dra. Tavarone',barrio:'Usera',phone:'914 763 069',maps:'Clínica Odontológica Tavarone Usera Madrid'},
+  {id:'n04',sector:'dental',name:'OdontoBucal Leganés',barrio:'Leganés',phone:'916 865 974',maps:'OdontoBucal Leganés Madrid'},
+  {id:'n05',sector:'dental',name:'Clínica Dental Villaverde Bajo',barrio:'Villaverde',phone:'917 976 227',maps:'Clínica Dental Villaverde Bajo Madrid'},
+  {id:'n06',sector:'dental',name:'Dental Leganés / OdontoBucal Getafe',barrio:'Getafe',phone:'916 838 337',maps:'Dental Leganés Getafe Madrid'},
+  // RESTAURANTES — Sin web
   {id:'r01',sector:'resto',name:'Restaurante Miguel Angel',barrio:'Villaverde',phone:'917 955 280',maps:'Restaurante Miguel Angel Villaverde Madrid'},
   {id:'r02',sector:'resto',name:'Taberna de Alex',barrio:'Carabanchel',phone:'638 749 000',maps:'Taberna de Alex Carabanchel Madrid'},
   {id:'r03',sector:'resto',name:'Restaurante Amezua',barrio:'Carabanchel',phone:'912 300 713',maps:'Restaurante Amezua Carabanchel Madrid'},
-  {id:'r04',sector:'resto',name:'Xian Yang Long',barrio:'Usera',phone:'914 109 459',maps:'Xian Yang Long restaurante Usera Madrid'},
-  {id:'r05',sector:'resto',name:'La Alegría de Enrique',barrio:'Usera',phone:'915 002 261',maps:'La Alegría de Enrique restaurante Usera Madrid'},
   {id:'r06',sector:'resto',name:'La Cuchara de Usera',barrio:'Usera',phone:'917 923 889',maps:'La Cuchara de Usera restaurante Madrid'},
   {id:'r07',sector:'resto',name:'La Taberna de Usera',barrio:'Usera',phone:'914 764 721',maps:'La Taberna de Usera restaurante Madrid'},
   {id:'r08',sector:'resto',name:'Asador Parrilla La Cuchara',barrio:'Villaverde',phone:'918 321 504',maps:'Asador Parrilla La Cuchara Villaverde Madrid'},
-  // VETERINARIAS
-  {id:'v01',sector:'vet',name:'Oroquieta Veterinarios',barrio:'Villaverde',phone:'913 176 076',maps:'Oroquieta veterinarios Villaverde Madrid'},
-  {id:'v02',sector:'vet',name:'Mascotas Clínica Veterinaria',barrio:'Villaverde',phone:'915 050 298',maps:'Mascotas clínica veterinaria Villaverde Madrid'},
-  {id:'v03',sector:'vet',name:'Centro Veterinario Instinto Animal',barrio:'Villaverde',phone:'917 569 648',maps:'Centro Veterinario Instinto Animal Villaverde Madrid'},
+  {id:'n07',sector:'resto',name:'Parri Brasa',barrio:'Villaverde',phone:'622 276 785',maps:'Parri Brasa restaurante Villaverde Madrid'},
+  {id:'n08',sector:'resto',name:'Bar Restaurante El Pontón',barrio:'Villaverde',phone:'631 473 664',maps:'Bar Restaurante El Ponton Villaverde Madrid'},
+  {id:'n09',sector:'resto',name:'Casa Dominguez Getafe',barrio:'Getafe',phone:'916 810 341',maps:'Casa Dominguez restaurante Getafe Madrid'},
+  {id:'n10',sector:'resto',name:'Restaurante El Hispano',barrio:'Getafe',phone:'645 183 333',maps:'Restaurante El Hispano Getafe Madrid'},
+  {id:'n11',sector:'resto',name:'Bar Restaurante Avenida Getafe',barrio:'Getafe',phone:'916 826 667',maps:'Bar Restaurante Avenida Getafe Madrid'},
+  {id:'n12',sector:'resto',name:'El Campanario (Tite)',barrio:'Villaverde',phone:'617 945 307',maps:'El Campanario bar Villaverde Madrid'},
+  // VETERINARIAS — Sin web
   {id:'v04',sector:'vet',name:'Clínica Los Rosales',barrio:'Villaverde',phone:'915 053 622',maps:'Clínica Los Rosales veterinaria Villaverde Madrid'},
-  // GIMNASIOS
+  {id:'n13',sector:'vet',name:'Clínica Veterinaria Retriever',barrio:'Usera',phone:'913 417 455',maps:'Clinica Veterinaria Retriever Usera Madrid'},
+  {id:'n14',sector:'vet',name:'Centro Vet. Perales del Río',barrio:'Getafe',phone:'916 847 926',maps:'Centro Veterinario Perales del Rio Getafe Madrid'},
+  {id:'n15',sector:'vet',name:'Getafe Norte Veterinaria',barrio:'Getafe',phone:'916 826 106',maps:'Getafe Norte Veterinaria Madrid'},
+  {id:'n16',sector:'vet',name:'María Sol Romero (Vet.)',barrio:'Getafe',phone:'679 915 340',maps:'Maria Sol Romero veterinaria Getafe Madrid'},
+  // GIMNASIOS — Sin web
   {id:'g01',sector:'gym',name:'CrossFit Country House',barrio:'Carabanchel',phone:'676 966 966',maps:'CrossFit Country House Carabanchel Madrid'},
   {id:'g02',sector:'gym',name:'Ifitness',barrio:'Carabanchel',phone:'915 990 120',maps:'Ifitness gimnasio Carabanchel Madrid'},
   {id:'g03',sector:'gym',name:'Gimnasio Vázquez Moratinos',barrio:'Carabanchel',phone:'912 256 939',maps:'Gimnasio Vazquez Moratinos Carabanchel Madrid'},
-  {id:'g04',sector:'gym',name:'Trust Fitness Center',barrio:'Carabanchel',phone:'637 893 801',maps:'Trust Fitness Center gimnasio Carabanchel Madrid'},
-  {id:'g05',sector:'gym',name:'Fitness Place',barrio:'Carabanchel',phone:'914 697 361',maps:'Fitness Place gimnasio Carabanchel Madrid'},
   {id:'g06',sector:'gym',name:'Gimnasio Kime',barrio:'Carabanchel',phone:'915 600 726',maps:'Gimnasio Kime Carabanchel Madrid'},
-  {id:'g07',sector:'gym',name:'Gimnasio Estudio Praga',barrio:'Carabanchel',phone:'915 609 408',maps:'Gimnasio Estudio Praga Carabanchel Madrid'},
+  // PELUQUERÍAS — Sin web
+  {id:'p01',sector:'peluqueria',name:'ALVI Peluqueros',barrio:'Villaverde',phone:'917 977 276',maps:'ALVI Peluqueros Villaverde Madrid'},
+  {id:'p02',sector:'peluqueria',name:"Anfrasa's Peluqueros",barrio:'Villaverde',phone:'913 698 541',maps:'Anfrasa Peluqueros Villaverde Madrid'},
+  {id:'p03',sector:'peluqueria',name:'PACHAS Peluqueros',barrio:'Carabanchel',phone:'914 653 931',maps:'PACHAS Peluqueros Carabanchel Madrid'},
+  {id:'p04',sector:'peluqueria',name:'Prisma Peluqueros',barrio:'Carabanchel',phone:'915 695 440',maps:'Prisma Peluqueros Carabanchel Madrid'},
+  {id:'p05',sector:'peluqueria',name:'TONI Peluqueros',barrio:'Usera',phone:'915 002 576',maps:'TONI Peluqueros Usera Madrid'},
+  {id:'p06',sector:'peluqueria',name:'Sanmar Peluquería',barrio:'Usera',phone:'914 601 823',maps:'Sanmar Peluqueria Usera Madrid'},
+  {id:'p07',sector:'peluqueria',name:'TRES ROSAS Peluquería',barrio:'Vallecas',phone:'913 323 567',maps:'Tres Rosas Peluqueria Vallecas Madrid'},
+  {id:'p08',sector:'peluqueria',name:'AL-ANDALUS Peluquería',barrio:'Vallecas',phone:'917 787 619',maps:'Al-Andalus Peluqueria Vallecas Madrid'},
+  {id:'p09',sector:'peluqueria',name:'SANGARA Peluquería',barrio:'Vallecas',phone:'913 318 141',maps:'Sangara Peluqueria Vallecas Madrid'},
+  {id:'p10',sector:'peluqueria',name:'Marco Aldani Peluqueros',barrio:'Usera',phone:'917 923 193',maps:'Marco Aldani Peluqueros Usera Madrid'},
+  // AUTOESCUELAS — Sin web
+  {id:'a01',sector:'academia',name:'Autoescuela Getasur',barrio:'Getafe',phone:'916 838 824',maps:'Autoescuela Getasur Getafe Madrid'},
+  {id:'a02',sector:'academia',name:'Autoescuela Sotero',barrio:'Getafe',phone:'916 827 392',maps:'Autoescuela Sotero Getafe Madrid'},
+  {id:'a03',sector:'academia',name:'Autoescuela Lucex',barrio:'Carabanchel',phone:'641 807 468',maps:'Autoescuela Lucex Carabanchel Madrid'},
+  {id:'a04',sector:'academia',name:'Autoescuela Santa Eugenia',barrio:'Vallecas',phone:'917 957 983',maps:'Autoescuela Santa Eugenia Vallecas Madrid'},
 ];
 
-const SECTOR_LABEL = {dental:'Dental',resto:'Restaurante',vet:'Veterinaria',gym:'Gimnasio'};
+const SECTOR_LABEL = {dental:'Dental',resto:'Restaurante',vet:'Veterinaria',gym:'Gimnasio',peluqueria:'Peluquería',academia:'Autoescuela'};
 const DEMOS = {
   dental:'https://impulsaai-agency.github.io/web-dental-modelo.html',
   resto:'https://impulsaai-agency.github.io/web-restaurante-cinematic.html',
   vet:'https://impulsaai-agency.github.io/web-veterinaria-modelo.html',
   gym:'https://impulsaai-agency.github.io/web-peluqueria-modelo.html',
+  peluqueria:'https://impulsaai-agency.github.io/web-peluqueria-modelo.html',
+  academia:'https://impulsaai-agency.github.io/web-dental-modelo.html',
 };
 
 // ══════════════════════════════════════════════
@@ -745,7 +762,7 @@ function render() {
     });
 
     const secCls = currentFilter !== 'todos' && currentFilter !== s && currentFilter !== 'mios' && currentFilter !== 'cerrados' ? ' hidden':'';
-    const SLAB = {dental:'🦷 Clínicas Dentales',resto:'🍽 Restaurantes',vet:'🐾 Veterinarias',gym:'💪 Gimnasios'};
+    const SLAB = {dental:'🦷 Clínicas Dentales',resto:'🍽 Restaurantes',vet:'🐾 Veterinarias',gym:'💪 Gimnasios',peluqueria:'✂️ Peluquerías',academia:'🚗 Autoescuelas'};
     html += `<div class="sec-hdr ${s}${secCls}" data-sector="${s}"><h2>${SLAB[s]}</h2><span class="sec-count">${list.length}</span></div>`;
 
     list.forEach(b => {
