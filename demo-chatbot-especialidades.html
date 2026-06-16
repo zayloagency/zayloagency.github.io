@@ -19,7 +19,8 @@ body {
   height: 100vh; max-height: 860px;
   background: #111b21;
   display: flex; flex-direction: column;
-  position: relative; overflow: hidden;
+  position: relative;
+  overflow: hidden;
   box-shadow: 0 0 60px rgba(0,0,0,0.6);
 }
 
@@ -49,7 +50,7 @@ body {
   background-color: #0b141a;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cpath d='M20 20h10v10H20zm40 0h10v10H60zm40 0h10v10h-10zm40 0h10v10h-10zm40 0h10v10h-10zm40 0h10v10h-10zm40 0h10v10h-10zm40 0h10v10h-10zm40 0h10v10h-10zm-320 40h10v10H20zm40 0h10v10H60z' fill='rgba(255,255,255,0.015)'/%3E%3C/svg%3E");
   overflow-y: auto; overflow-x: hidden;
-  padding: 8px 8px 6px;
+  padding: 12px 12px 8px;
   scroll-behavior: smooth;
 }
 
@@ -58,18 +59,17 @@ body {
 
 .date-divider { text-align: center; margin: 8px 0 14px; }
 .date-divider span {
-  background: #182229; color: #8696a0; font-size: 12px;
+  background: #182229;
+  color: #8696a0; font-size: 12px;
   padding: 5px 12px; border-radius: 8px;
 }
 
 .bubble-wrap {
-  display: flex; margin-bottom: 2px;
+  display: flex; margin-bottom: 3px;
   animation: fadeUp 0.25s ease;
 }
 .bubble-wrap.bot { justify-content: flex-start; }
 .bubble-wrap.user { justify-content: flex-end; }
-.bubble-wrap + .bubble-wrap.bot { margin-top: 1px; }
-.bubble-wrap + .bubble-wrap.user { margin-top: 1px; }
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(8px); }
@@ -77,32 +77,32 @@ body {
 }
 
 .bubble {
-  max-width: 72%;
-  width: fit-content;
-  padding: 6px 10px 4px;
+  max-width: 82%;
+  padding: 8px 12px 6px;
   border-radius: 8px;
-  font-size: 13.5px; line-height: 1.4;
-  position: relative; word-break: break-word;
-  white-space: pre-wrap;
+  font-size: 14.5px; line-height: 1.45;
+  position: relative;
+  word-break: break-word;
 }
 
 .bubble.bot {
-  background: #202c33; color: #e9edef;
+  background: #202c33;
+  color: #e9edef;
   border-top-left-radius: 2px;
 }
 
 .bubble.user {
-  background: #005c4b; color: #e9edef;
+  background: #005c4b;
+  color: #e9edef;
   border-top-right-radius: 2px;
 }
 
-.bubble strong { font-weight: 700; }
-
 .bubble-time {
-  font-size: 10px; color: #8696a0;
-  text-align: right; margin-top: 2px;
+  font-size: 11px; color: #8696a0;
+  text-align: right; margin-top: 3px;
   display: flex; align-items: center; justify-content: flex-end; gap: 3px;
 }
+
 .tick { color: #53bdeb; font-size: 13px; }
 
 .typing-wrap { display: flex; margin-bottom: 8px; animation: fadeUp 0.2s ease; }
@@ -142,7 +142,8 @@ body {
 
 .send-btn {
   width: 44px; height: 44px; border-radius: 50%;
-  background: #00a884; border: none; cursor: pointer;
+  background: #00a884;
+  border: none; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   font-size: 20px; flex-shrink: 0;
   transition: background 0.15s;
@@ -156,12 +157,14 @@ body {
   border: 1px solid rgba(0,168,132,0.3);
   color: #00a884; font-size: 11px; font-weight: 700;
   padding: 5px 10px; border-radius: 12px;
-  cursor: pointer; z-index: 10; letter-spacing: 0.5px;
+  cursor: pointer; z-index: 10;
+  letter-spacing: 0.5px;
 }
 
 .zaylo-badge {
   text-align: center; padding: 6px;
-  font-size: 11px; color: #3a4a54; flex-shrink: 0;
+  font-size: 11px; color: #3a4a54;
+  flex-shrink: 0;
 }
 .zaylo-badge span { color: #5a6a74; font-weight: 700; }
 </style>
@@ -188,7 +191,7 @@ body {
 
   <div class="input-bar">
     <input class="input-field" id="inputField" placeholder="Escribe un mensaje..."
-      onkeydown="if(event.key==='Enter' && !event.shiftKey) { event.preventDefault(); sendMsg(); }">
+      onkeydown="if(event.key==='Enter' && !event.shiftKey){ event.preventDefault(); sendMsg(); }">
     <button class="send-btn" id="sendBtn" onclick="sendMsg()">➤</button>
   </div>
 
@@ -197,12 +200,10 @@ body {
 
 <script>
 const CHATBOT_URL = 'https://zaylo-chatbot.vercel.app/chat';
-
 const chat = document.getElementById('chat');
 const input = document.getElementById('inputField');
 const sendBtn = document.getElementById('sendBtn');
 
-// ID de sesión único por visitante
 let sessionId = localStorage.getItem('demo_session_id');
 if (!sessionId) {
   sessionId = Math.random().toString(36).slice(2) + Date.now().toString(36);
@@ -246,7 +247,6 @@ function showTyping() {
   t.innerHTML = `<div class="typing"><span></span><span></span><span></span></div>`;
   chat.appendChild(t);
   scrollBottom();
-  return t;
 }
 
 function removeTyping() {
@@ -278,7 +278,7 @@ async function sendMsg() {
     const data = await res.json();
     removeTyping();
     addBubble(data.reply || 'Lo siento, ha habido un error.', 'bot');
-  } catch (err) {
+  } catch {
     removeTyping();
     addBubble('Lo siento, ha habido un problema de conexión. Inténtalo de nuevo.', 'bot');
   }
