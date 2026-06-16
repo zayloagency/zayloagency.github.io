@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chatbot Demo — Especialidades Odontológicas</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #111b21;
+  font-family: -apple-system, 'Helvetica Neue', sans-serif;
+  display: flex; align-items: center; justify-content: center;
+  min-height: 100vh;
+}
+
+.phone {
+  width: 100%; max-width: 420px;
+  height: 100vh; max-height: 860px;
+  background: #111b21;
+  display: flex; flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 60px rgba(0,0,0,0.6);
+}
+
+/* ── HEADER ── */
+.header {
+  background: #202c33;
+  padding: 10px 16px;
+  display: flex; align-items: center; gap: 12px;
+  flex-shrink: 0;
+  border-bottom: 1px solid #2a3942;
+}
+
+.avatar {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: linear-gradient(135deg, #1a5c8a, #0d3d5c);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+
+.header-info { flex: 1; }
+.header-name { font-size: 16px; font-weight: 600; color: #e9edef; }
+.header-status { font-size: 12px; color: #8696a0; margin-top: 1px; }
+
+.header-icons { display: flex; gap: 20px; }
+.header-icons span { color: #8696a0; font-size: 20px; cursor: pointer; }
+
+/* ── CHAT BACKGROUND ── */
+.chat-bg {
+  flex: 1;
+  background-color: #0b141a;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cpath d='M20 20h10v10H20zm40 0h10v10H60zm40 0h10v10h-10zm40 0h10v10h-10zm40 0h10v10h-10zm40 0h10v10h-10zm40 0h10v10h-10zm40 0h10v10h-10zm40 0h10v10h-10zm-320 40h10v10H20zm40 0h10v10H60z' fill='rgba(255,255,255,0.015)'/%3E%3C/svg%3E");
+  overflow-y: auto; overflow-x: hidden;
+  padding: 12px 12px 8px;
+  scroll-behavior: smooth;
+}
+
+.chat-bg::-webkit-scrollbar { width: 4px; }
+.chat-bg::-webkit-scrollbar-thumb { background: #2a3942; border-radius: 2px; }
+
+/* Date divider */
+.date-divider {
+  text-align: center; margin: 8px 0 14px;
+}
+.date-divider span {
+  background: #182229;
+  color: #8696a0; font-size: 12px;
+  padding: 5px 12px; border-radius: 8px;
+}
+
+/* ── BUBBLES ── */
+.bubble-wrap {
+  display: flex; margin-bottom: 3px;
+  animation: fadeUp 0.25s ease;
+}
+.bubble-wrap.bot { justify-content: flex-start; }
+.bubble-wrap.user { justify-content: flex-end; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.bubble {
+  max-width: 82%;
+  padding: 8px 12px 6px;
+  border-radius: 8px;
+  font-size: 14.5px; line-height: 1.45;
+  position: relative;
+  word-break: break-word;
+}
+
+.bubble.bot {
+  background: #202c33;
+  color: #e9edef;
+  border-top-left-radius: 2px;
+}
+
+.bubble.user {
+  background: #005c4b;
+  color: #e9edef;
+  border-top-right-radius: 2px;
+}
+
+.bubble-time {
+  font-size: 11px; color: #8696a0;
+  text-align: right; margin-top: 3px;
+  display: flex; align-items: center; justify-content: flex-end; gap: 3px;
+}
+
+.tick { color: #53bdeb; font-size: 13px; }
+
+/* Typing indicator */
+.typing-wrap { display: flex; margin-bottom: 8px; animation: fadeUp 0.2s ease; }
+.typing {
+  background: #202c33;
+  border-radius: 8px; border-top-left-radius: 2px;
+  padding: 12px 16px;
+  display: flex; gap: 4px; align-items: center;
+}
+.typing span {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #8696a0;
+  animation: bounce 1.2s infinite;
+}
+.typing span:nth-child(2) { animation-delay: 0.2s; }
+.typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+  30% { transform: translateY(-5px); opacity: 1; }
+}
+
+/* ── QUICK REPLIES ── */
+.options-wrap {
+  display: flex; flex-direction: column; gap: 6px;
+  margin: 4px 0 8px; padding-left: 4px;
+  animation: fadeUp 0.3s ease;
+}
+
+.opt-btn {
+  background: #202c33;
+  border: 1px solid #2a3942;
+  color: #53bdeb;
+  font-size: 14px; font-weight: 500;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s, transform 0.1s;
+  display: flex; align-items: center; gap: 10px;
+}
+.opt-btn:hover { background: #2a3942; }
+.opt-btn:active { transform: scale(0.98); }
+.opt-btn:disabled { opacity: 0.4; pointer-events: none; }
+
+/* ── INPUT BAR ── */
+.input-bar {
+  background: #202c33;
+  padding: 8px 12px;
+  display: flex; align-items: center; gap: 10px;
+  flex-shrink: 0;
+  border-top: 1px solid #2a3942;
+}
+
+.input-field {
+  flex: 1; background: #2a3942;
+  border: none; outline: none;
+  border-radius: 24px; padding: 10px 16px;
+  color: #e9edef; font-size: 15px;
+}
+.input-field::placeholder { color: #8696a0; }
+
+.send-btn {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: #00a884;
+  border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+  transition: background 0.15s;
+}
+.send-btn:hover { background: #00c49a; }
+
+/* Reset button */
+.reset-btn {
+  position: absolute; top: 68px; right: 12px;
+  background: rgba(0,168,132,0.15);
+  border: 1px solid rgba(0,168,132,0.3);
+  color: #00a884; font-size: 11px; font-weight: 700;
+  padding: 5px 10px; border-radius: 12px;
+  cursor: pointer; z-index: 10;
+  letter-spacing: 0.5px;
+}
+
+/* Zaylo badge */
+.zaylo-badge {
+  text-align: center; padding: 6px;
+  font-size: 11px; color: #3a4a54;
+  flex-shrink: 0;
+}
+.zaylo-badge span { color: #5a6a74; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="phone">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="avatar">🦷</div>
+    <div class="header-info">
+      <div class="header-name">Especialidades Odontológicas</div>
+      <div class="header-status" id="headerStatus">en línea</div>
+    </div>
+    <div class="header-icons">
+      <span>📹</span>
+      <span>📞</span>
+      <span>⋮</span>
+    </div>
+  </div>
+
+  <button class="reset-btn" onclick="resetChat()">↺ Reiniciar</button>
+
+  <!-- CHAT -->
+  <div class="chat-bg" id="chat">
+    <div class="date-divider"><span>Hoy</span></div>
+  </div>
+
+  <!-- INPUT -->
+  <div class="input-bar">
+    <input class="input-field" id="inputField" placeholder="Escribe un mensaje..." onkeydown="if(event.key==='Enter') sendUserMsg()">
+    <button class="send-btn" onclick="sendUserMsg()">➤</button>
+  </div>
+
+  <div class="zaylo-badge">Powered by <span>ZAYLO</span> · Asistente virtual</div>
+</div>
+
+<script>
+const chat = document.getElementById('chat');
+const input = document.getElementById('inputField');
+let step = 'inicio';
+let userName = '';
+let blocked = false;
+
+const now = () => {
+  const d = new Date();
+  return d.getHours() + ':' + String(d.getMinutes()).padStart(2,'0');
+};
+
+function scrollBottom() {
+  setTimeout(() => { chat.scrollTop = chat.scrollHeight; }, 50);
+}
+
+function addBubble(text, who, withTick) {
+  const wrap = document.createElement('div');
+  wrap.className = `bubble-wrap ${who}`;
+  const tick = (who === 'user' && withTick !== false)
+    ? `<span class="tick">✓✓</span>` : '';
+  wrap.innerHTML = `
+    <div class="bubble ${who}">
+      ${text.replace(/\n/g,'<br>')}
+      <div class="bubble-time">${now()} ${tick}</div>
+    </div>`;
+  chat.appendChild(wrap);
+  scrollBottom();
+}
+
+function showTyping() {
+  const t = document.createElement('div');
+  t.className = 'typing-wrap'; t.id = 'typing';
+  t.innerHTML = `<div class="typing"><span></span><span></span><span></span></div>`;
+  chat.appendChild(t);
+  scrollBottom();
+  return t;
+}
+
+function removeTyping() {
+  const t = document.getElementById('typing');
+  if (t) t.remove();
+}
+
+function addOptions(opts) {
+  const wrap = document.createElement('div');
+  wrap.className = 'options-wrap'; wrap.id = 'options';
+  opts.forEach(o => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.innerHTML = o.label;
+    btn.onclick = () => handleOption(o.value, o.label);
+    wrap.appendChild(btn);
+  });
+  chat.appendChild(wrap);
+  scrollBottom();
+}
+
+function removeOptions() {
+  const o = document.getElementById('options');
+  if (o) o.remove();
+}
+
+function botSay(text, delay, cb) {
+  blocked = true;
+  document.getElementById('headerStatus').textContent = 'escribiendo...';
+  setTimeout(() => {
+    const t = showTyping();
+    setTimeout(() => {
+      t.remove();
+      addBubble(text, 'bot');
+      document.getElementById('headerStatus').textContent = 'en línea';
+      blocked = false;
+      if (cb) cb();
+    }, 1200 + text.length * 12);
+  }, delay || 400);
+}
+
+function handleOption(val, label) {
+  removeOptions();
+  addBubble(label, 'user');
+
+  if (val === '1') {
+    step = 'cita_nombre';
+    botSay('¡Genial! 😊 Es muy sencillo.\n\nPrimero dime tu *nombre completo* 👇', 400, () => {
+      input.placeholder = 'Escribe tu nombre...';
+      input.focus();
+    });
+
+  } else if (val === '2') {
+    step = 'tratamientos';
+    botSay('Estos son nuestros tratamientos principales 🦷\n\n• 🔧 Ortodoncia (brackets e invisible)\n• 🦷 Implantes dentales\n• ✨ Blanqueamiento dental\n• 🔬 Endodoncia\n• 🩺 Revisión y limpieza\n• 💎 Estética dental\n\n*Primera visita GRATUITA* ✅', 400, () => {
+      setTimeout(() => {
+        botSay('¿Quieres pedir cita para alguno de estos tratamientos? 😊', 200, () => {
+          addOptions([
+            { label: '✅ Sí, quiero pedir cita', value: '1' },
+            { label: '❓ Tengo más preguntas', value: 'preguntas' },
+            { label: '🏠 Volver al inicio', value: 'inicio' },
+          ]);
+        });
+      }, 800);
+    });
+
+  } else if (val === '3') {
+    step = 'ubicacion';
+    botSay('📍 Estamos en *Carabanchel, Madrid*\n\n🚇 Metro: Carabanchel (L5)\n🚌 Autobús: líneas 35, 55, 60\n🕐 Horario: Lun–Vie 9:00–20:00\n\n📞 914 666 865', 400, () => {
+      setTimeout(() => {
+        addOptions([
+          { label: '📅 Pedir cita', value: '1' },
+          { label: '🏠 Volver al inicio', value: 'inicio' },
+        ]);
+      }, 600);
+    });
+
+  } else if (val === '4') {
+    step = 'persona';
+    botSay('¡Claro! 😊 En menos de *5 minutos* te llama alguien de la clínica.\n\n¿Es correcto este número para llamarte?\n👉 ' + '634 14 23 37', 400, () => {
+      setTimeout(() => {
+        addOptions([
+          { label: '✅ Sí, ese número', value: 'confirmar_llamada' },
+          { label: '📱 Prefiero otro número', value: 'otro_numero' },
+        ]);
+      }, 600);
+    });
+
+  } else if (val === 'confirmar_llamada') {
+    step = 'fin';
+    botSay('¡Perfecto! ✅ Hemos anotado tu solicitud.\n\nEn breve te llama nuestro equipo 📞\n\nMuchas gracias por contactar con *Especialidades Odontológicas* 🦷', 400, () => {
+      setTimeout(() => {
+        addOptions([{ label: '🏠 Volver al inicio', value: 'inicio' }]);
+      }, 800);
+    });
+
+  } else if (val === 'otro_numero') {
+    step = 'otro_numero';
+    botSay('Sin problema 😊 Dime el número al que te llamamos 👇', 400, () => {
+      input.placeholder = 'Escribe tu número...';
+      input.focus();
+    });
+
+  } else if (val === 'preguntas') {
+    step = 'preguntas';
+    botSay('Claro, pregúntame lo que quieras 😊\nEstoy aquí para ayudarte 👇', 400, () => {
+      input.placeholder = 'Escribe tu pregunta...';
+      input.focus();
+    });
+
+  } else if (val === 'inicio') {
+    step = 'inicio';
+    setTimeout(() => showMenu(), 300);
+  }
+}
+
+function showMenu() {
+  botSay('¿En qué más puedo ayudarte? 😊', 300, () => {
+    addOptions([
+      { label: '1️⃣  Pedir cita', value: '1' },
+      { label: '2️⃣  Ver tratamientos y precios', value: '2' },
+      { label: '3️⃣  Cómo llegar', value: '3' },
+      { label: '4️⃣  Hablar con la clínica', value: '4' },
+    ]);
+  });
+}
+
+function sendUserMsg() {
+  const text = input.value.trim();
+  if (!text || blocked) return;
+  input.value = '';
+  removeOptions();
+  addBubble(text, 'user');
+
+  if (step === 'cita_nombre') {
+    userName = text;
+    step = 'cita_dia';
+    botSay(`Encantados, *${userName}* 😊\n\n¿Qué día te viene mejor? Dime una fecha y nosotros te confirmamos disponibilidad 📅`, 400, () => {
+      input.placeholder = 'Ej: jueves por la tarde...';
+    });
+
+  } else if (step === 'cita_dia') {
+    step = 'cita_motivo';
+    botSay(`Anotado ✅ ¿Y cuál es el motivo de la visita?\n\n(revisión, limpieza, ortodoncia, implante, blanqueamiento...)`, 400, () => {
+      input.placeholder = 'Motivo de la visita...';
+    });
+
+  } else if (step === 'cita_motivo') {
+    step = 'cita_confirmada';
+    const motivo = text;
+    botSay(`¡Perfecto, *${userName}*! 🎉\n\nHemos registrado tu solicitud:\n📋 Motivo: ${motivo}\n\nEn los próximos *minutos* te confirmamos la cita por aquí mismo ✅\n\nRecuerda que la *primera visita es gratuita* 🦷`, 500, () => {
+      setTimeout(() => {
+        addOptions([{ label: '🏠 Volver al inicio', value: 'inicio' }]);
+      }, 800);
+    });
+
+  } else if (step === 'otro_numero') {
+    step = 'fin';
+    botSay(`¡Anotado! 📞 Te llamamos al *${text}* en breve.\n\nMuchas gracias 😊`, 400, () => {
+      setTimeout(() => {
+        addOptions([{ label: '🏠 Volver al inicio', value: 'inicio' }]);
+      }, 600);
+    });
+
+  } else if (step === 'preguntas') {
+    botSay(`Gracias por tu pregunta 😊\nNuestro equipo te responde en breve.\n\nO si prefieres, podemos *llamarte ahora* 📞`, 400, () => {
+      addOptions([
+        { label: '📞 Llamadme ahora', value: '4' },
+        { label: '📅 Pedir cita', value: '1' },
+        { label: '🏠 Volver al inicio', value: 'inicio' },
+      ]);
+    });
+
+  } else {
+    // Cualquier mensaje libre → detectar intención
+    const t = text.toLowerCase();
+    if (t.includes('cita') || t.includes('reservar') || t.includes('apunt')) {
+      handleOption('1', '📅 Pedir cita');
+    } else if (t.includes('precio') || t.includes('cuesta') || t.includes('coste') || t.includes('tarifa')) {
+      handleOption('2', '💰 Ver tratamientos y precios');
+    } else if (t.includes('donde') || t.includes('dirección') || t.includes('llegar') || t.includes('horario')) {
+      handleOption('3', '📍 Cómo llegar');
+    } else {
+      showMenu();
+    }
+  }
+
+  input.placeholder = 'Escribe un mensaje...';
+}
+
+function resetChat() {
+  chat.innerHTML = '<div class="date-divider"><span>Hoy</span></div>';
+  step = 'inicio'; userName = ''; blocked = false;
+  input.placeholder = 'Escribe un mensaje...';
+  startChat();
+}
+
+function startChat() {
+  setTimeout(() => {
+    botSay('¡Hola! 👋 Bienvenido a *Especialidades Odontológicas*.\n\nSoy el asistente virtual de la clínica y puedo ayudarte al instante 😊', 600, () => {
+      setTimeout(() => {
+        addOptions([
+          { label: '1️⃣  Pedir cita', value: '1' },
+          { label: '2️⃣  Ver tratamientos y precios', value: '2' },
+          { label: '3️⃣  Cómo llegar', value: '3' },
+          { label: '4️⃣  Hablar con la clínica', value: '4' },
+        ]);
+      }, 400);
+    });
+  }, 800);
+}
+
+startChat();
+</script>
+</body>
+</html>
