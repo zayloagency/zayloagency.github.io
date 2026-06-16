@@ -49,7 +49,7 @@ body {
   background-color: #0b141a;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cpath d='M20 20h10v10H20zm40 0h10v10H60zm40 0h10v10h-10zm40 0h10v10h-10zm40 0h10v10h-10zm40 0h10v10h-10zm40 0h10v10h-10zm40 0h10v10h-10zm40 0h10v10h-10zm-320 40h10v10H20zm40 0h10v10H60z' fill='rgba(255,255,255,0.015)'/%3E%3C/svg%3E");
   overflow-y: auto; overflow-x: hidden;
-  padding: 12px 12px 8px;
+  padding: 8px 8px 6px;
   scroll-behavior: smooth;
 }
 
@@ -63,11 +63,13 @@ body {
 }
 
 .bubble-wrap {
-  display: flex; margin-bottom: 3px;
+  display: flex; margin-bottom: 2px;
   animation: fadeUp 0.25s ease;
 }
 .bubble-wrap.bot { justify-content: flex-start; }
 .bubble-wrap.user { justify-content: flex-end; }
+.bubble-wrap + .bubble-wrap.bot { margin-top: 1px; }
+.bubble-wrap + .bubble-wrap.user { margin-top: 1px; }
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(8px); }
