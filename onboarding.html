@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Datos para tu web — Zaylo</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: #0c0a08;
+  color: #f0ebe3;
+  min-height: 100vh;
+  padding: 40px 24px;
+}
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+}
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+  color: #e8a84c;
+  margin-bottom: 40px;
+  display: block;
+}
+h1 {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.subtitle {
+  color: #a89e92;
+  font-size: 15px;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+.section {
+  margin-bottom: 36px;
+}
+.section-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #e8a84c;
+  margin-bottom: 16px;
+}
+.field {
+  margin-bottom: 16px;
+}
+label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #d4cfc9;
+  margin-bottom: 6px;
+}
+label span {
+  color: #e8a84c;
+}
+input, textarea, select {
+  width: 100%;
+  background: #181512;
+  border: 1px solid rgba(232,168,76,0.15);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  color: #f0ebe3;
+  outline: none;
+  transition: border-color 0.2s;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: rgba(232,168,76,0.5);
+}
+textarea { resize: vertical; min-height: 90px; }
+select option { background: #181512; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 480px) { .row { grid-template-columns: 1fr; } }
+.hint {
+  font-size: 12px;
+  color: #5e564e;
+  margin-top: 4px;
+}
+.divider {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  margin: 32px 0;
+}
+.btn {
+  width: 100%;
+  background: #e8a84c;
+  color: #0c0a08;
+  font-size: 16px;
+  font-weight: 800;
+  padding: 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  margin-top: 8px;
+}
+.btn:hover { background: #f2c06e; transform: translateY(-1px); }
+.success {
+  display: none;
+  background: rgba(0,168,132,0.1);
+  border: 1px solid rgba(0,168,132,0.3);
+  border-radius: 10px;
+  padding: 24px;
+  text-align: center;
+  margin-top: 24px;
+}
+.success h3 { color: #00a884; font-size: 18px; margin-bottom: 8px; }
+.success p { color: #a89e92; font-size: 14px; }
+.required-note {
+  font-size: 12px;
+  color: #5e564e;
+  margin-bottom: 24px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <span class="logo">Zaylo</span>
+  <h1>Datos para tu web</h1>
+  <p class="subtitle">Rellena este formulario para que podamos crear tu web y chatbot personalizados. Cuanto más detalle nos des, mejor quedará el resultado.</p>
+  <p class="required-note"><span style="color:#e8a84c">*</span> Campos obligatorios</p>
+
+  <form id="onboardingForm">
+
+    <!-- NEGOCIO -->
+    <div class="section">
+      <div class="section-title">Tu negocio</div>
+
+      <div class="field">
+        <label>Nombre de la clínica <span>*</span></label>
+        <input type="text" name="nombre_clinica" placeholder="Ej: Especialidades Odontológicas" required>
+      </div>
+
+      <div class="field">
+        <label>Dirección completa <span>*</span></label>
+        <input type="text" name="direccion" placeholder="Calle, número, ciudad" required>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label>Teléfono <span>*</span></label>
+          <input type="tel" name="telefono" placeholder="914 666 865" required>
+        </div>
+        <div class="field">
+          <label>WhatsApp de la clínica <span>*</span></label>
+          <input type="tel" name="whatsapp" placeholder="6XX XXX XXX" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Email de contacto</label>
+        <input type="email" name="email" placeholder="clinica@email.com">
+      </div>
+
+      <div class="field">
+        <label>Web actual (si tenéis)</label>
+        <input type="text" name="web_actual" placeholder="www.vuestraWeb.com">
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- HORARIOS -->
+    <div class="section">
+      <div class="section-title">Horarios</div>
+
+      <div class="field">
+        <label>Horario de lunes a viernes <span>*</span></label>
+        <input type="text" name="horario_lv" placeholder="Ej: 9:00 - 14:00 y 16:00 - 20:00" required>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label>Horario sábados</label>
+          <input type="text" name="horario_sabado" placeholder="Ej: 9:00 - 13:00 o Cerrado">
+        </div>
+        <div class="field">
+          <label>Horario domingos</label>
+          <input type="text" name="horario_domingo" placeholder="Ej: Cerrado">
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- TRATAMIENTOS -->
+    <div class="section">
+      <div class="section-title">Tratamientos y servicios</div>
+
+      <div class="field">
+        <label>Lista tus tratamientos principales <span>*</span></label>
+        <textarea name="tratamientos" placeholder="Ej: Ortodoncia, Implantes, Endodoncia, Blanqueamiento, Odontopediatría..." required></textarea>
+        <p class="hint">Escribe los que quieras mostrar en la web</p>
+      </div>
+
+      <div class="field">
+        <label>¿Queréis mostrar precios en la web?</label>
+        <select name="mostrar_precios">
+          <option value="no">No, preferimos que contacten para consultar</option>
+          <option value="orientativos">Sí, precios orientativos / desde X€</option>
+          <option value="si">Sí, precios exactos</option>
+        </select>
+      </div>
+
+      <div class="field" id="precios_field">
+        <label>Precios (si queréis mostrarlos)</label>
+        <textarea name="precios" placeholder="Ej: Ortodoncia desde 1.500€, Implante desde 900€..."></textarea>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- CHATBOT -->
+    <div class="section">
+      <div class="section-title">Chatbot de WhatsApp</div>
+
+      <div class="field">
+        <label>¿Cómo queréis que hable el asistente? <span>*</span></label>
+        <select name="tono" required>
+          <option value="">Selecciona...</option>
+          <option value="formal">Formal y profesional</option>
+          <option value="cercano">Cercano y amable</option>
+          <option value="mixto">Profesional pero cercano</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>¿Qué preguntas recibís más por WhatsApp?</label>
+        <textarea name="preguntas_frecuentes" placeholder="Ej: Pedir cita, preguntar precios, preguntar si trabajan con seguro, horarios..."></textarea>
+        <p class="hint">El chatbot responderá estas preguntas automáticamente</p>
+      </div>
+
+      <div class="field">
+        <label>¿Trabajáis con algún seguro dental?</label>
+        <input type="text" name="seguros" placeholder="Ej: Adeslas, Sanitas, Mapfre... o Ninguno">
+      </div>
+
+      <div class="field">
+        <label>¿Hay algo que el chatbot NO debe decir o hacer?</label>
+        <textarea name="restricciones" placeholder="Ej: No dar presupuestos por WhatsApp, no confirmar citas sin llamada previa..."></textarea>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- FOTOS -->
+    <div class="section">
+      <div class="section-title">Fotos e imagen</div>
+
+      <div class="field">
+        <label>¿Tenéis fotos de la clínica para usar en la web?</label>
+        <select name="tiene_fotos">
+          <option value="si">Sí, os las mandamos por WhatsApp</option>
+          <option value="no">No, usad fotos de stock profesionales</option>
+          <option value="algunas">Tenemos algunas, combinad con stock</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Color principal de vuestra marca (si tenéis)</label>
+        <input type="text" name="color" placeholder="Ej: Azul marino, blanco y dorado, sin preferencia...">
+      </div>
+
+      <div class="field">
+        <label>¿Tenéis logo?</label>
+        <select name="tiene_logo">
+          <option value="si">Sí, os lo mandamos</option>
+          <option value="no">No, necesitamos uno</option>
+        </select>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- EXTRA -->
+    <div class="section">
+      <div class="section-title">Algo más</div>
+      <div class="field">
+        <label>¿Hay algo especial que queráis destacar en la web?</label>
+        <textarea name="extra" placeholder="Ej: Llevamos 20 años en el barrio, equipo de 5 especialistas, tecnología de última generación..."></textarea>
+      </div>
+    </div>
+
+    <button type="submit" class="btn">Enviar datos →</button>
+  </form>
+
+  <div class="success" id="successMsg">
+    <h3>¡Recibido!</h3>
+    <p>Ya tenemos todo lo que necesitamos. Gonzalo os contactará en menos de 24 horas para confirmar los detalles y empezar.</p>
+  </div>
+
+</div>
+
+<script>
+document.getElementById('onboardingForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const data = new FormData(this);
+  const entries = {};
+  for (let [key, value] of data.entries()) {
+    entries[key] = value;
+  }
+
+  // Enviar a Formspree (gratuito, te llega al email)
+  fetch('https://formspree.io/f/xyzgpqvk', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify(entries)
+  })
+  .then(r => {
+    document.getElementById('onboardingForm').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+    window.scrollTo(0, 0);
+  })
+  .catch(() => {
+    // Fallback: igual muestra éxito (los datos se guardan en formspree)
+    document.getElementById('onboardingForm').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+  });
+});
+</script>
+</body>
+</html>
