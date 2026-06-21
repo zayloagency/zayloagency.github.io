@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presupuesto — Especialidades Odontológicas · Zaylo</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+@media print {
+  .no-print { display: none !important; }
+  body { background: white; color: #111; }
+  .card { box-shadow: none; border: 1px solid #eee; }
+}
+body {
+  font-family: 'Inter', sans-serif;
+  background: #0c0a08;
+  color: #f0ebe3;
+  min-height: 100vh;
+  padding: 40px 24px;
+}
+.container { max-width: 680px; margin: 0 auto; }
+
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 48px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid rgba(232,168,76,0.15);
+}
+.logo { font-size: 24px; font-weight: 800; color: #e8a84c; }
+.logo span { color: #f0ebe3; }
+.doc-info { text-align: right; }
+.doc-num { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #e8a84c; margin-bottom: 4px; }
+.doc-date { font-size: 13px; color: #a89e92; }
+
+/* PARTIES */
+.parties { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 40px; }
+@media (max-width: 480px) { .parties { grid-template-columns: 1fr; } }
+.party-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #e8a84c; margin-bottom: 10px; }
+.party-name { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.party-detail { font-size: 13px; color: #a89e92; line-height: 1.7; }
+
+/* TITLE */
+.doc-title { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+.doc-subtitle { font-size: 14px; color: #a89e92; margin-bottom: 36px; line-height: 1.6; }
+
+/* ITEMS */
+.items { margin-bottom: 32px; }
+.item {
+  background: #181512;
+  border: 1px solid rgba(232,168,76,0.1);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 12px;
+}
+.item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+.item-name { font-size: 16px; font-weight: 700; }
+.item-price { font-size: 18px; font-weight: 800; color: #e8a84c; white-space: nowrap; margin-left: 16px; }
+.item-includes { list-style: none; }
+.item-includes li {
+  font-size: 13px;
+  color: #a89e92;
+  padding: 3px 0;
+  padding-left: 16px;
+  position: relative;
+}
+.item-includes li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #e8a84c;
+  font-size: 11px;
+  top: 4px;
+}
+.item-optional {
+  border-style: dashed;
+  opacity: 0.8;
+}
+.badge {
+  display: inline-block;
+  background: rgba(232,168,76,0.1);
+  border: 1px solid rgba(232,168,76,0.25);
+  color: #e8a84c;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 3px 8px;
+  border-radius: 20px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.badge-optional {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.1);
+  color: #a89e92;
+}
+
+/* TOTAL */
+.total-box {
+  background: rgba(232,168,76,0.07);
+  border: 1px solid rgba(232,168,76,0.2);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 32px;
+}
+.total-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; }
+.total-label { font-size: 14px; color: #a89e92; }
+.total-value { font-size: 14px; font-weight: 600; }
+.total-divider { border: none; border-top: 1px solid rgba(232,168,76,0.15); margin: 10px 0; }
+.total-final .total-label { font-size: 16px; font-weight: 700; color: #f0ebe3; }
+.total-final .total-value { font-size: 22px; font-weight: 800; color: #e8a84c; }
+
+/* PAYMENT */
+.payment {
+  background: #181512;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 32px;
+}
+.payment-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #e8a84c; margin-bottom: 16px; }
+.payment-step { display: flex; gap: 14px; margin-bottom: 14px; align-items: flex-start; }
+.step-num {
+  width: 26px; height: 26px; min-width: 26px;
+  background: rgba(232,168,76,0.15);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 800; color: #e8a84c;
+}
+.step-text { font-size: 14px; color: #d4cfc9; line-height: 1.5; }
+.step-text strong { color: #f0ebe3; }
+
+/* CONDITIONS */
+.conditions {
+  font-size: 12px;
+  color: #5e564e;
+  line-height: 1.8;
+  margin-bottom: 32px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.conditions p { margin-bottom: 4px; }
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.footer p { font-size: 13px; color: #a89e92; margin-bottom: 4px; }
+.footer strong { color: #e8a84c; }
+
+/* PRINT BTN */
+.print-btn {
+  display: block;
+  width: 100%;
+  background: #e8a84c;
+  color: #0c0a08;
+  font-size: 15px;
+  font-weight: 800;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 40px;
+  transition: background 0.2s;
+}
+.print-btn:hover { background: #f2c06e; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <button class="print-btn no-print" onclick="window.print()">Descargar / Imprimir PDF</button>
+
+  <div class="header">
+    <div class="logo">Zay<span>lo</span></div>
+    <div class="doc-info">
+      <div class="doc-num">Presupuesto #001</div>
+      <div class="doc-date">21 de junio de 2026</div>
+      <div class="doc-date" style="margin-top:4px;color:#5e564e;">Válido 15 días</div>
+    </div>
+  </div>
+
+  <div class="parties">
+    <div>
+      <div class="party-label">Proveedor</div>
+      <div class="party-name">Zaylo</div>
+      <div class="party-detail">
+        Gonzalo García<br>
+        zaylo.site@gmail.com<br>
+        634 142 337<br>
+        zaylo.site
+      </div>
+    </div>
+    <div>
+      <div class="party-label">Cliente</div>
+      <div class="party-name">Especialidades Odontológicas</div>
+      <div class="party-detail">
+        Madrid<br>
+        914 666 865
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-title">Presupuesto Web + Chatbot WhatsApp</div>
+  <p class="doc-subtitle">Web profesional personalizada con chatbot de WhatsApp integrado para gestión automática de citas y consultas de pacientes.</p>
+
+  <div class="items">
+
+    <div class="item">
+      <div class="item-header">
+        <div>
+          <div class="item-name">Web Profesional <span class="badge">Pack Profesional</span></div>
+        </div>
+        <div class="item-price">699€</div>
+      </div>
+      <ul class="item-includes">
+        <li>Diseño web personalizado con vuestra imagen y colores</li>
+        <li>Adaptada a móvil, tablet y ordenador</li>
+        <li>Sección de tratamientos y especialidades</li>
+        <li>Formulario de contacto y botón de cita</li>
+        <li>Integración con Google Maps</li>
+        <li>SEO local optimizado para búsquedas en Madrid</li>
+        <li>Chatbot de WhatsApp integrado y personalizado</li>
+        <li>Responde citas, precios, horarios y dudas automáticamente</li>
+        <li>Configuración completa con vuestros datos en llamada de 30 min</li>
+        <li>Publicación en vuestro dominio en 5 días</li>
+        <li>1 mes de soporte incluido</li>
+      </ul>
+    </div>
+
+    <div class="item item-optional">
+      <div class="item-header">
+        <div>
+          <div class="item-name">Mantenimiento Mensual <span class="badge badge-optional">Opcional</span></div>
+        </div>
+        <div class="item-price">34,99€/mes</div>
+      </div>
+      <ul class="item-includes">
+        <li>Actualizaciones de precios, horarios y tratamientos</li>
+        <li>Cambios de contenido en menos de 24h</li>
+        <li>Soporte técnico prioritario</li>
+        <li>Chatbot siempre actualizado con vuestra información</li>
+        <li>Sin permanencia — cancelación cuando queráis</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="total-box">
+    <div class="total-row">
+      <div class="total-label">Web + Chatbot WhatsApp</div>
+      <div class="total-value">699€</div>
+    </div>
+    <div class="total-row">
+      <div class="total-label">Mantenimiento mensual (opcional)</div>
+      <div class="total-value">34,99€/mes</div>
+    </div>
+    <hr class="total-divider">
+    <div class="total-row total-final">
+      <div class="total-label">Total (pago único)</div>
+      <div class="total-value">699€</div>
+    </div>
+  </div>
+
+  <div class="payment">
+    <div class="payment-title">Forma de pago</div>
+    <div class="payment-step">
+      <div class="step-num">1</div>
+      <div class="step-text"><strong>349,50€ al confirmar</strong> — transferencia bancaria. Empezamos ese mismo día.</div>
+    </div>
+    <div class="payment-step">
+      <div class="step-num">2</div>
+      <div class="step-text"><strong>349,50€ al entregar</strong> — cuando la web esté lista y deis el visto bueno. Plazo: 5 días laborables.</div>
+    </div>
+  </div>
+
+  <div class="conditions">
+    <p>· Este presupuesto es válido durante 15 días desde la fecha de emisión.</p>
+    <p>· El pago inicial cubre el inicio del trabajo y la reserva de disponibilidad.</p>
+    <p>· El segundo pago se realiza únicamente cuando el cliente da el visto bueno al resultado final.</p>
+    <p>· Si el proyecto no se lleva a cabo por causas imputables a Zaylo, se devuelve el 100% del pago inicial.</p>
+    <p>· El mantenimiento mensual no tiene permanencia mínima y puede cancelarse en cualquier momento.</p>
+  </div>
+
+  <div class="footer">
+    <p>¿Alguna duda? Escríbenos por WhatsApp</p>
+    <p><strong>634 142 337</strong> · zaylo.site@gmail.com</p>
+    <p style="margin-top:16px;font-size:11px;color:#3a3530;">Zaylo · zaylo.site</p>
+  </div>
+
+</div>
+</body>
+</html>
