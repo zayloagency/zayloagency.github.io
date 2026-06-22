@@ -4,18 +4,30 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Presupuesto — Especialidades Odontológicas · Zaylo</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+:root {
+  --bg:  #060610;
+  --bg2: #0a0a1e;
+  --bg3: #0f0f28;
+  --a1:  #6366f1;
+  --a2:  #a855f7;
+  --a3:  #06b6d4;
+  --grad: linear-gradient(135deg, var(--a1), var(--a2));
+  --text:  #f1f5f9;
+  --text2: #94a3b8;
+  --text3: #475569;
+  --border: rgba(255,255,255,0.07);
+}
 * { margin: 0; padding: 0; box-sizing: border-box; }
 @media print {
   .no-print { display: none !important; }
   body { background: white; color: #111; }
-  .card { box-shadow: none; border: 1px solid #eee; }
 }
 body {
   font-family: 'Inter', sans-serif;
-  background: #0c0a08;
-  color: #f0ebe3;
+  background: var(--bg);
+  color: var(--text);
   min-height: 100vh;
   padding: 40px 24px;
 }
@@ -28,120 +40,133 @@ body {
   align-items: flex-start;
   margin-bottom: 48px;
   padding-bottom: 32px;
-  border-bottom: 1px solid rgba(232,168,76,0.15);
+  border-bottom: 1px solid var(--border);
 }
-.logo { font-size: 24px; font-weight: 800; color: #e8a84c; }
-.logo span { color: #f0ebe3; }
+.logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 26px; font-weight: 700;
+  background: linear-gradient(135deg, #818cf8, #c084fc, #22d3ee);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
 .doc-info { text-align: right; }
-.doc-num { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #e8a84c; margin-bottom: 4px; }
-.doc-date { font-size: 13px; color: #a89e92; }
+.doc-num { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--a1); margin-bottom: 4px; }
+.doc-date { font-size: 13px; color: var(--text2); }
 
 /* PARTIES */
 .parties { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 40px; }
 @media (max-width: 480px) { .parties { grid-template-columns: 1fr; } }
-.party-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #e8a84c; margin-bottom: 10px; }
-.party-name { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
-.party-detail { font-size: 13px; color: #a89e92; line-height: 1.7; }
+.party-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--a1); margin-bottom: 10px; }
+.party-name { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.party-detail { font-size: 13px; color: var(--text2); line-height: 1.7; }
 
 /* TITLE */
-.doc-title { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
-.doc-subtitle { font-size: 14px; color: #a89e92; margin-bottom: 36px; line-height: 1.6; }
+.doc-title { font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+.doc-subtitle { font-size: 14px; color: var(--text2); margin-bottom: 36px; line-height: 1.6; }
 
 /* ITEMS */
 .items { margin-bottom: 32px; }
 .item {
-  background: #181512;
-  border: 1px solid rgba(232,168,76,0.1);
-  border-radius: 12px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
   padding: 20px 24px;
   margin-bottom: 12px;
+  transition: border-color 0.2s;
 }
 .item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
-.item-name { font-size: 16px; font-weight: 700; }
-.item-price { font-size: 18px; font-weight: 800; color: #e8a84c; white-space: nowrap; margin-left: 16px; }
+.item-name { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; }
+.item-price {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px; font-weight: 700;
+  background: var(--grad);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  white-space: nowrap; margin-left: 16px;
+}
 .item-includes { list-style: none; }
 .item-includes li {
   font-size: 13px;
-  color: #a89e92;
+  color: var(--text2);
   padding: 3px 0;
-  padding-left: 16px;
+  padding-left: 18px;
   position: relative;
 }
 .item-includes li::before {
   content: '✓';
   position: absolute;
   left: 0;
-  color: #e8a84c;
+  color: var(--a3);
   font-size: 11px;
   top: 4px;
 }
-.item-optional {
-  border-style: dashed;
-  opacity: 0.8;
+.item-optional { border-style: dashed; opacity: 0.75; }
+.item-featured {
+  border-color: rgba(99,102,241,0.4);
+  background: rgba(99,102,241,0.05);
 }
 .badge {
   display: inline-block;
-  background: rgba(232,168,76,0.1);
-  border: 1px solid rgba(232,168,76,0.25);
-  color: #e8a84c;
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 3px 8px;
-  border-radius: 20px;
-  margin-left: 8px;
-  vertical-align: middle;
+  background: rgba(99,102,241,0.15);
+  border: 1px solid rgba(99,102,241,0.3);
+  color: #818cf8;
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px;
+  padding: 3px 8px; border-radius: 20px;
+  margin-left: 8px; vertical-align: middle;
 }
 .badge-optional {
-  background: rgba(255,255,255,0.05);
-  border-color: rgba(255,255,255,0.1);
-  color: #a89e92;
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.08);
+  color: var(--text3);
 }
 
 /* TOTAL */
 .total-box {
-  background: rgba(232,168,76,0.07);
-  border: 1px solid rgba(232,168,76,0.2);
-  border-radius: 12px;
+  background: rgba(99,102,241,0.06);
+  border: 1px solid rgba(99,102,241,0.2);
+  border-radius: 14px;
   padding: 24px;
   margin-bottom: 32px;
 }
 .total-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; }
-.total-label { font-size: 14px; color: #a89e92; }
+.total-label { font-size: 14px; color: var(--text2); }
 .total-value { font-size: 14px; font-weight: 600; }
-.total-divider { border: none; border-top: 1px solid rgba(232,168,76,0.15); margin: 10px 0; }
-.total-final .total-label { font-size: 16px; font-weight: 700; color: #f0ebe3; }
-.total-final .total-value { font-size: 22px; font-weight: 800; color: #e8a84c; }
+.total-divider { border: none; border-top: 1px solid rgba(99,102,241,0.15); margin: 10px 0; }
+.total-final .total-label { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; color: var(--text); }
+.total-final .total-value {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 24px; font-weight: 700;
+  background: var(--grad);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
 
 /* PAYMENT */
 .payment {
-  background: #181512;
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 12px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
   padding: 24px;
   margin-bottom: 32px;
 }
-.payment-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #e8a84c; margin-bottom: 16px; }
+.payment-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--a1); margin-bottom: 16px; }
 .payment-step { display: flex; gap: 14px; margin-bottom: 14px; align-items: flex-start; }
 .step-num {
-  width: 26px; height: 26px; min-width: 26px;
-  background: rgba(232,168,76,0.15);
+  width: 28px; height: 28px; min-width: 28px;
+  background: var(--grad);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-size: 12px; font-weight: 800; color: #e8a84c;
+  font-size: 12px; font-weight: 800; color: #fff;
 }
-.step-text { font-size: 14px; color: #d4cfc9; line-height: 1.5; }
-.step-text strong { color: #f0ebe3; }
+.step-text { font-size: 14px; color: var(--text2); line-height: 1.5; }
+.step-text strong { color: var(--text); }
 
 /* CONDITIONS */
 .conditions {
   font-size: 12px;
-  color: #5e564e;
+  color: var(--text3);
   line-height: 1.8;
   margin-bottom: 32px;
   padding-top: 24px;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid var(--border);
 }
 .conditions p { margin-bottom: 4px; }
 
@@ -149,27 +174,38 @@ body {
 .footer {
   text-align: center;
   padding-top: 24px;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid var(--border);
 }
-.footer p { font-size: 13px; color: #a89e92; margin-bottom: 4px; }
-.footer strong { color: #e8a84c; }
+.footer p { font-size: 13px; color: var(--text2); margin-bottom: 4px; }
+.footer strong {
+  background: var(--grad);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
 
 /* PRINT BTN */
 .print-btn {
   display: block;
   width: 100%;
-  background: #e8a84c;
-  color: #0c0a08;
-  font-size: 15px;
-  font-weight: 800;
+  background: var(--grad);
+  color: #fff;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px; font-weight: 700;
   padding: 14px;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
   margin-bottom: 40px;
-  transition: background 0.2s;
+  transition: opacity 0.2s, transform 0.15s;
 }
-.print-btn:hover { background: #f2c06e; }
+.print-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+/* SECTION LABELS */
+.section-label {
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1.5px;
+  color: var(--text2); margin: 8px 0 10px;
+}
+.section-label .rec { color: var(--a2); margin-left: 6px; }
 </style>
 </head>
 <body>
@@ -182,7 +218,7 @@ body {
     <div class="doc-info">
       <div class="doc-num">Presupuesto #001</div>
       <div class="doc-date">22 de junio de 2026</div>
-      <div class="doc-date" style="margin-top:4px;color:#5e564e;">Válido 15 días</div>
+      <div class="doc-date" style="margin-top:4px;color:#475569;">Válido 15 días</div>
     </div>
   </div>
 
@@ -213,7 +249,7 @@ body {
   <div class="items">
 
     <!-- OPCIÓN 1 -->
-    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#a89e92;margin:8px 0 10px;">Opción 1</div>
+    <div class="section-label">Opción 1</div>
     <div class="item">
       <div class="item-header">
         <div>
@@ -235,14 +271,14 @@ body {
     </div>
 
     <!-- OPCIÓN 2 -->
-    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#a89e92;margin:16px 0 10px;">Opción 2 <span style="color:#e8a84c;margin-left:6px;">Recomendada</span></div>
-    <div class="item" style="border-color:rgba(232,168,76,0.4);background:rgba(232,168,76,0.04);">
+    <div class="section-label">Opción 2 <span class="rec">Recomendada</span></div>
+    <div class="item item-featured">
       <div class="item-header">
         <div>
           <div class="item-name">Web + Chatbot WhatsApp <span class="badge">Oferta</span></div>
         </div>
         <div class="item-price" style="text-align:right;">
-          <span style="font-size:13px;color:#5e564e;text-decoration:line-through;display:block;font-weight:400;">798€</span>
+          <span style="font-size:13px;color:#475569;text-decoration:line-through;display:block;font-weight:400;-webkit-text-fill-color:#475569;">798€</span>
           699€
         </div>
       </div>
@@ -257,7 +293,7 @@ body {
     </div>
 
     <!-- MANTENIMIENTO -->
-    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#a89e92;margin:16px 0 10px;">Complemento opcional (cualquier opción)</div>
+    <div class="section-label" style="margin-top:16px;">Complemento opcional (cualquier opción)</div>
     <div class="item item-optional">
       <div class="item-header">
         <div>
@@ -282,7 +318,7 @@ body {
     </div>
     <div class="total-row">
       <div class="total-label">Opción 2 — Web + Chatbot WhatsApp</div>
-      <div class="total-value" style="color:#e8a84c;">699€</div>
+      <div class="total-value" style="background:linear-gradient(135deg,#6366f1,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">699€</div>
     </div>
     <div class="total-row">
       <div class="total-label">Mantenimiento mensual (opcional)</div>
@@ -305,8 +341,8 @@ body {
       <div class="step-num">2</div>
       <div class="step-text"><strong>50% al entregar</strong> — cuando la web esté lista y deis el visto bueno. Plazo: 5 días laborables.</div>
     </div>
-    <div style="margin-top:14px;padding:12px 14px;background:rgba(232,168,76,0.06);border-radius:8px;font-size:13px;color:#a89e92;line-height:1.6;">
-      Opción 1: <strong style="color:#f0ebe3;">249,50€ + 249,50€</strong> &nbsp;·&nbsp; Opción 2: <strong style="color:#e8a84c;">349,50€ + 349,50€</strong>
+    <div style="margin-top:14px;padding:12px 14px;background:rgba(99,102,241,0.06);border-radius:8px;font-size:13px;color:#94a3b8;line-height:1.6;">
+      Opción 1: <strong style="color:#f1f5f9;">249,50€ + 249,50€</strong> &nbsp;·&nbsp; Opción 2: <strong style="background:linear-gradient(135deg,#6366f1,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">349,50€ + 349,50€</strong>
     </div>
   </div>
 
@@ -321,7 +357,7 @@ body {
   <div class="footer">
     <p>¿Alguna duda? Escríbenos por WhatsApp</p>
     <p><strong>634 142 337</strong> · zaylo.site@gmail.com</p>
-    <p style="margin-top:16px;font-size:11px;color:#3a3530;">Zaylo · zaylo.site</p>
+    <p style="margin-top:16px;font-size:11px;color:#475569;">Zaylo · zaylo.site</p>
   </div>
 
 </div>
