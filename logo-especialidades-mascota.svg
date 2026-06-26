@@ -1,56 +1,62 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 150" width="600" height="300">
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#62d4cf"/>
-      <stop offset="100%" stop-color="#3bb8b3"/>
+      <stop offset="0%" stop-color="#5ed4cf"/>
+      <stop offset="100%" stop-color="#38b8b3"/>
     </linearGradient>
-    <filter id="sombra">
-      <feDropShadow dx="1.5" dy="2" stdDeviation="2.5" flood-color="#00000018"/>
+    <filter id="sh" x="-8%" y="-8%" width="120%" height="125%">
+      <feDropShadow dx="1.5" dy="2.5" stdDeviation="3" flood-color="#00000020"/>
     </filter>
   </defs>
 
   <rect width="300" height="150" fill="white"/>
 
-  <g transform="translate(5,5)" filter="url(#sombra)">
+  <g transform="translate(5,5)" filter="url(#sh)">
 
-    <!-- CUERPO: 2 cúspides suaves, raíces anchas, hueco entre raíces -->
+    <!-- CUERPO: curvas cúbicas para picos perfectamente redondeados -->
     <path
       fill-rule="evenodd"
-      d="M5,40
-         Q0,18 25,5
-         Q35,18 45,18
-         Q55,8 75,5
-         Q90,18 85,40
+      d="M5,42
+         C5,15  10,7  25,7
+         C36,7  38,18 45,18
+         C52,18 54,7  65,7
+         C80,7  85,15 85,42
          L85,132
          Q70,140 55,132
          L55,82
          L35,82
          L35,132
          Q20,140 5,132
-         L5,40 Z"
+         L5,42 Z"
       fill="url(#g)"
       stroke="#2a9490"
       stroke-width="2"
       stroke-linejoin="round"/>
 
-    <!-- BRILLO SUPERIOR SUTIL -->
-    <path d="M5,40 Q0,18 25,5 Q35,18 45,18 Q55,8 75,5 Q90,18 85,40 L85,23 Q65,11 45,10 Q25,11 5,23 Z"
+    <!-- BRILLO SUPERIOR -->
+    <path
+      d="M5,42
+         C5,15 10,7 25,7
+         C36,7 38,18 45,18
+         C52,18 54,7 65,7
+         C80,7 85,15 85,42
+         L85,25 Q65,12 45,11 Q25,12 5,25 Z"
       fill="white" opacity="0.22"/>
 
     <!-- OJO IZQUIERDO -->
-    <circle cx="27" cy="29" r="9" fill="white"/>
-    <circle cx="29" cy="30.5" r="5" fill="#1a4a47"/>
-    <circle cx="31.5" cy="28" r="2" fill="white"/>
+    <circle cx="25" cy="28" r="10" fill="white"/>
+    <circle cx="27" cy="29.5" r="5.5" fill="#1a4a47"/>
+    <circle cx="29.5" cy="27" r="2.2" fill="white"/>
 
     <!-- OJO DERECHO -->
-    <circle cx="63" cy="29" r="9" fill="white"/>
-    <circle cx="65" cy="30.5" r="5" fill="#1a4a47"/>
-    <circle cx="67.5" cy="28" r="2" fill="white"/>
+    <circle cx="65" cy="28" r="10" fill="white"/>
+    <circle cx="67" cy="29.5" r="5.5" fill="#1a4a47"/>
+    <circle cx="69.5" cy="27" r="2.2" fill="white"/>
 
-    <!-- BOCA: interior oscuro + 2 dientes blancos -->
-    <path d="M24,49 Q45,63 66,49 L66,45 Q45,40 24,45 Z" fill="#1a4a47" opacity="0.85"/>
-    <rect x="36" y="45" width="8" height="9" rx="1.5" fill="white"/>
-    <rect x="46" y="45" width="8" height="9" rx="1.5" fill="white"/>
+    <!-- SONRISA + 2 DIENTES -->
+    <path d="M23,49 Q45,63 67,49 L67,45 Q45,41 23,45 Z" fill="#1a4a47" opacity="0.88"/>
+    <rect x="36" y="45" width="8.5" height="9" rx="1.5" fill="white"/>
+    <rect x="46" y="45" width="8.5" height="9" rx="1.5" fill="white"/>
 
   </g>
 
