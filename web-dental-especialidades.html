@@ -619,8 +619,7 @@ footer{background:var(--navy-dark);padding:56px 48px 28px}
 @media(prefers-reduced-motion:reduce){
   .rv,.rv-l,.rv-r,.stg>*{transition:none;opacity:1;transform:none}
   .stg.vis>*{transition-delay:0s!important}
-  .zfx-curtain{transition:none}
-  .zfx-curtain-logo,.zfx-curtain-sub,.zfx-curtain-line{animation:none;opacity:1;transform:none;width:min(220px,45vw)}
+
   .chat-window{transition:none}
   .btn-primary,.btn-outline,.treat-card,.nav-cta,.rev-btn{transition:none}
 }
@@ -642,15 +641,6 @@ body.has-banner{padding-top:36px}
 /* ── SCROLL PROGRESS ── */
 .zfx-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:99998;background:linear-gradient(90deg,var(--navy),var(--gold));transition:width .1s linear}
 
-/* ── CURTAIN ── */
-.zfx-curtain{position:fixed;inset:0;z-index:100000;background:var(--navy-dark);display:flex;align-items:center;justify-content:center;transition:opacity .9s ease,visibility .9s}
-.zfx-curtain.zfx-done{opacity:0;visibility:hidden}
-.zfx-curtain-logo{font-family:'Playfair Display',Georgia,serif;font-size:clamp(36px,7vw,80px);font-weight:700;color:#f5f0e6;opacity:0;transform:translateY(20px);animation:zfxLogoIn 1s .1s cubic-bezier(.16,1,.3,1) forwards;letter-spacing:-.01em;text-align:center;line-height:1.1}
-.zfx-curtain-logo span{color:var(--gold)}
-.zfx-curtain-sub{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:10px;opacity:0;animation:zfxLogoIn .8s .5s ease forwards}
-.zfx-curtain-line{position:absolute;bottom:30%;left:50%;transform:translateX(-50%);width:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);animation:zfxLineGrow 1.1s .4s cubic-bezier(.16,1,.3,1) forwards}
-@keyframes zfxLogoIn{to{opacity:1;transform:none}}
-@keyframes zfxLineGrow{to{width:min(220px,45vw)}}
 /* ── STATS STRIP ── */
 .stats-strip{background:var(--navy);padding:28px 48px;display:flex;justify-content:center;gap:0}
 .stat-item{display:flex;flex-direction:column;align-items:center;padding:0 40px;border-right:1px solid rgba(255,255,255,.1)}
@@ -673,15 +663,6 @@ body.has-banner{padding-top:36px}
 </style>
 </head>
 <body>
-
-<!-- CURTAIN -->
-<div class="zfx-curtain" id="zfxCurtain">
-  <div>
-    <div class="zfx-curtain-logo">Especialidades<br><span>Odontológicas</span></div>
-    <div class="zfx-curtain-sub">Madrid Sur · +25 años</div>
-  </div>
-  <div class="zfx-curtain-line"></div>
-</div>
 
 <!-- PROGRESS BAR -->
 <div class="zfx-progress" id="zfxProgress"></div>
@@ -1346,14 +1327,6 @@ window.addEventListener('scroll',()=>{
   const bar=document.getElementById('zfxProgress');
   if(bar) bar.style.width=(h>0?(window.scrollY/h)*100:0)+'%';
 },{passive:true});
-
-// ── CURTAIN ──
-(function(){
-  const c=document.getElementById('zfxCurtain');
-  function drop(){if(c){c.classList.add('zfx-done');setTimeout(()=>{if(c&&c.parentNode)c.parentNode.removeChild(c)},950)}}
-  window.addEventListener('load',()=>setTimeout(drop,1100));
-  setTimeout(drop,3200);
-})();
 
 // ── COOKIE BANNER ──
 (function(){
