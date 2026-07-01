@@ -1269,13 +1269,25 @@ function submitContactForm(e){
   if(!nombre){alert('Por favor, introduce tu nombre.');document.getElementById('f-nombre').focus();return}
   if(!tel){alert('Por favor, introduce tu teléfono.');document.getElementById('f-tel').focus();return}
   if(!rgpd){alert('Debes aceptar la Política de Privacidad para continuar.');return}
+  var btn=document.getElementById('formSubmit');
+  btn.textContent='Enviando...';
+  btn.disabled=true;
+  fetch('https://formsubmit.co/ajax/especialidades_odontologicas@hotmail.com',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({
+      _subject:'Nueva solicitud de cita — web Especialidades Odontológicas',
+      nombre:nombre,
+      telefono:tel,
+      email:email||'No indicado',
+      mensaje:msg||'Sin mensaje'
+    })
+  }).catch(function(){});
   var text='Nueva solicitud de cita web:\nNombre: '+nombre+'\nTeléfono: '+tel+(email?'\nEmail: '+email:'')+(msg?'\nMensaje: '+msg:'');
   var waUrl='https://wa.me/34641407123?text='+encodeURIComponent(text);
   window.open(waUrl,'_blank','noopener,noreferrer');
-  var btn=document.getElementById('formSubmit');
   btn.textContent='✓ Enviado — Te llamamos pronto';
   btn.style.background='#2d7d46';
-  btn.disabled=true;
 }
 
 // ── HAMBURGER ──
